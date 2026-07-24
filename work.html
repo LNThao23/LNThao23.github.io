@@ -267,11 +267,60 @@
 
     <!-- Script xử lý chức năng Filter -->
     <script>
-        // PDF Viewer Handler
+        // ─── Service Worker Registration ──────────────────────────────────────────
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .catch((err) => console.warn('SW registration failed:', err));
+            });
+        }
+
+        // ─── Background Pre-fetch (lazy, after page is idle) ──────────────────────
+        // List every PDF on the page so they are silently downloaded into cache.
+        const PDF_LIST = [
+            'Doc/0.pdf',
+            'Doc/1.pdf',
+            'Doc/2.pdf',
+            'Doc/3.pdf',
+            'Doc/4.pdf',
+            'Doc/5.pdf',
+        ];
+
+        function prefetchPDFs() {
+            PDF_LIST.forEach((path, index) => {
+                // Stagger each fetch by 3 s so we don't flood the connection
+                setTimeout(() => {
+                    // Tell the SW to cache it (no-op if already cached)
+                    if (navigator.serviceWorker.controller) {
+                        navigator.serviceWorker.controller.postMessage({
+                            type: 'CACHE_PDF',
+                            url: new URL(path, window.location.href).href,
+                        });
+                    } else {
+                        // Fallback: use fetch with low priority directly
+                        fetch(path, { priority: 'low' }).catch(() => {});
+                    }
+                }, index * 3000);
+            });
+        }
+
+        // Wait until the browser is idle (or 4 s at most) before prefetching
+        window.addEventListener('load', () => {
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(() => prefetchPDFs(), { timeout: 4000 });
+            } else {
+                setTimeout(prefetchPDFs, 4000);
+            }
+        });
+
+        // ─── PDF Viewer Handler ───────────────────────────────────────────────────
         const pdfOverlay = document.getElementById('pdf-viewer-overlay');
         const pdfIframe = document.getElementById('pdf-viewer-iframe');
         const pdfCloseBtn = document.getElementById('pdf-viewer-close');
         const loadingEl = document.getElementById('pdf-loading');
+
+        // Track which PDF is currently loaded in the iframe
+        let currentPdfSrc = '';
 
         function showLoading() {
             if (loadingEl) { loadingEl.classList.remove('hidden'); }
@@ -289,19 +338,30 @@
         });
 
         function openPDF(pdfPath) {
+            const newSrc = `${pdfPath}#toolbar=0&navpanes=0`;
+
+            // If the same PDF is already loaded, show instantly — no reload needed
+            if (currentPdfSrc === newSrc) {
+                pdfOverlay.classList.add('active');
+                pdfOverlay.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+                return;
+            }
+
             showLoading();
-            pdfIframe.src = `${pdfPath}#toolbar=0&navpanes=0`;
+            currentPdfSrc = newSrc;
+            pdfIframe.src = newSrc;
             pdfOverlay.classList.add('active');
             pdfOverlay.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
         }
 
         function closePDFViewer() {
+            // Hide the overlay but keep iframe src intact so re-open is instant
             pdfOverlay.classList.remove('active');
             pdfOverlay.setAttribute('aria-hidden', 'true');
             document.body.style.overflow = '';
-            pdfIframe.src = '';
-            pdfIframe.classList.remove('loaded');
+            // Do NOT clear pdfIframe.src — the loaded PDF stays in memory
         }
 
         if (pdfCloseBtn) {
