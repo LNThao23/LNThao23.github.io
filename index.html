@@ -60,9 +60,11 @@
             height: 100%;
             border: none;
             background: #111;
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
-        #pdf-viewer-iframe {
-            toolbar: 0 !important;
+        #pdf-viewer-iframe.loaded {
+            opacity: 1;
         }
         #pdf-viewer-nav {
             position: absolute;
@@ -96,6 +98,38 @@
         }
         #pdf-viewer-container:hover .close-btn {
             opacity: 1;
+        }
+        /* Loading spinner */
+        #pdf-loading {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 4;
+            gap: 1.2rem;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        #pdf-loading.hidden {
+            opacity: 0;
+        }
+        .spinner {
+            width: 52px;
+            height: 52px;
+            border: 4px solid rgba(255,255,255,0.15);
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: spin 0.85s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .loading-text {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
         }
     </style>
 </head>
@@ -177,6 +211,10 @@
     <div id="pdf-viewer-overlay" aria-hidden="true" style="padding: 0;">
         <div id="pdf-viewer-container" role="dialog" aria-modal="true">
             <button id="pdf-viewer-close" class="close-btn" aria-label="Close PDF viewer">×</button>
+            <div id="pdf-loading">
+                <div class="spinner"></div>
+                <span class="loading-text">Loading project...</span>
+            </div>
             <iframe id="pdf-viewer-iframe" src="" title="PDF viewer"></iframe>
         </div>
     </div>
@@ -235,11 +273,30 @@
 
             // Use a separate PDF file for each project slide
             const pdfFiles = Array.from({ length: total }, (_, i) => `Doc/${i}.pdf`);
+            const loadingEl = document.getElementById('pdf-loading');
+
+            function showLoading(){
+                if(loadingEl) { loadingEl.classList.remove('hidden'); }
+                iframe.classList.remove('loaded');
+            }
+            function hideLoading(){
+                if(loadingEl) { loadingEl.classList.add('hidden'); }
+                iframe.classList.add('loaded');
+            }
+
+            iframe.addEventListener('load', () => {
+                if(iframe.src && iframe.src !== window.location.href) {
+                    hideLoading();
+                }
+            });
+
             function updatePdfSrc(i){
+                showLoading();
                 iframe.src = `${pdfFiles[i]}#toolbar=0&navpanes=0`;
             }
 
             function openViewer(){
+                showLoading();
                 updatePdfSrc(idx);
                 overlay.classList.add('active');
                 overlay.setAttribute('aria-hidden', 'false');
@@ -250,6 +307,8 @@
                 overlay.classList.remove('active');
                 overlay.setAttribute('aria-hidden', 'true');
                 document.body.style.overflow = '';
+                iframe.src = '';
+                iframe.classList.remove('loaded');
             }
 
             function showNext(){
