@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    
+    <!-- Nhúng Font Afacad và Big Shoulders Display -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:wght@400;500;600;700&family=Big+Shoulders+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Nhúng Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#366758",
+                        "secondary": "#593d5f",
+                        "background-color": "#f8f9fa",
+                        "text-dark": "#000000",
+                        "text-body": "#1A1A1A",
+                    },
+                    fontFamily: {
+                        "display": ["'Big Shoulders Display'", "sans-serif"],
+                        "body": ["'Afacad'", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        #pdf-viewer-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 60;
+            background: rgba(0,0,0,0.86);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        #pdf-viewer-overlay.active {
+            display: flex;
+        }
+        #pdf-viewer-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            max-width: 100%;
+            max-height: 100%;
+            background: #111;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 28px 80px rgba(0,0,0,0.45);
+        }
+        #pdf-viewer-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #111;
+        }
+        #pdf-viewer-iframe {
+            toolbar: 0 !important;
+        }
+        #pdf-viewer-nav {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            z-index: 3;
+        }
+        #pdf-viewer-nav .nav-area {
+            flex: 1;
+            cursor: pointer;
+        }
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 5;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.95);
+            color: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+        #pdf-viewer-container:hover .close-btn {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="font-body text-text-body antialiased overflow-x-hidden">
+
+    <!-- TopNavBar -->
+    <header class="w-full pt-6 pb-4 z-50 bg-white">
+        <nav class="flex justify-between items-center w-full px-6 md:px-24 max-w-[1440px] mx-auto">
+            <div class="text-[32px] font-display font-extrabold text-text-dark tracking-tight">
+                NguyenThao
+            </div>
+            <div class="hidden md:flex items-center gap-12">
+                <a class="text-primary font-bold border-b-2 border-primary pb-1 text-xl" href="homepage.html">Home</a>
+                <a class="text-text-dark hover:text-primary transition-colors text-xl font-medium" href="work.html">Works</a>
+                <a class="text-text-dark hover:text-primary transition-colors text-xl font-medium" href="about.html">About</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="bg-[#E9EDED]">
+        <!-- Hero Section -->
+        <section class="relative min-h-[85vh] flex items-center px-6 md:px-24 max-w-[1440px] mx-auto overflow-hidden pt-6">
+            
+            <div class="grid md:grid-cols-12 gap-8 items-center w-full z-10">
+                
+                <!-- Cột chữ (Bên trái) - Đã thu nhỏ các size chữ -->
+                <div class="md:col-span-5 space-y-8">
+                    <div class="space-y-4">
+                        <!-- Tiêu đề nhỏ lại (60px) -->
+                        <h1 class="font-display text-5xl md:text-[60px] font-extrabold leading-[1.05] text-text-dark tracking-tight">
+                            Hi, I'm Nguyên Thảo.
+                        </h1>
+                        <!-- Mô tả nhỏ lại (20px) -->
+                        <p class="font-body text-xl text-text-body leading-snug font-medium">
+                            I design thoughtful digital experiences and bring stories to life through illustration.
+                        </p>
+                    </div>
+                    
+                    <div class="space-y-5">
+                        <!-- Tên dự án nhỏ lại (24px) -->
+                        <h3 id="project-title" class="font-display text-[24px] font-extrabold text-text-dark tracking-tight transition-opacity duration-500">
+                            HomeStay Dorm - Website
+                        </h3>
+                        
+                        <div class="inline-block">
+                            <!-- Nút bấm - Size chữ nhỏ lại (16px), đệm lề nhỏ lại 1 chút -->
+                            <div class="flex gap-4">
+                                <button id="view-project-btn" class="bg-primary border-2 border-primary text-white font-body font-bold text-base px-7 py-2 rounded-full hover:bg-opacity-90 transition-all">
+                                    View Project
+                                </button>
+                                <a href="about.html" class="border-[1.5px] border-secondary bg-transparent text-secondary font-body font-bold text-base px-9 py-2 rounded-full hover:bg-secondary hover:text-white transition-all inline-flex items-center justify-center">
+                                    About Me
+                                </a>
+                            </div>
+                            
+                            <!-- Dấu chấm Slider -->
+                            <div class="flex justify-center gap-2.5 pt-5 w-full">
+                                <span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-[#D9D9D9]"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-[#D9D9D9]"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-[#D9D9D9]"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-[#D9D9D9]"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-[#D9D9D9]"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cột hình (Bên phải) - Đã xóa thẻ div tạo hiệu ứng sáng mờ -->
+                <div class="md:col-span-7 relative flex justify-end items-center h-full">
+                    <!-- Hình ảnh Cover -->
+                    <img alt="HomeStay Dorm Website Project" class="w-full h-auto object-contain z-10 scale-100 origin-right transition-opacity duration-700" src="Cover/0.svg">
+                </div>
+                
+            </div>
+        </section>
+    </main>
+
+    <div id="pdf-viewer-overlay" aria-hidden="true" style="padding: 0;">
+        <div id="pdf-viewer-container" role="dialog" aria-modal="true">
+            <button id="pdf-viewer-close" class="close-btn" aria-label="Close PDF viewer">×</button>
+            <iframe id="pdf-viewer-iframe" src="" title="PDF viewer"></iframe>
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            const img = document.querySelector('img[alt="HomeStay Dorm Website Project"]');
+            const projectTitle = document.getElementById('project-title');
+            const projectTitles = [
+                'HomeStay Dorm - Website',
+                'MoodFlow - Mobile App',
+                'Treasure - Children\'s Book',
+                'The Red Scarf - Children\'s Book',
+                '2026 Calender',
+                '2027 Calender'
+            ];
+            const dots = Array.from(document.querySelectorAll('.flex.justify-center span'));
+            const total = dots.length;
+            let idx = 0;
+            let autoSlide = null;
+
+            const overlay = document.getElementById('pdf-viewer-overlay');
+            const iframe = document.getElementById('pdf-viewer-iframe');
+            const closeBtn = document.getElementById('pdf-viewer-close');
+
+            function setActive(i){
+                dots.forEach((d, j)=>{
+                    if(j===i){
+                        d.classList.remove('bg-[#D9D9D9]');
+                        d.classList.add('bg-primary');
+                    } else {
+                        d.classList.remove('bg-primary');
+                        d.classList.add('bg-[#D9D9D9]');
+                    }
+                });
+
+                if(projectTitle){
+                    projectTitle.classList.add('opacity-0');
+                    setTimeout(() => {
+                        projectTitle.textContent = projectTitles[i] || projectTitles[0];
+                        projectTitle.classList.remove('opacity-0');
+                    }, 250);
+                }
+
+                const targetSrc = `Cover/${i}.svg`;
+                if(img.src.endsWith(targetSrc)){
+                    return;
+                }
+
+                img.classList.add('opacity-0');
+                img.onload = () => {
+                    img.classList.remove('opacity-0');
+                };
+                img.src = targetSrc;
+            }
+
+            // Use a separate PDF file for each project slide
+            const pdfFiles = Array.from({ length: total }, (_, i) => `Doc/${i}.pdf`);
+            function updatePdfSrc(i){
+                iframe.src = `${pdfFiles[i]}#toolbar=0&navpanes=0`;
+            }
+
+            function openViewer(){
+                updatePdfSrc(idx);
+                overlay.classList.add('active');
+                overlay.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeViewer(){
+                overlay.classList.remove('active');
+                overlay.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
+
+            function showNext(){
+                idx = (idx + 1) % total;
+                setActive(idx);
+                updatePdfSrc(idx);
+            }
+
+            function showPrev(){
+                idx = (idx - 1 + total) % total;
+                setActive(idx);
+                updatePdfSrc(idx);
+            }
+
+            function resetAutoSlide(){
+                if(autoSlide){
+                    clearInterval(autoSlide);
+                }
+                autoSlide = setInterval(()=>{
+                    idx = (idx + 1) % total;
+                    setActive(idx);
+                }, 5000);
+            }
+
+            dots.forEach((dot, index)=>{
+                dot.classList.add('cursor-pointer');
+                dot.addEventListener('click', ()=>{
+                    if(overlay.classList.contains('active')){
+                        return;
+                    }
+                    idx = index;
+                    setActive(idx);
+                    resetAutoSlide();
+                });
+            });
+
+            const viewProjectBtn = document.getElementById('view-project-btn');
+            if(viewProjectBtn){
+                viewProjectBtn.addEventListener('click', openViewer);
+            }
+
+            if(img){
+                img.classList.add('cursor-pointer');
+                img.addEventListener('click', openViewer);
+            }
+
+            if(closeBtn){
+                closeBtn.addEventListener('click', (event)=>{
+                    event.stopPropagation();
+                    closeViewer();
+                });
+            }
+
+            // No click-based navigation in PDF viewer.
+            if(overlay){
+                overlay.addEventListener('click', (event)=>{
+                    event.preventDefault();
+                    event.stopPropagation();
+                });
+            }
+
+            document.addEventListener('keydown', (event)=>{
+                if(!overlay.classList.contains('active')){
+                    return;
+                }
+                if(event.key === 'Escape'){
+                    closeViewer();
+                }
+                if(event.key === 'ArrowRight' || event.key === 'PageDown'){
+                    event.preventDefault();
+                    showNext();
+                }
+                if(event.key === 'ArrowLeft' || event.key === 'PageUp'){
+                    event.preventDefault();
+                    showPrev();
+                }
+            });
+
+            setActive(idx);
+            resetAutoSlide();
+        })();
+    </script>
+
+</body>
+</html>

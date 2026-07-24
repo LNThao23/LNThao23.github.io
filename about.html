@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>About Me | Nguyen Thao</title>
+    
+    <!-- Nhúng Font Afacad và Big Shoulders Display -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:wght@400;500;600;700&family=Big+Shoulders+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Nhúng Icon Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    
+    <!-- Nhúng Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#366758",
+                        "secondary": "#593d5f",
+                        "background-color": "#E9EDED",
+                        "text-dark": "#000000",
+                        "text-body": "#1A1A1A",
+                        /* Thêm màu cho các thẻ Bento Grid */
+                        "lavender": "#E0BBE4",
+                        "mint": "#B5EAD7",
+                        "baby-blue": "#C7CEEA",
+                        "peach": "#FFDAC1",
+                        "on-primary": "#ffffff"
+                    },
+                    fontFamily: {
+                        "display": ["'Big Shoulders Display'", "sans-serif"],
+                        "body": ["'Afacad'", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* CSS cho các hiệu ứng thẻ kính (Glassmorphism) và hover */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 30px 60px -12px rgba(54, 103, 88, 0.04);
+        }
+
+        .hover-lift {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 40px 80px -20px rgba(54, 103, 88, 0.08);
+        }
+
+        .skill-chip {
+            transition: all 0.2s ease;
+        }
+        
+        .skill-chip:hover {
+            filter: brightness(0.95);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="font-body text-text-body bg-background-color antialiased overflow-x-hidden selection:bg-mint selection:text-primary">
+
+    <!-- TopNavBar -->
+    <header class="w-full pt-8 pb-4 z-50 bg-white">
+        <nav class="flex justify-between items-center w-full px-6 md:px-24 max-w-[1440px] mx-auto">
+            <div class="text-[32px] font-display font-extrabold text-text-dark tracking-tight">
+                NguyenThao
+            </div>
+            <div class="hidden md:flex items-center gap-12">
+                <a class="text-text-dark hover:text-primary transition-colors text-xl font-medium" href="homepage.html">Home</a>
+                <a class="text-text-dark hover:text-primary transition-colors text-xl font-medium" href="work.html">Works</a>
+                <a class="text-primary font-bold border-b-2 border-primary pb-1 text-xl" href="work.html" href="about.html">About</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Phần 1: Hero Section (Giới thiệu bản thân) -->
+        <section class="relative flex items-center px-6 md:px-24 py-16 max-w-[1440px] mx-auto overflow-hidden">
+            <div class="grid md:grid-cols-12 gap-8 items-center w-full z-10">
+                
+                <!-- Cột chữ (Bên trái) -->
+                <div class="md:col-span-5 space-y-8">
+                    <div class="space-y-4">
+                        <h1 class="font-display text-5xl md:text-[40px] font-extrabold leading-[1.05] text-text-dark tracking-tight">
+                            Hi, I'm Nguyên Thảo.
+                        </h1>
+                        <h1 class="font-display text-5xl md:text-[40px] font-extrabold leading-[1.05] text-text-dark tracking-tight">
+                            I blend logic with <span class="text-primary">creativity</span>.
+                        </h1>
+                        <p class="font-body text-lg text-text-body leading-snug font-medium opacity-75 text-justify">
+                            I'm an aspiring Product Designer with a background in Information Technology and a passion for creating user-centered digital experiences. My journey began with illustration, which taught me how visual storytelling can communicate ideas and evoke emotions. Today, I combine creativity with UX thinking to design intuitive, accessible, and engaging products that solve real user problems while delivering meaningful experiences.
+                        </p>
+                        
+                        <div class="space-y-2 pt-4">
+                            <p class="font-body text-sm font-bold uppercase tracking-[0.12em] text-primary opacity-80">
+                                LOCATION
+                            </p>
+                            <div class="flex items-center gap-3 text-text-dark font-medium">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5 fill-current">
+                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5 14.5 7.62 14.5 9 13.38 11.5 12 11.5z"/>
+                                </svg>
+                                <span class="font-body text-lg">Ho Chi Minh City, Vietnam</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cột hình (Bên phải) -->
+                <div class="md:col-span-7 relative flex justify-end items-center h-full">
+                    <img alt="Profile Illustration" class="w-full h-auto object-contain z-10 scale-100 origin-right" src="Profile.svg">
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- Phần 2: Bento Layout cho Kỹ năng & Học vấn -->
+        <section class="px-6 md:px-24 max-w-[1440px] mx-auto pb-24">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                
+                <!-- Khối 1: Kỹ năng mềm & Ngôn ngữ (Chiếm 8 cột) -->
+                <div class="md:col-span-8 glass-card rounded-[24px] p-8 md:p-12 hover-lift">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-10 h-10 rounded-xl bg-lavender flex items-center justify-center">
+                            <span class="material-symbols-outlined text-secondary">psychology</span>
+                        </div>
+                        <h2 class="font-display text-3xl font-extrabold text-text-dark tracking-tight">Soft Skills & Languages</h2>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <h3 class="font-body text-sm font-bold text-primary uppercase tracking-widest">Soft Skills</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="skill-chip bg-mint text-primary px-4 py-2 rounded-full font-body font-bold text-sm">Leadership</span>
+                                <span class="skill-chip bg-mint text-primary px-4 py-2 rounded-full font-body font-bold text-sm">Team Collaboration</span>
+                                <span class="skill-chip bg-mint text-primary px-4 py-2 rounded-full font-body font-bold text-sm">Communication</span>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <h3 class="font-body text-sm font-bold text-primary uppercase tracking-widest">Language</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="skill-chip bg-baby-blue text-primary px-4 py-2 rounded-full font-body font-bold text-sm">English (B2 Level)</span>
+                                <span class="skill-chip bg-baby-blue text-primary px-4 py-2 rounded-full font-body font-bold text-sm">Chinese (A1-A2 Level)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Khối 2: Công cụ (Chiếm 4 cột) -->
+                <div class="md:col-span-4 glass-card rounded-[24px] p-8 md:p-10 hover-lift bg-primary/5">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center">
+                            <span class="material-symbols-outlined">construction</span>
+                        </div>
+                        <h2 class="font-display text-3xl font-extrabold text-text-dark tracking-tight">Toolbox</h2>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="space-y-3">
+                            <h3 class="font-body text-sm font-bold text-primary uppercase tracking-widest">Design</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-center gap-3 p-2 rounded-xl bg-white/40 border border-white/50">
+                                    <span class="font-body font-bold text-lg text-text-dark">Figma, Illustrator, Photoshop</span>
+                                </li>
+                                <li class="flex items-center gap-3 p-2 rounded-xl bg-white/40 border border-white/50">
+                                    <span class="font-body font-bold text-lg text-text-dark">Blender, Procreate</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="space-y-3">
+                            <h3 class="font-body text-sm font-bold text-primary uppercase tracking-widest">Technical</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-center gap-3 p-2 rounded-xl bg-white/40 border border-white/50">
+                                    <span class="font-body font-bold text-lg text-text-dark">VSCode, PowerBI, Antigravity</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Khối 3: Học vấn (Chiếm trọn 12 cột) -->
+                <div class="md:col-span-12 glass-card rounded-[24px] p-8 md:p-12 hover-lift">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-10 h-10 rounded-xl bg-peach flex items-center justify-center">
+                            <span class="material-symbols-outlined text-[#785d49]">school</span>
+                        </div>
+                        <h2 class="font-display text-3xl font-extrabold text-text-dark tracking-tight">Education</h2>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="space-y-2">
+                            <span class="font-body text-sm font-bold text-primary uppercase tracking-widest">11/2023 - 08/2024</span>
+                            <h4 class="font-body font-bold text-xl text-text-dark">2D Graphic Design</h4>
+                            <p class="font-body text-lg text-text-body opacity-75">Green Academy</p>
+                        </div>
+                        <div class="space-y-2">
+                            <span class="font-body text-sm font-bold text-primary uppercase tracking-widest">05/2026 - 07/2026</span>
+                            <h4 class="font-body font-bold text-xl text-text-dark">UX/UI Product Design</h4>
+                            <p class="font-body text-lg text-text-body opacity-75">Keyframe</p>
+                        </div>
+                        <div class="space-y-2">
+                            <span class="font-body text-sm font-bold text-primary uppercase tracking-widest">10/2023 - Present</span>
+                            <h4 class="font-body font-bold text-xl text-text-dark">Information Technology</h4>
+                            <p class="font-body text-lg text-text-body opacity-75">Ho Chi Minh University of Science - VNUHCM</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-primary text-white">
+        <div class="max-w-[1440px] mx-auto px-6 md:px-24 py-8 text-center">
+            <p class="font-body text-sm opacity-90">© 2026 Nguyên Thảo. Crafted with curiosity and creativity.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Micro-interaction cho các khối kỹ năng
+        document.querySelectorAll('.skill-chip').forEach(chip => {
+            chip.addEventListener('mouseenter', () => {
+                const colors = ['#B5EAD7', '#C7CEEA', '#E0BBE4', '#FFDAC1'];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                // Bạn có thể thêm các hiệu ứng đổi màu động ở đây nếu muốn
+            });
+        });
+    </script>
+</body>
+</html>

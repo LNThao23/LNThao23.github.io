@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Works | Nguyen Thao</title>
+    
+    <!-- Nhúng Font Afacad và Big Shoulders Display -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:wght@400;500;600;700&family=Big+Shoulders+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Nhúng Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#366758",
+                        "secondary": "#593d5f",
+                        "background-color": "#E9EDED",
+                        "text-dark": "#000000",
+                        "text-body": "#1A1A1A",
+                        "lavender": "#E0BBE4",
+                        "mint": "#B5EAD7",
+                        "baby-blue": "#C7CEEA",
+                        "peach": "#FFDAC1",
+                        "on-primary": "#ffffff"
+                    },
+                    fontFamily: {
+                        "display": ["'Big Shoulders Display'", "sans-serif"],
+                        "body": ["'Afacad'", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Hiệu ứng thẻ kính và hover */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 30px 60px -12px rgba(54, 103, 88, 0.04);
+        }
+
+        .hover-lift {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 40px 80px -20px rgba(54, 103, 88, 0.08);
+        }
+
+        /* Style cho nút filter đang được chọn */
+        .filter-btn.active {
+            background-color: #366758; /* Màu primary */
+            color: #ffffff;
+        }
+
+        /* Tùy chỉnh layout cho hàng illustration */
+        #illustration-row {
+            display: grid;
+            gap: 2rem;
+        }
+
+        #illustration-row.illustration-layout-all {
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+
+        #illustration-row.illustration-layout-filter {
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+
+        @media (min-width: 768px) {
+            #illustration-row.illustration-layout-all {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+
+            #illustration-row.illustration-layout-filter {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        /* PDF Viewer Styles */
+        #pdf-viewer-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 60;
+            background: rgba(0,0,0,0.86);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        #pdf-viewer-overlay.active {
+            display: flex;
+        }
+        #pdf-viewer-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            max-width: 100%;
+            max-height: 100%;
+            background: #111;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 28px 80px rgba(0,0,0,0.45);
+        }
+        #pdf-viewer-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #111;
+        }
+        .pdf-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 5;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.95);
+            color: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+        #pdf-viewer-container:hover .pdf-close-btn {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="font-body text-text-body bg-background-color antialiased overflow-x-hidden selection:bg-mint selection:text-primary">
+
+    <!-- TopNavBar -->
+    <header class="w-full pt-8 pb-4 z-50 bg-white shadow-sm">
+        <nav class="flex justify-between items-center w-full px-6 md:px-24 max-w-[1440px] mx-auto">
+            <div class="text-[32px] font-display font-extrabold text-text-dark tracking-tight">
+                NguyenThao
+            </div>
+            <div class="hidden md:flex items-center gap-12">
+                <a class="text-text-dark hover:text-primary transition-colors text-xl font-medium" href="homepage.html">Home</a>
+                <!-- Mục Works đang được Active -->
+                <a class="text-primary font-bold border-b-2 border-primary pb-1 text-xl" href="work.html">Works</a>
+                <a class="text-text-dark hover:text-primary transition-colors text-xl font-medium" href="about.html">About</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="min-h-[85vh]">
+        <!-- Projects Section -->
+        <section class="py-16 px-6 md:px-24 max-w-[1440px] mx-auto" id="works">
+            
+            <!-- Filter Controls -->
+            <div class="flex flex-wrap items-center justify-between gap-6 mb-12">
+                <h2 class="font-display text-4xl md:text-[48px] font-extrabold text-text-dark tracking-tight">Selected Works</h2>
+                <div class="flex items-center p-1.5 bg-white rounded-full shadow-sm space-x-1 border border-white/50">
+                    <button class="filter-btn active px-6 py-2 rounded-full font-body font-bold text-lg transition-all duration-300" onclick="filterProjects('all')">All</button>
+                    <button class="filter-btn px-6 py-2 rounded-full font-body font-bold text-lg text-text-dark transition-all duration-300 hover:bg-gray-100" onclick="filterProjects('product')">Product</button>
+                    <button class="filter-btn px-6 py-2 rounded-full font-body font-bold text-lg text-text-dark transition-all duration-300 hover:bg-gray-100" onclick="filterProjects('illustration')">Illustration</button>
+                </div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="flex flex-col gap-8" id="projects-grid">
+                
+                <!-- Hàng trên: 2 Dự án (0.svg và 1.svg) -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Hình 0 -->
+                    <div class="project-item product group cursor-pointer" onclick="openPDF('Doc/0.pdf')">
+                        <img src="Folder/0.svg" alt="Project 0" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <!-- Hình 1 -->
+                    <div class="project-item product group cursor-pointer" onclick="openPDF('Doc/1.pdf')">
+                        <img src="Folder/1.svg" alt="Project 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                </div>
+
+                <!-- Hàng dưới: 4 Dự án (2.svg đến 5.svg) -->
+                <div id="illustration-row" class="illustration-layout-all">
+                    <!-- Hình 2 -->
+                    <div class="project-item illustration group cursor-pointer" onclick="openPDF('Doc/2.pdf')">
+                        <img src="Folder/2.svg" alt="Project 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <!-- Hình 3 -->
+                    <div class="project-item illustration group cursor-pointer" onclick="openPDF('Doc/3.pdf')">
+                        <img src="Folder/3.svg" alt="Project 3" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <!-- Hình 4 -->
+                    <div class="project-item illustration group cursor-pointer" onclick="openPDF('Doc/4.pdf')">
+                        <img src="Folder/4.svg" alt="Project 4" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <!-- Hình 5 -->
+                    <div class="project-item illustration group cursor-pointer" onclick="openPDF('Doc/5.pdf')">
+                        <img src="Folder/5.svg" alt="Project 5" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div id="pdf-viewer-overlay" aria-hidden="true" style="padding: 0;">
+        <div id="pdf-viewer-container" role="dialog" aria-modal="true">
+            <button id="pdf-viewer-close" class="pdf-close-btn" aria-label="Close PDF viewer">×</button>
+            <iframe id="pdf-viewer-iframe" src="" title="PDF viewer"></iframe>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white mt-12">
+        <div class="max-w-[1440px] mx-auto px-6 md:px-24 py-8 text-center">
+            <p class="font-body text-sm opacity-90">© 2026 Nguyên Thảo. Crafted with curiosity and creativity.</p>
+        </div>
+    </footer>
+
+    <!-- Script xử lý chức năng Filter -->
+    <script>
+        // PDF Viewer Handler
+        const pdfOverlay = document.getElementById('pdf-viewer-overlay');
+        const pdfIframe = document.getElementById('pdf-viewer-iframe');
+        const pdfCloseBtn = document.getElementById('pdf-viewer-close');
+
+        function openPDF(pdfPath) {
+            pdfIframe.src = `${pdfPath}#toolbar=0&navpanes=0`;
+            pdfOverlay.classList.add('active');
+            pdfOverlay.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePDFViewer() {
+            pdfOverlay.classList.remove('active');
+            pdfOverlay.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            pdfIframe.src = '';
+        }
+
+        if (pdfCloseBtn) {
+            pdfCloseBtn.addEventListener('click', (event) => {
+                event.stopPropagation();
+                closePDFViewer();
+            });
+        }
+
+        if (pdfOverlay) {
+            pdfOverlay.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+            });
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (!pdfOverlay.classList.contains('active')) {
+                return;
+            }
+            if (event.key === 'Escape') {
+                closePDFViewer();
+            }
+        });
+
+        function filterProjects(category) {
+            const items = document.querySelectorAll('.project-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Cập nhật trạng thái nút (Active)
+            buttons.forEach(btn => {
+                btn.classList.remove('active', 'text-white');
+                btn.classList.add('text-text-dark', 'hover:bg-gray-100');
+                
+                if((category === 'all' && btn.innerText === 'All') || 
+                   (category === 'product' && btn.innerText === 'Product') || 
+                   (category === 'illustration' && btn.innerText === 'Illustration')) {
+                    btn.classList.add('active', 'text-white');
+                    btn.classList.remove('text-text-dark', 'hover:bg-gray-100');
+                }
+            });
+
+            // Lọc các dự án với hiệu ứng fade
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                    }, 50);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 300);
+                }
+            });
+
+            const illustrationRow = document.getElementById('illustration-row');
+            if (illustrationRow) {
+                if (category === 'all') {
+                    illustrationRow.classList.add('illustration-layout-all');
+                    illustrationRow.classList.remove('illustration-layout-filter');
+                } else if (category === 'illustration') {
+                    illustrationRow.classList.add('illustration-layout-filter');
+                    illustrationRow.classList.remove('illustration-layout-all');
+                }
+            }
+        }
+
+        // Khởi tạo hiệu ứng mặc định khi load trang
+        document.addEventListener('DOMContentLoaded', () => {
+            const items = document.querySelectorAll('.project-item');
+            items.forEach(item => {
+                item.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+        });
+    </script>
+</body>
+</html>
