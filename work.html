@@ -62,134 +62,41 @@
         }
 
         /* Tùy chỉnh layout cho hàng illustration */
-        #illustration-row {
+        #projects-grid {
             display: grid;
+            grid-template-columns: minmax(0, 1fr);
             gap: 2rem;
         }
 
-        #illustration-row.illustration-layout-all {
-            grid-template-columns: repeat(1, minmax(0, 1fr));
-        }
-
-        #illustration-row.illustration-layout-filter {
-            grid-template-columns: repeat(1, minmax(0, 1fr));
-        }
+        .project-group { display: contents; }
 
         @media (min-width: 768px) {
-            #illustration-row.illustration-layout-all {
-                grid-template-columns: repeat(4, minmax(0, 1fr));
-            }
-
-            #illustration-row.illustration-layout-filter {
+            #projects-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
 
-        #pdf-viewer-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 60;
-            background: rgba(0,0,0,0.86);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
+        @media (min-width: 1024px) {
+            #projects-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
         }
-        #pdf-viewer-overlay.active {
-            display: flex;
-        }
-        #pdf-viewer-container {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            max-width: 100%;
-            max-height: 100%;
-            background: #111;
-            border-radius: 0;
-            overflow: hidden;
-            box-shadow: 0 28px 80px rgba(0,0,0,0.45);
-        }
-        #pdf-viewer-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: #111;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        #pdf-viewer-iframe.loaded {
-            opacity: 1;
-        }
-        .pdf-close-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            z-index: 5;
-            width: 2.5rem;
-            height: 2.5rem;
-            border-radius: 999px;
-            background: rgba(255,255,255,0.95);
-            color: #111;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            border: none;
-            cursor: pointer;
-        }
-        #pdf-viewer-container:hover .pdf-close-btn {
-            opacity: 1;
-        }
-        /* Loading spinner */
-        #pdf-loading {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 4;
-            gap: 1.2rem;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        #pdf-loading.hidden {
-            opacity: 0;
-        }
-        .spinner {
-            width: 52px;
-            height: 52px;
-            border: 4px solid rgba(255,255,255,0.15);
-            border-top-color: #ffffff;
-            border-radius: 50%;
-            animation: spin 0.85s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .loading-text {
-            color: rgba(255,255,255,0.7);
-            font-size: 0.95rem;
-            letter-spacing: 0.05em;
-        }
+
     </style>
 </head>
 <body class="font-body text-text-body bg-background-color antialiased overflow-x-hidden selection:bg-mint selection:text-primary">
 
     <!-- TopNavBar -->
-    <header class="w-full pt-8 pb-4 z-50 bg-white shadow-sm">
+    <header class="w-full min-h-[80px] pt-6 pb-4 z-50 bg-white shadow-sm flex items-center">
         <nav class="flex justify-between items-center w-full px-6 md:px-24 max-w-[1440px] mx-auto">
-            <a href="index.html" class="text-[32px] font-display font-extrabold text-text-dark tracking-tight hover:opacity-80 transition-opacity">
+            <a href="index.html" class="text-[25px] leading-none font-display font-black text-text-dark tracking-[-0.4px] hover:opacity-80 transition-opacity">
                 NguyenThao
             </a>
             <div class="hidden md:flex items-center gap-12">
-                <a class="text-text-dark hover:text-primary transition-colors text-xl font-medium" href="index.html">Home</a>
+                <a class="text-text-dark hover:text-primary transition-colors text-xl leading-7 font-medium border-b-2 border-transparent" href="index.html">Home</a>
                 <!-- Mục Works đang được Active -->
-                <a class="text-primary font-bold border-b-2 border-primary pb-1 text-xl" href="work.html">Works</a>
-                <a class="text-text-dark hover:text-primary transition-colors text-xl font-medium" href="about.html">About</a>
+                <a class="text-primary font-bold border-b-2 border-primary text-xl leading-7" href="work.html">Works</a>
+                <a class="text-text-dark hover:text-primary transition-colors text-xl leading-7 font-medium border-b-2 border-transparent" href="about.html">About</a>
             </div>
         </nav>
     </header>
@@ -209,54 +116,43 @@
             </div>
 
             <!-- Projects Grid -->
-            <div class="flex flex-col gap-8" id="projects-grid">
+            <div id="projects-grid">
                 
                 <!-- Hàng trên: 2 Dự án (0.svg và 1.svg) -->
-                <div class="grid md:grid-cols-2 gap-8">
+                <div class="project-group">
                     <!-- Hình 0 -->
-                    <div class="project-item product group cursor-pointer" onclick="openPDF('Doc/0.pdf')">
-                        <img src="Folder/0.svg" alt="Project 0" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    </div>
+                    <a class="project-item product group cursor-pointer" href="Doc/HomeStay Dorm/index.html?from=works">
+                        <img src="Folder/HomeStay Dorm.svg" alt="HomeStay Dorm project" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </a>
                     <!-- Hình 1 -->
-                    <div class="project-item product group cursor-pointer" onclick="openPDF('Doc/1.pdf')">
-                        <img src="Folder/1.svg" alt="Project 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    </div>
+                    <a class="project-item product group cursor-pointer" href="Doc/MoodFlow/index.html?from=works">
+                        <img src="Folder/MoodFlow.svg" alt="MoodFlow project" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </a>
                 </div>
 
                 <!-- Hàng dưới: 4 Dự án (2.svg đến 5.svg) -->
-                <div id="illustration-row" class="illustration-layout-all">
+                <div class="project-group">
                     <!-- Hình 2 -->
-                    <div class="project-item illustration group cursor-pointer" onclick="openPDF('Doc/2.pdf')">
-                        <img src="Folder/2.svg" alt="Project 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    </div>
+                    <a class="project-item illustration group cursor-pointer" href="Doc/Treasure/2.html?from=works">
+                        <img src="Folder/Treasure.svg" alt="Treasure project" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </a>
                     <!-- Hình 3 -->
-                    <div class="project-item illustration group cursor-pointer" onclick="openPDF('Doc/3.pdf')">
-                        <img src="Folder/3.svg" alt="Project 3" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    </div>
+                    <a class="project-item illustration group cursor-pointer" href="Doc/The Red Scarf/3.html?from=works">
+                        <img src="Folder/The Red Scarf.svg" alt="The Red Scarf project" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </a>
                     <!-- Hình 4 -->
-                    <div class="project-item illustration group cursor-pointer" onclick="openPDF('Doc/4.pdf')">
-                        <img src="Folder/4.svg" alt="Project 4" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    </div>
+                    <a class="project-item illustration group cursor-pointer" href="Doc/2026 Calender/index.html?from=works">
+                        <img src="Folder/2026 Calender.svg" alt="2026 Calender project" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </a>
                     <!-- Hình 5 -->
-                    <div class="project-item illustration group cursor-pointer" onclick="openPDF('Doc/5.pdf')">
-                        <img src="Folder/5.svg" alt="Project 5" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    </div>
+                    <a class="project-item illustration group cursor-pointer" href="Doc/2027 Calender/index.html?from=works">
+                        <img src="Folder/2027 Calender.svg" alt="2027 Calender project" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </a>
                 </div>
 
             </div>
         </section>
     </main>
-
-    <div id="pdf-viewer-overlay" aria-hidden="true" style="padding: 0;">
-        <div id="pdf-viewer-container" role="dialog" aria-modal="true">
-            <button id="pdf-viewer-close" class="pdf-close-btn" aria-label="Close PDF viewer">×</button>
-            <div id="pdf-loading">
-                <div class="spinner"></div>
-                <span class="loading-text">Loading project...</span>
-            </div>
-            <iframe id="pdf-viewer-iframe" src="" title="PDF viewer"></iframe>
-        </div>
-    </div>
 
     <!-- Footer -->
     <footer class="bg-primary text-white mt-12">
@@ -274,118 +170,6 @@
                     .catch((err) => console.warn('SW registration failed:', err));
             });
         }
-
-        // ─── Background Pre-fetch (lazy, after page is idle) ──────────────────────
-        // List every PDF on the page so they are silently downloaded into cache.
-        const PDF_LIST = [
-            'Doc/0.pdf',
-            'Doc/1.pdf',
-            'Doc/2.pdf',
-            'Doc/3.pdf',
-            'Doc/4.pdf',
-            'Doc/5.pdf',
-        ];
-
-        function prefetchPDFs() {
-            PDF_LIST.forEach((path, index) => {
-                // Stagger each fetch by 3 s so we don't flood the connection
-                setTimeout(() => {
-                    // Tell the SW to cache it (no-op if already cached)
-                    if (navigator.serviceWorker.controller) {
-                        navigator.serviceWorker.controller.postMessage({
-                            type: 'CACHE_PDF',
-                            url: new URL(path, window.location.href).href,
-                        });
-                    } else {
-                        // Fallback: use fetch with low priority directly
-                        fetch(path, { priority: 'low' }).catch(() => {});
-                    }
-                }, index * 3000);
-            });
-        }
-
-        // Wait until the browser is idle (or 4 s at most) before prefetching
-        window.addEventListener('load', () => {
-            if ('requestIdleCallback' in window) {
-                requestIdleCallback(() => prefetchPDFs(), { timeout: 4000 });
-            } else {
-                setTimeout(prefetchPDFs, 4000);
-            }
-        });
-
-        // ─── PDF Viewer Handler ───────────────────────────────────────────────────
-        const pdfOverlay = document.getElementById('pdf-viewer-overlay');
-        const pdfIframe = document.getElementById('pdf-viewer-iframe');
-        const pdfCloseBtn = document.getElementById('pdf-viewer-close');
-        const loadingEl = document.getElementById('pdf-loading');
-
-        // Track which PDF is currently loaded in the iframe
-        let currentPdfSrc = '';
-
-        function showLoading() {
-            if (loadingEl) { loadingEl.classList.remove('hidden'); }
-            pdfIframe.classList.remove('loaded');
-        }
-        function hideLoading() {
-            if (loadingEl) { loadingEl.classList.add('hidden'); }
-            pdfIframe.classList.add('loaded');
-        }
-
-        pdfIframe.addEventListener('load', () => {
-            if (pdfIframe.src && pdfIframe.src !== window.location.href) {
-                hideLoading();
-            }
-        });
-
-        function openPDF(pdfPath) {
-            const newSrc = `${pdfPath}#toolbar=0&navpanes=0`;
-
-            // If the same PDF is already loaded, show instantly — no reload needed
-            if (currentPdfSrc === newSrc) {
-                pdfOverlay.classList.add('active');
-                pdfOverlay.setAttribute('aria-hidden', 'false');
-                document.body.style.overflow = 'hidden';
-                return;
-            }
-
-            showLoading();
-            currentPdfSrc = newSrc;
-            pdfIframe.src = newSrc;
-            pdfOverlay.classList.add('active');
-            pdfOverlay.setAttribute('aria-hidden', 'false');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closePDFViewer() {
-            // Hide the overlay but keep iframe src intact so re-open is instant
-            pdfOverlay.classList.remove('active');
-            pdfOverlay.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = '';
-            // Do NOT clear pdfIframe.src — the loaded PDF stays in memory
-        }
-
-        if (pdfCloseBtn) {
-            pdfCloseBtn.addEventListener('click', (event) => {
-                event.stopPropagation();
-                closePDFViewer();
-            });
-        }
-
-        if (pdfOverlay) {
-            pdfOverlay.addEventListener('click', (event) => {
-                event.preventDefault();
-                event.stopPropagation();
-            });
-        }
-
-        document.addEventListener('keydown', (event) => {
-            if (!pdfOverlay.classList.contains('active')) {
-                return;
-            }
-            if (event.key === 'Escape') {
-                closePDFViewer();
-            }
-        });
 
         function filterProjects(category) {
             const items = document.querySelectorAll('.project-item');
@@ -421,16 +205,6 @@
                 }
             });
 
-            const illustrationRow = document.getElementById('illustration-row');
-            if (illustrationRow) {
-                if (category === 'all') {
-                    illustrationRow.classList.add('illustration-layout-all');
-                    illustrationRow.classList.remove('illustration-layout-filter');
-                } else if (category === 'illustration') {
-                    illustrationRow.classList.add('illustration-layout-filter');
-                    illustrationRow.classList.remove('illustration-layout-all');
-                }
-            }
         }
 
         // Khởi tạo hiệu ứng mặc định khi load trang

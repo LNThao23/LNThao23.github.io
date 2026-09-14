@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Four Seasons Chronicle — a 2027 illustrated calendar by Nguyen Thao.">
+  <title>Four Seasons Chronicle | Nguyen Thao</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Afacad:wght@400;500;600;700&family=Big+Shoulders+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink:#302016; --muted:#76675d; --cream:#f8f2e9; --gold:#dfa03d; --coral:#cf654b; --line:#eadfce; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:#fff; font-family:"Afacad",sans-serif; }
+    button,a { font:inherit; } a { color:inherit; text-decoration:none; }
+    .shell { width:min(1120px,calc(100% - 48px)); margin-inline:auto; }
+    header { min-height:80px; padding:24px 0 16px; display:flex; align-items:center; border-bottom:1px solid #eee8df; background:#fffaf5; }
+    header .shell { width:100%; max-width:1440px; padding-right:24px; padding-left:24px; }
+    nav { display:flex; align-items:center; justify-content:space-between; }
+    .brand { font-family:"Big Shoulders Display",sans-serif; font-size:25px; font-weight:900; line-height:1; letter-spacing:-.4px; }
+    .nav-links { display:flex; align-items:center; gap:48px; font-size:20px; }
+    .nav-links a { position:relative; padding:0; border-bottom:2px solid transparent; font-weight:500; line-height:28px; }
+    .nav-links a:hover,.nav-links a[aria-current="page"] { border-color:var(--ink); }
+    .nav-links a[aria-current="page"] { font-weight:700; }
+    .hero { min-height:660px; display:flex; align-items:center; background:url("Background.png") center/cover no-repeat; }
+    .hero-copy { width:min(590px,58%); padding:70px 0 86px; }
+    .eyebrow,.quarter-label { display:inline-flex; align-items:center; gap:10px; padding:8px 15px; border-radius:999px; background:rgba(248,242,233,.9); font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+    .eyebrow::before { content:""; width:8px; height:8px; border-radius:50%; background:var(--gold); }
+    h1,h2,h3 { margin:0; font-family:"Big Shoulders Display",sans-serif; font-weight:900; text-transform:uppercase; }
+    h1 { margin-top:24px; font-size:clamp(48px,5.3vw,76px); line-height:1.02; letter-spacing:-1.2px; }
+    .hero-lead { max-width:570px; margin:24px 0 20px; font-family:"Big Shoulders Display",sans-serif; font-size:20px; font-weight:900; line-height:1.5; color:#5d4435; text-align:justify; }
+    .hero-copy p:last-of-type { max-width:545px; color:var(--muted); font-size:17px; line-height:1.6; text-align:justify; }
+    .cta { display:inline-block; margin-top:24px; padding:14px 28px; border-radius:999px; background:var(--gold); box-shadow:0 7px 16px rgba(102,66,18,.17); font-weight:700; transition:.2s ease; }
+    .cta:hover { transform:translateY(-2px); box-shadow:0 10px 20px rgba(102,66,18,.23); }
+    .gallery { min-height:1060px; padding:96px 0 120px; overflow:hidden; }
+    .gallery-head { text-align:center; }
+    .kicker { color:#99897e; font-size:12px; font-weight:700; letter-spacing:5px; text-transform:uppercase; }
+    h2 { margin-top:12px; font-size:clamp(36px,4vw,54px); line-height:1.15; }
+    .gallery-intro { margin:14px auto 34px; max-width:650px; color:var(--muted); font-size:16px; line-height:1.55; }
+    .filters { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
+    .filter { padding:11px 22px; border:1px solid var(--line); border-radius:999px; color:#5a493d; background:#fff; font-size:12px; font-weight:700; letter-spacing:.7px; text-transform:uppercase; cursor:pointer; }
+    .filter:hover,.filter.active { border-color:var(--ink); color:#fff; background:var(--ink); }
+    .showcase { display:grid; grid-template-columns:minmax(300px,.8fr) minmax(430px,1.2fr); align-items:center; gap:70px; min-height:690px; padding-top:75px; }
+    .quarter-label { padding:6px 13px; }
+    h3 { margin-top:22px; font-size:34px; line-height:1.15; }
+    .month-name { margin:20px 0 14px; color:var(--coral); font-family:"Big Shoulders Display",sans-serif; font-size:18px; font-weight:900; text-transform:uppercase; }
+    .description { max-width:450px; min-height:75px; color:var(--muted); font-size:16px; line-height:1.6; text-align:justify; }
+    .month-navigation { width:100%; max-width:450px; margin-top:34px; }
+    .dots { display:flex; align-items:center; justify-content:center; gap:9px; width:100%; min-height:30px; }
+    .dot { width:9px; height:9px; padding:0; border:0; border-radius:50%; background:#ece2d4; cursor:pointer; transition:.25s ease; }
+    .dot.active { width:25px; border-radius:999px; background:var(--gold); }
+    .card-stage { position:relative; height:650px; }
+    .calendar-card { position:absolute; top:50%; left:50%; width:350px; aspect-ratio:2475/3500; border-radius:20px; object-fit:cover; box-shadow:0 24px 35px rgba(57,38,26,.16); transform-origin:center; transition:transform .55s cubic-bezier(.22,.8,.24,1),opacity .4s ease; cursor:pointer; }
+    .calendar-card.active { z-index:4; transform:translate(-63%,-50%); opacity:1; }
+    .calendar-card.next-1 { z-index:3; transform:translate(-35%,-47%) scale(.9); opacity:1; }
+    .calendar-card.next-2 { z-index:2; transform:translate(-8%,-44%) scale(.8); opacity:1; }
+    .calendar-card.hidden { z-index:0; transform:translate(10%,-45%) scale(.72); opacity:0; pointer-events:none; }
+    footer {background:#fffaf0; padding:36px 20px; text-align:center; color:#6d5f55; }
+    footer strong { color:var(--ink); font-family:"Big Shoulders Display",sans-serif; font-size:18px; font-weight:900; }
+    @media (min-width:768px) { header .shell { padding-right:96px; padding-left:96px; } }
+    @media (max-width:900px) {
+      .hero { min-height:600px; background-position:58% center; } .hero-copy { width:70%; }
+      .showcase { grid-template-columns:1fr; gap:20px; padding-top:70px; }
+      .month-copy { text-align:center; } .description,.month-navigation { margin-inline:auto; } .card-stage { height:590px; }
+    }
+    @media (max-width:767px) { .nav-links { display:none; } header { min-height:80px; } }
+    @media (max-width:620px) {
+      .shell { width:min(100% - 30px,1120px); } header { min-height:78px; } header .shell { width:100%; padding-right:24px; padding-left:24px; }
+      .hero { position:relative; min-height:650px; background-position:63% center; }
+      .hero::before { content:""; position:absolute; inset:0; background:rgba(255,250,244,.45); }
+      .hero-copy { position:relative; width:100%; padding:70px 0; z-index:1; } h1 { font-size:48px; } .hero-lead { font-size:18px; }
+      .gallery { padding-top:70px; } .filters { gap:8px; } .filter { padding:9px 12px; font-size:10px; }
+      .card-stage { height:490px; } .calendar-card { width:min(275px,72vw); border-radius:14px; }
+      .calendar-card.active { transform:translate(-58%,-50%); } .calendar-card.next-1 { transform:translate(-34%,-47%) scale(.9); }
+      .calendar-card.next-2 { transform:translate(-10%,-44%) scale(.8); }
+    }
+    @media (max-width:620px) { header { min-height:80px; } }
+  </style>
+</head>
+<body>
+  <header><nav class="shell" aria-label="Main navigation">
+    <a class="brand" href="../../index.html">NguyenThao</a>
+    <div class="nav-links"><a id="nav-home" href="../../index.html">Home</a><a id="nav-works" href="../../work.html">Works</a><a href="../../about.html">About</a></div>
+  </nav></header>
+  <main>
+    <section class="hero"><div class="shell"><div class="hero-copy">
+      <span class="eyebrow">2027 Calendar</span><h1>Four Seasons Chronicle</h1>
+      <p class="hero-lead">“Preserving four peaceful seasons through stories of childhood memories, fragrant lotus blooms, and the gentle conical hat of rural Vietnam.”</p>
+      <p>An illustrative calendar project inspired by folk festivals, simple everyday beauty, and a whimsical white bunny journeying through twelve tender months.</p>
+      <a class="cta" href="#collection">Explore 12 Months</a>
+    </div></div></section>
+    <section class="gallery" id="collection"><div class="shell">
+      <div class="gallery-head">
+        <div class="kicker">Gallery / 2027 Collection</div><h2>Four Seasons Chronicle – 2027 Calendar</h2>
+        <p class="gallery-intro">Immerse yourself in twelve months of heartwarming art:<br>a nostalgic childhood journey and the serene beauty of Vietnamese heritage.</p>
+        <div class="filters" role="group" aria-label="Filter calendar months">
+          <button class="filter active" type="button" data-start="0" data-count="12">All 12 Months</button><button class="filter" type="button" data-start="0" data-count="3">Q1 · Reunion Spring</button>
+          <button class="filter" type="button" data-start="3" data-count="3">Q2 · Radiant Summer</button><button class="filter" type="button" data-start="6" data-count="3">Q3 · Gentle Autumn</button><button class="filter" type="button" data-start="9" data-count="3">Q4 · Cozy Winter</button>
+        </div>
+      </div>
+      <div class="showcase" aria-live="polite">
+        <div class="month-copy"><span class="quarter-label" id="quarter-label">The First Quarter · 01</span><h3 id="story-title">The Little Hawk’s Chase</h3>
+          <div class="month-name" id="month-name">January 2027</div><p class="description" id="description">“A little hawk soars through the crisp new year, chasing playful chicks across the fields. Every laugh marks the beginning of another joyful adventure.”</p>
+          <div class="month-navigation">
+            <div class="dots" id="dots" aria-label="Choose a month"></div>
+          </div>
+        </div><div class="card-stage" id="card-stage" aria-label="Calendar artwork"></div>
+      </div>
+    </div></section>
+  </main>
+  <footer><strong>2027 Calender</strong> &nbsp;— Personal Project</footer>
+  <script>
+    const months = [
+      ["The Little Hawk’s Chase","January","A little hawk soars through the crisp new year, chasing playful chicks across the fields. Every laugh marks the beginning of another joyful adventure."],
+      ["A Spring of Reunion","February","Spring arrives with blossoms, family feasts, and warm embraces. Every home glows with love, hope, and wishes for a bright year ahead."],
+      ["Dancing Bubble Dreams","March","Tiny bubbles float into the sky, catching the sunlight like little dreams. They drift with the breeze, carrying endless imagination and childhood joy."],
+      ["Flags in the Wind","April","The red flag waves proudly beneath the blue sky. It is a month to celebrate peace, freedom, and the courage that shaped the nation."],
+      ["The Sweet Lychee Season","May","Clusters of ruby-red lychees ripen under the golden sun. Their sweetness fills the air with the unmistakable taste of summer."],
+      ["Where the Lotus Blooms","June","Lotus flowers open quietly across peaceful ponds, painting the water in gentle shades of pink. Their fragrance brings calm to the warm summer days."],
+      ["The Melody of Tradition","July","The gentle sounds of stringed instruments echo through the season. Every note tells a story passed down through generations."],
+      ["Campfire Under the Stars","August","The fire crackles, the chicken roasts, and stories fill the night. Beneath a sky full of stars, simple moments become unforgettable memories."],
+      ["The Colors of Independence","September","Bright flags dance proudly in the September breeze. The month celebrates unity, gratitude, and the enduring spirit of the nation."],
+      ["Rainy-Day Adventures","October","Raindrops fall softly as two banana leaves become playful umbrellas. Even the rain turns into a game when imagination takes the lead."],
+      ["A Bouquet of Thanks","November","Flowers bloom with heartfelt gratitude for every teacher who inspires and guides. Small acts of kindness become the brightest gifts of all."],
+      ["A Christmas Wish","December","Twinkling lights, decorated trees, and joyful laughter fill the air. The year ends wrapped in warmth, kindness, and the promise of new beginnings."]
+    ];
+    const quarters=["The First Quarter","The Second Quarter","The Third Quarter","The Fourth Quarter"];
+    const stage=document.getElementById("card-stage"),dots=document.getElementById("dots");
+    let activeMonth=0,visibleMonths=Array.from({length:12},(_,index)=>index);
+    months.forEach((month,index)=>{
+      const image=document.createElement("img"); image.className="calendar-card hidden"; image.src=`Image/${index+1}.png`; image.alt=`${month[1]} 2027 calendar illustration`; image.loading=index<4?"eager":"lazy"; image.addEventListener("click",()=>showMonth(index)); stage.appendChild(image);
+      const dot=document.createElement("button"); dot.className="dot"; dot.type="button"; dot.setAttribute("aria-label",`Show ${month[1]}`); dot.addEventListener("click",()=>showMonth(index)); dots.appendChild(dot);
+    });
+    function showMonth(index){
+      if(!visibleMonths.includes(index)) index=visibleMonths[0];
+      activeMonth=index; const month=months[index]; document.getElementById("quarter-label").textContent=`${quarters[Math.floor(index/3)]} · ${String(index+1).padStart(2,"0")}`;
+      document.getElementById("story-title").textContent=month[0]; document.getElementById("month-name").textContent=`${month[1]} 2027`; document.getElementById("description").textContent=`“${month[2]}”`;
+      const activePosition=visibleMonths.indexOf(index);
+      [...dots.children].forEach((dot,i)=>{dot.hidden=!visibleMonths.includes(i);dot.classList.toggle("active",i===index);});
+      [...stage.children].forEach((card,i)=>{const position=visibleMonths.indexOf(i);const distance=position<0?-1:(position-activePosition+visibleMonths.length)%visibleMonths.length;card.className=`calendar-card ${distance===0?"active":distance>0&&distance<=2?`next-${distance}`:"hidden"}`;});
+    }
+    document.querySelectorAll(".filter").forEach(button=>button.addEventListener("click",()=>{document.querySelectorAll(".filter").forEach(item=>item.classList.toggle("active",item===button));const start=Number(button.dataset.start),count=Number(button.dataset.count);visibleMonths=Array.from({length:count},(_,offset)=>start+offset);showMonth(start);}));
+    document.addEventListener("keydown",event=>{const position=visibleMonths.indexOf(activeMonth);if(event.key==="ArrowRight")showMonth(visibleMonths[(position+1)%visibleMonths.length]);if(event.key==="ArrowLeft")showMonth(visibleMonths[(position+visibleMonths.length-1)%visibleMonths.length]);});
+
+    const entryParam=new URLSearchParams(window.location.search).get("from"); let entryPoint=entryParam==="home"||entryParam==="works"?entryParam:"works";
+    if(!entryParam&&document.referrer){try{const referrerPath=new URL(document.referrer).pathname;entryPoint=referrerPath.endsWith("/work.html")?"works":"home";}catch(_) {}}
+    const navHome=document.getElementById("nav-home"),navWorks=document.getElementById("nav-works");
+    if(entryPoint==="home"){navHome.setAttribute("aria-current","page");navWorks.removeAttribute("aria-current");}else{navWorks.setAttribute("aria-current","page");navHome.removeAttribute("aria-current");}
+    showMonth(0);
+  </script>
+</body>
+</html>

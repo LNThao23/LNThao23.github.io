@@ -30,121 +30,19 @@
             }
         }
     </script>
-    <style>
-        #pdf-viewer-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 60;
-            background: rgba(0,0,0,0.86);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-        }
-        #pdf-viewer-overlay.active {
-            display: flex;
-        }
-        #pdf-viewer-container {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            max-width: 100%;
-            max-height: 100%;
-            background: #111;
-            border-radius: 0;
-            overflow: hidden;
-            box-shadow: 0 28px 80px rgba(0,0,0,0.45);
-        }
-        #pdf-viewer-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: #111;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        #pdf-viewer-iframe.loaded {
-            opacity: 1;
-        }
-        #pdf-viewer-nav {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            z-index: 3;
-        }
-        #pdf-viewer-nav .nav-area {
-            flex: 1;
-            cursor: pointer;
-        }
-        .close-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            z-index: 5;
-            width: 2.5rem;
-            height: 2.5rem;
-            border-radius: 999px;
-            background: rgba(255,255,255,0.95);
-            color: #111;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            border: none;
-            cursor: pointer;
-        }
-        #pdf-viewer-container:hover .close-btn {
-            opacity: 1;
-        }
-        /* Loading spinner */
-        #pdf-loading {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 4;
-            gap: 1.2rem;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        #pdf-loading.hidden {
-            opacity: 0;
-        }
-        .spinner {
-            width: 52px;
-            height: 52px;
-            border: 4px solid rgba(255,255,255,0.15);
-            border-top-color: #ffffff;
-            border-radius: 50%;
-            animation: spin 0.85s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .loading-text {
-            color: rgba(255,255,255,0.7);
-            font-size: 0.95rem;
-            letter-spacing: 0.05em;
-        }
-    </style>
 </head>
 <body class="font-body text-text-body antialiased overflow-x-hidden">
 
     <!-- TopNavBar -->
-    <header class="w-full pt-6 pb-4 z-50 bg-white">
+    <header class="w-full min-h-[80px] pt-6 pb-4 z-50 bg-white flex items-center">
         <nav class="flex justify-between items-center w-full px-6 md:px-24 max-w-[1440px] mx-auto">
-            <a href="index.html" class="text-[32px] font-display font-extrabold text-text-dark tracking-tight hover:opacity-80 transition-opacity">
+            <a href="index.html" class="text-[25px] leading-none font-display font-black text-text-dark tracking-[-0.4px] hover:opacity-80 transition-opacity">
                 NguyenThao
             </a>
             <div class="hidden md:flex items-center gap-12">
-                <a class="text-primary font-bold border-b-2 border-primary pb-1 text-xl" href="index.html">Home</a>
-                <a class="text-text-dark hover:text-primary transition-colors text-xl font-medium" href="work.html">Works</a>
-                <a class="text-text-dark hover:text-primary transition-colors text-xl font-medium" href="about.html">About</a>
+                <a class="text-primary font-bold border-b-2 border-primary text-xl leading-7" href="index.html">Home</a>
+                <a class="text-text-dark hover:text-primary transition-colors text-xl leading-7 font-medium border-b-2 border-transparent" href="work.html">Works</a>
+                <a class="text-text-dark hover:text-primary transition-colors text-xl leading-7 font-medium border-b-2 border-transparent" href="about.html">About</a>
             </div>
         </nav>
     </header>
@@ -201,23 +99,12 @@
                 <!-- Cột hình (Bên phải) - Đã xóa thẻ div tạo hiệu ứng sáng mờ -->
                 <div class="md:col-span-7 relative flex justify-end items-center h-full">
                     <!-- Hình ảnh Cover -->
-                    <img alt="HomeStay Dorm Website Project" class="w-full h-auto object-contain z-10 scale-100 origin-right transition-opacity duration-700" src="Cover/0.svg">
+                    <img alt="HomeStay Dorm Website Project" class="w-full h-auto object-contain z-10 scale-100 origin-right transition-opacity duration-700" src="Cover/HomeStay Dorm.svg">
                 </div>
                 
             </div>
         </section>
     </main>
-
-    <div id="pdf-viewer-overlay" aria-hidden="true" style="padding: 0;">
-        <div id="pdf-viewer-container" role="dialog" aria-modal="true">
-            <button id="pdf-viewer-close" class="close-btn" aria-label="Close PDF viewer">×</button>
-            <div id="pdf-loading">
-                <div class="spinner"></div>
-                <span class="loading-text">Loading project...</span>
-            </div>
-            <iframe id="pdf-viewer-iframe" src="" title="PDF viewer"></iframe>
-        </div>
-    </div>
 
     <script>
         (function(){
@@ -231,14 +118,18 @@
                 '2026 Calender',
                 '2027 Calender'
             ];
+            const projectSlugs = [
+                'HomeStay Dorm',
+                'MoodFlow',
+                'Treasure',
+                'The Red Scarf',
+                '2026 Calender',
+                '2027 Calender'
+            ];
             const dots = Array.from(document.querySelectorAll('.flex.justify-center span'));
             const total = dots.length;
             let idx = 0;
             let autoSlide = null;
-
-            const overlay = document.getElementById('pdf-viewer-overlay');
-            const iframe = document.getElementById('pdf-viewer-iframe');
-            const closeBtn = document.getElementById('pdf-viewer-close');
 
             function setActive(i){
                 dots.forEach((d, j)=>{
@@ -259,7 +150,7 @@
                     }, 250);
                 }
 
-                const targetSrc = `Cover/${i}.svg`;
+                const targetSrc = `Cover/${projectSlugs[i]}.svg`;
                 if(img.src.endsWith(targetSrc)){
                     return;
                 }
@@ -271,56 +162,17 @@
                 img.src = targetSrc;
             }
 
-            // Use a separate PDF file for each project slide
-            const pdfFiles = Array.from({ length: total }, (_, i) => `Doc/${i}.pdf`);
-            const loadingEl = document.getElementById('pdf-loading');
+            const projectFiles = [
+                'Doc/HomeStay Dorm/index.html?from=home',
+                'Doc/MoodFlow/index.html?from=home',
+                'Doc/Treasure/index.html?from=home',
+                'Doc/The Red Scarf/index.html?from=home',
+                'Doc/2026 Calender/index.html?from=home',
+                'Doc/2027 Calender/index.html?from=home'
+            ];
 
-            function showLoading(){
-                if(loadingEl) { loadingEl.classList.remove('hidden'); }
-                iframe.classList.remove('loaded');
-            }
-            function hideLoading(){
-                if(loadingEl) { loadingEl.classList.add('hidden'); }
-                iframe.classList.add('loaded');
-            }
-
-            iframe.addEventListener('load', () => {
-                if(iframe.src && iframe.src !== window.location.href) {
-                    hideLoading();
-                }
-            });
-
-            function updatePdfSrc(i){
-                showLoading();
-                iframe.src = `${pdfFiles[i]}#toolbar=0&navpanes=0`;
-            }
-
-            function openViewer(){
-                showLoading();
-                updatePdfSrc(idx);
-                overlay.classList.add('active');
-                overlay.setAttribute('aria-hidden', 'false');
-                document.body.style.overflow = 'hidden';
-            }
-
-            function closeViewer(){
-                overlay.classList.remove('active');
-                overlay.setAttribute('aria-hidden', 'true');
-                document.body.style.overflow = '';
-                iframe.src = '';
-                iframe.classList.remove('loaded');
-            }
-
-            function showNext(){
-                idx = (idx + 1) % total;
-                setActive(idx);
-                updatePdfSrc(idx);
-            }
-
-            function showPrev(){
-                idx = (idx - 1 + total) % total;
-                setActive(idx);
-                updatePdfSrc(idx);
+            function openProject(){
+                window.location.href = projectFiles[idx];
             }
 
             function resetAutoSlide(){
@@ -336,9 +188,6 @@
             dots.forEach((dot, index)=>{
                 dot.classList.add('cursor-pointer');
                 dot.addEventListener('click', ()=>{
-                    if(overlay.classList.contains('active')){
-                        return;
-                    }
                     idx = index;
                     setActive(idx);
                     resetAutoSlide();
@@ -347,45 +196,13 @@
 
             const viewProjectBtn = document.getElementById('view-project-btn');
             if(viewProjectBtn){
-                viewProjectBtn.addEventListener('click', openViewer);
+                viewProjectBtn.addEventListener('click', openProject);
             }
 
             if(img){
                 img.classList.add('cursor-pointer');
-                img.addEventListener('click', openViewer);
+                img.addEventListener('click', openProject);
             }
-
-            if(closeBtn){
-                closeBtn.addEventListener('click', (event)=>{
-                    event.stopPropagation();
-                    closeViewer();
-                });
-            }
-
-            // No click-based navigation in PDF viewer.
-            if(overlay){
-                overlay.addEventListener('click', (event)=>{
-                    event.preventDefault();
-                    event.stopPropagation();
-                });
-            }
-
-            document.addEventListener('keydown', (event)=>{
-                if(!overlay.classList.contains('active')){
-                    return;
-                }
-                if(event.key === 'Escape'){
-                    closeViewer();
-                }
-                if(event.key === 'ArrowRight' || event.key === 'PageDown'){
-                    event.preventDefault();
-                    showNext();
-                }
-                if(event.key === 'ArrowLeft' || event.key === 'PageUp'){
-                    event.preventDefault();
-                    showPrev();
-                }
-            });
 
             setActive(idx);
             resetAutoSlide();
