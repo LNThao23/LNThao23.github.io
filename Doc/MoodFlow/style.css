@@ -26,7 +26,8 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--body);
-  font-size: 14px;
+  /* Shared portfolio reading size. Component rules only override this for metadata and labels. */
+  font-size: 16px;
   line-height: 1.65;
 }
 img, video { display: block; max-width: 100%; }
