@@ -1,3 +1,9 @@
+// Project pages always open at the hero, including when restored from history.
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+const openAtTop = () => window.scrollTo(0, 0);
+openAtTop();
+window.addEventListener("pageshow", openAtTop);
+
 const competitors = [
   {
     name: "Daylio",
@@ -195,7 +201,10 @@ function setActiveContentSection(sectionId) {
     const isActive = link.getAttribute("href") === `#${sectionId}`;
     if (isActive) {
       link.setAttribute("aria-current", "location");
-      link.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      const track = link.closest(".content-nav-track");
+      if (track) {
+        track.scrollTo({ left: link.offsetLeft - (track.clientWidth - link.clientWidth) / 2, behavior: "smooth" });
+      }
     } else {
       link.removeAttribute("aria-current");
     }
