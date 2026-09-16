@@ -1,1 +1,142 @@
 ﻿
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Red Scarf — Fluttering in the Wind</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Afacad:wght@400;500;600;700&family=Big+Shoulders+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --red:#af321f; --ink:#221b1a; --paper:#f9f8f7; --wash:#f1f2f3; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; background:#1e1c1d; font-family:Afacad, sans-serif; color:var(--ink); }
+    .page { max-width:1280px; min-height:100vh; margin:0 auto; padding-top:80px; background:var(--paper); overflow:hidden; }
+    header { position:fixed; top:0; left:0; right:0; z-index:50; height:80px; display:flex; align-items:center; justify-content:space-between; padding:0 clamp(24px, 8vw, 96px); background:#fffdfc; box-shadow:0 2px 16px #6f21110f; transition:transform .2s ease; }
+    .logo { font-family:"Big Shoulders Display", sans-serif; font-size:25px; line-height:1; font-weight:800; letter-spacing:-1.1px; }
+    .logo a { color:inherit; text-decoration:none; }
+    nav { display:flex; gap:48px; align-items:center; font-size:20px; line-height:28px; font-weight:500; }
+    nav a { color:var(--ink); text-decoration:none; padding:0 0 2px; border-bottom:2px solid transparent; }
+    nav .active { font-weight:700; border-bottom:2px solid var(--ink); }
+    main { min-height:670px; position:relative; display:flex; align-items:center; padding:64px 5.2% 54px; background:#f2f3f4 url("Cover Background.svg") center no-repeat; }
+    .copy { position:relative; z-index:2; max-width:480px; }
+    .eyebrow { display:inline-block; padding:5px 12px 4px; border-radius:99px; background:#f8d8d4; color:#7f2519; font-size:11px; line-height:1; font-weight:700; letter-spacing:.45px; }
+    h1 { margin:20px 0 10px; color:var(--red); font-family:"Big Shoulders Display", sans-serif; font-weight:800; font-size:46px; line-height:.93; letter-spacing:-1.1px; text-transform:uppercase; }
+    h2 { margin:0 0 21px; color:#594943; font-family:"Big Shoulders Display", sans-serif; font-size:22px; letter-spacing:.2px; line-height:1; text-transform:uppercase; }
+    .intro { margin:0; max-width:433px; font-size:16px; line-height:1.55; letter-spacing:.07px; color:#544946; }
+    .actions { margin-top:26px; display:flex; gap:24px; align-items:center; }
+    .button { display:inline-flex; align-items:center; gap:17px; background:var(--red); color:#fff; padding:12px 16px 12px 20px; border-radius:999px; text-decoration:none; font-weight:700; font-size:14px; box-shadow:0 5px 10px #8d2d211c; }
+    .arrow { font-size:23px; font-family:Arial, sans-serif; line-height:12px; }
+    .contest { display:inline-flex; align-items:center; padding:10px 15px; border:1.5px solid var(--red); border-radius:999px; background:#fff; color:var(--red); text-decoration:none; font-size:14px; font-weight:700; }
+    .contest svg { width:15px; height:15px; margin-left:5px; vertical-align:-2px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    .details { display:flex; margin-top:37px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.35px; }
+    .details div { min-width:128px; padding-right:26px; }
+    .details div + div { padding-left:28px; border-left:1px solid #bdb8b5; }
+    .details strong { display:block; margin-top:8px; font-size:12px; color:#27211f; font-weight:600; letter-spacing:0; text-transform:none; }
+    .content-section { padding:88px 10.3%; background:#fcf9f8; }
+    .content-section.alt { background:#f2efed; }
+    .section-heading { display:flex; align-items:end; gap:18px; margin-bottom:34px; }
+    .section-number { color:#af321f2e; font-family:"Big Shoulders Display", sans-serif; font-size:82px; font-weight:800; line-height:.75; }
+    .section-kicker { margin:0 0 4px; color:var(--red); font-size:12px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; }
+    .section-heading h2 { margin:0; color:var(--ink); font-size:42px; line-height:.95; }
+    .research-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .research-card { min-height:250px; padding:28px; border-radius:18px; background:#f5f1ef; }
+    .research-card:nth-child(2) { background:#ebe6e3; }
+    .research-card.accent { background:var(--red); color:#fff; }
+    .research-card h3 { margin:0 0 16px; font-family:"Big Shoulders Display", sans-serif; font-size:28px; text-align:center; text-transform:uppercase; }
+    .research-card ul { margin:0; padding-left:18px; font-size:16px; line-height:1.45; }
+    .research-card li + li { margin-top:8px; }
+    .character { display:grid; grid-template-columns:1fr 1fr; gap:45px; align-items:center; padding:36px; border-radius:24px; background:#fff; }
+    .character + .character { margin-top:25px; }
+    .character.reverse .portrait { order:-1; }
+    .tag { display:inline-block; padding:5px 12px; color:#fff; background:var(--red); border-radius:99px; font-family:"Big Shoulders Display", sans-serif; font-size:22px; text-transform:uppercase; }
+    .character h3 { margin:17px 0; color:var(--red); font-family:"Big Shoulders Display", sans-serif; font-size:32px; line-height:.95; text-transform:uppercase; }
+    .fact { margin-top:10px; padding:13px 15px; border-radius:10px; background:#f2efed; font-size:16px; line-height:1.35; }
+    .fact b { display:block; margin-bottom:3px; font-size:13px; text-transform:uppercase; }
+    .portrait { max-width:430px; justify-self:center; padding:12px 12px 28px; background:#fff; border-radius:16px; box-shadow:0 12px 24px #46363024; }
+    .portrait img { display:block; width:100%; border-radius:9px; }
+    .reader { border:1px solid #dfccc6; border-radius:22px; overflow:hidden; background:#fff; box-shadow:0 12px 30px #47291a17; }
+    .reader-bar { display:flex; align-items:center; justify-content:space-between; padding:14px 20px; background:#f4efed; font-size:14px; font-weight:700; }
+    .reader-stage { position:relative; display:grid; place-items:center; min-height:520px; padding:25px 70px; background:#e8e2df; }
+    .reader-stage img { display:none; max-width:100%; max-height:500px; box-shadow:0 8px 22px #24171155; }
+    .reader-stage img.current { display:block; }
+    .reader button { display:grid; place-items:center; width:42px; height:42px; border:0; border-radius:50%; background:#fff; color:var(--red); box-shadow:0 3px 10px #0002; font-size:26px; cursor:pointer; }
+    .reader .previous { position:absolute; left:18px; }.reader .next { position:absolute; right:18px; }
+    .thumbnails { display:flex; gap:9px; padding:15px; overflow-x:auto; }
+    .reader .thumb { display:block; flex:0 0 auto; width:auto; height:46px; aspect-ratio:843 / 596; padding:0; border:2px solid transparent; border-radius:6px; overflow:hidden; background:none; box-shadow:none; font-size:0; cursor:pointer; opacity:.65; }
+    .thumb.active { border-color:var(--red); opacity:1; }.thumb img { display:block; width:100%; }
+    footer { padding:48px clamp(20px, 8vw, 96px); text-align:center; background:#eee9e6; color:#544946; font-size:20px; line-height:28px; font-weight:500; letter-spacing:.02em; }
+    footer b { color:var(--red); font-family:"Big Shoulders Display", sans-serif; font-size:24px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; }
+    @media (max-width:760px) { .page { padding-top:72px; } header { height:72px; padding:0 24px; } nav { display:none; } main { padding:55px 8% 30px; background-position:65% center; } h1 { font-size:42px; } .content-section { padding:60px 7%; } .section-heading h2 { font-size:34px; } .research-grid,.character { grid-template-columns:1fr; } .character { padding:22px; gap:25px; } .character.reverse .portrait { order:0; } .reader-stage { min-height:250px; padding:20px 52px; } .reader-stage img { max-height:300px; } .reader .thumb { height:40px; } footer { padding:48px 20px; font-size:18px; line-height:26px; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logo"><a href="../../index.html" aria-label="Go to homepage">NguyenThao</a></div>
+      <nav aria-label="Primary navigation"><a id="nav-home" href="../../index.html">Home</a><a id="nav-works" class="active" href="../../work.html" aria-current="page">Works</a><a href="../../about.html">About</a></nav>
+    </header>
+    <main id="home">
+      <section class="copy">
+        <span class="eyebrow">DRAWING ANGEL WINGS 2025 CONTEST</span>
+        <h1>The Red Scarf Fluttering<br>in the Wind</h1>
+        <h2>A heartfelt tribute to resilient children</h2>
+        <p class="intro">A touching picture book project created by Lê Nguyên Thảo, dedicated to children with disabilities in Vietnam. Inspired by the resilient land of Quảng Trị and the inspiring courage of little sprouts rising above the lingering wounds of war.</p>
+        <div class="actions"><a class="button" href="#story">Read the Story <span class="arrow">→</span></a><a class="contest" href="https://lstf.org.vn/vecanhthienthan/" target="_blank" rel="noopener noreferrer">About the Contest <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"></path><path d="M20 4 10 14"></path><path d="M20 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h5"></path></svg></a></div>
+        <div class="details"><div>Author<strong>Lê Nguyên Thảo</strong></div><div>Genre<strong>Picture Book</strong></div></div>
+      </section>
+    </main>
+    <section class="content-section" id="about">
+      <div class="section-heading"><span class="section-number">01</span><div><p class="section-kicker">Historical &amp; social research</p><h2>Background &amp; Human Inspiration</h2></div></div>
+      <div class="research-grid">
+        <article class="research-card"><h3>Introduction</h3><ul><li>Quảng Trị remains deeply affected by unexploded bombs and landmines left after the war.</li><li>Explosive remnants can still be found in farms, forests, rivers and neighbourhoods.</li><li>Safety education and clearance work remain essential for local communities.</li></ul></article>
+        <article class="research-card"><h3>Context Research</h3><ul><li>Farmers and children are among the most vulnerable groups.</li><li>Accidents can lead to lifelong disability, trauma and financial hardship.</li><li>These hidden dangers also slow local development.</li></ul></article>
+        <article class="research-card accent"><h3>Relevance to the Story</h3><ul><li>Gạo's journey is inspired by the resilience of children in Quảng Trị.</li><li>His determination celebrates courage, hope and the value of peace.</li><li>The book invites readers to see strength beyond every scar.</li></ul></article>
+      </div>
+    </section>
+    <section class="content-section alt" id="characters">
+      <div class="section-heading"><span class="section-number">02</span><div><p class="section-kicker">Character concepts</p><h2>Gạo &amp; Grandpa</h2></div></div>
+      <article class="character"><div><span class="tag">Young Gạo</span><h3>The boy bearing a flame of optimism</h3><div class="fact"><b>Profile</b>An energetic elementary-school boy who never gives up on his dream.</div><div class="fact"><b>Personality &amp; motivation</b>Kind, brave and determined to move forward every day.</div><div class="fact"><b>Symbolism</b>He represents hope and the strength of children overcoming adversity.</div></div><figure class="portrait"><img src="Character/Gạo.png" alt="Character concept for Gạo"></figure></article>
+      <article class="character reverse"><div><span class="tag" style="background:#675852">Gạo's Grandpa</span><h3 style="color:#302724">A guiding hand through memories</h3><div class="fact"><b>Profile</b>A wise, patient former soldier with a gentle smile and scarred hands.</div><div class="fact"><b>Role in the story</b>He supports Gạo with stories, encouragement and meaningful life lessons.</div><div class="fact"><b>Symbolism</b>He carries courage and responsibility from one generation to the next.</div></div><figure class="portrait"><img src="Character/Grandpa.png" alt="Gạo with his grandfather"></figure></article>
+    </section>
+    <section class="content-section" id="story">
+      <div class="section-heading"><span class="section-number">03</span><div><p class="section-kicker">Picture book reader</p><h2>Read the Story</h2></div></div>
+      <div class="reader">
+        <div class="reader-bar"><span id="page-label">PAGE 1 / 12</span><span>The Red Scarf Fluttering in the Wind</span></div>
+        <div class="reader-stage"><button class="previous" aria-label="Previous page">‹</button><img class="current" src="Image/1.png" alt="Page 1 of The Red Scarf"><img src="Image/2.png" alt="Page 2 of The Red Scarf"><img src="Image/3.png" alt="Page 3 of The Red Scarf"><img src="Image/4.png" alt="Page 4 of The Red Scarf"><img src="Image/5.png" alt="Page 5 of The Red Scarf"><img src="Image/6.png" alt="Page 6 of The Red Scarf"><img src="Image/7.png" alt="Page 7 of The Red Scarf"><img src="Image/8.png" alt="Page 8 of The Red Scarf"><img src="Image/9.png" alt="Page 9 of The Red Scarf"><img src="Image/10.png" alt="Page 10 of The Red Scarf"><img src="Image/11.png" alt="Page 11 of The Red Scarf"><img src="Image/12.png" alt="Page 12 of The Red Scarf"><button class="next" aria-label="Next page">›</button></div>
+        <div class="thumbnails" aria-label="Select a page"></div>
+      </div>
+    </section>
+    <footer><b>The Red Scarf Fluttering in the Wind</b> — Drawing Angel Wings 2025</footer>
+  </div>
+  <script>
+    const pages = [...document.querySelectorAll('.reader-stage img')];
+    const thumbnails = document.querySelector('.thumbnails');
+    const pageLabel = document.querySelector('#page-label');
+    let page = 0;
+    pages.forEach((image, index) => { const button = document.createElement('button'); button.className = 'thumb' + (!index ? ' active' : ''); button.innerHTML = `<img src="${image.src}" alt="Go to page ${index + 1}">`; button.onclick = () => showPage(index); thumbnails.append(button); });
+    function showPage(index) { page = (index + pages.length) % pages.length; pages.forEach((image, i) => image.classList.toggle('current', i === page)); [...thumbnails.children].forEach((button, i) => button.classList.toggle('active', i === page)); pageLabel.textContent = `PAGE ${page + 1} / ${pages.length}`; }
+    document.querySelector('.previous').onclick = () => showPage(page - 1);
+    document.querySelector('.next').onclick = () => showPage(page + 1);
+    // Use the same shared navigation behaviour as Treasure.
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    const openAtTop = () => window.scrollTo(0, 0);
+    openAtTop();
+    window.addEventListener('pageshow', openAtTop);
+    const siteHeader = document.querySelector('header');
+    const homeLink = document.querySelector('#nav-home');
+    const worksLink = document.querySelector('#nav-works');
+    const openedFrom = new URLSearchParams(window.location.search).get('from');
+    const cameFromHome = openedFrom === 'home' || (!openedFrom && document.referrer.endsWith('/index.html'));
+    const activeNav = cameFromHome ? homeLink : worksLink;
+    [homeLink, worksLink].forEach(link => {
+      const isActive = link === activeNav;
+      link.classList.toggle('active', isActive);
+      if (isActive) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+    window.addEventListener('scroll', () => { siteHeader.style.transform = window.scrollY > 0 ? 'translateY(-100%)' : 'translateY(0)'; }, { passive:true });
+  </script>
+</body>
+</html>
