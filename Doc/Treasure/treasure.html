@@ -484,9 +484,9 @@
     header.style.transition = 'none';
     header.innerHTML = `
       <div class="w-full max-w-[1440px] min-h-20 mx-auto px-6 md:px-24 flex items-center justify-between">
-        <a class="site-brand font-['Big_Shoulders_Display'] text-[25px] leading-none font-black tracking-[-0.4px] text-primary no-underline" href="../../home.html">NguyenThao</a>
+        <a class="site-brand font-['Big_Shoulders_Display'] text-[25px] leading-none font-black tracking-[-0.4px] text-primary no-underline" href="../../index.html">NguyenThao</a>
         <nav class="hidden md:flex items-center gap-12 text-primary" aria-label="Primary navigation">
-          <a id="nav-home" class="text-xl leading-7 font-medium border-b-2 border-transparent hover:text-primary" href="../../home.html">Home</a>
+          <a id="nav-home" class="text-xl leading-7 font-medium border-b-2 border-transparent hover:text-primary" href="../../index.html">Home</a>
           <a id="nav-works" class="text-xl leading-7 font-medium border-b-2 border-transparent hover:text-primary" href="../../work.html" aria-current="page">Works</a>
           <a class="text-xl leading-7 font-medium border-b-2 border-transparent hover:text-primary" href="../../about.html">About</a>
         </nav>
@@ -499,7 +499,7 @@
     }
 
     const from = new URLSearchParams(window.location.search).get('from');
-    const enteredFromHome = from === 'home' || (!from && document.referrer.endsWith('/home.html'));
+    const enteredFromHome = from === 'index' || (!from && document.referrer.endsWith('/index.html'));
     const home = document.getElementById('nav-home');
     const works = document.getElementById('nav-works');
     const activeLink = enteredFromHome ? home : works;

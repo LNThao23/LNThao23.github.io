@@ -170,26 +170,26 @@ selectCompetitor(0, false, false);
 startCompetitorTimer();
 
 const entryParam = new URLSearchParams(window.location.search).get("from");
-let entryPoint = entryParam === "home" || entryParam === "works" ? entryParam : "works";
+let entryPoint = entryParam === "index" || entryParam === "works" ? entryParam : "works";
 
 if (!entryParam && document.referrer) {
   try {
     const referrerPath = new URL(document.referrer).pathname;
-    entryPoint = referrerPath.endsWith("/work.html") ? "works" : "home";
+    entryPoint = referrerPath.endsWith("/work.html") ? "works" : "index";
   } catch (_) {}
 }
 
 const navHome = document.getElementById("nav-home");
 const navWorks = document.getElementById("nav-works");
 const backLink = document.getElementById("back-link");
-if (entryPoint === "home") {
+if (entryPoint === "index") {
   navHome.setAttribute("aria-current", "page");
   navWorks.removeAttribute("aria-current");
 } else {
   navWorks.setAttribute("aria-current", "page");
   navHome.removeAttribute("aria-current");
 }
-if (backLink) backLink.href = entryPoint === "home" ? "../../home.html" : "../../work.html";
+if (backLink) backLink.href = entryPoint === "index" ? "../../index.html" : "../../work.html";
 
 const contentNavLinks = [...document.querySelectorAll(".content-nav a")];
 const contentSections = contentNavLinks

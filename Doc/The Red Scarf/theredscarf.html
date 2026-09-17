@@ -76,8 +76,8 @@
 <body>
   <div class="page">
     <header>
-      <div class="logo"><a href="../../home.html" aria-label="Go to homepage">NguyenThao</a></div>
-      <nav aria-label="Primary navigation"><a id="nav-home" href="../../home.html">Home</a><a id="nav-works" class="active" href="../../work.html" aria-current="page">Works</a><a href="../../about.html">About</a></nav>
+      <div class="logo"><a href="../../index.html" aria-label="Go to homepage">NguyenThao</a></div>
+      <nav aria-label="Primary navigation"><a id="nav-home" href="../../index.html">Home</a><a id="nav-works" class="active" href="../../work.html" aria-current="page">Works</a><a href="../../about.html">About</a></nav>
     </header>
     <main id="home">
       <section class="copy">
@@ -130,7 +130,7 @@
     const homeLink = document.querySelector('#nav-home');
     const worksLink = document.querySelector('#nav-works');
     const openedFrom = new URLSearchParams(window.location.search).get('from');
-    const cameFromHome = openedFrom === 'home' || (!openedFrom && document.referrer.endsWith('/home.html'));
+    const cameFromHome = openedFrom === 'index' || (!openedFrom && document.referrer.endsWith('/index.html'));
     const activeNav = cameFromHome ? homeLink : worksLink;
     [homeLink, worksLink].forEach(link => {
       const isActive = link === activeNav;
