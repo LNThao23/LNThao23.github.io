@@ -1,0 +1,643 @@
+<!DOCTYPE html><html class="dark scroll-smooth" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>AgileFit — UX Case Study &amp; Product Portfolio</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&amp;family=Big+Shoulders+Display:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary-fixed": "#B8FF00",
+            "primary-fixed-dim": "#9cd900",
+            "primary-container": "#B8FF00",
+            "on-primary-container": "#131f00",
+            "on-primary-fixed": "#0e1600",
+            "surface": "#0E0E0E",
+            "surface-dim": "#121212",
+            "surface-container-lowest": "#080808",
+            "surface-container-low": "#151515",
+            "surface-container": "#1A1A1A",
+            "surface-container-high": "#232323",
+            "surface-container-highest": "#2E2E2E",
+            "on-surface": "#F2F2F2",
+            "on-surface-variant": "#9E9E9E",
+            "secondary": "#A3A3A3",
+            "outline": "#2E381B",
+            "tertiary-fixed": "#6bff8f"
+          },
+          fontFamily: {
+            headline: ["Big Shoulders Display", "sans-serif"],
+            display: ["Big Shoulders Display", "sans-serif"],
+            sans: ["Afacad", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; background-color: #0A0A0A; color: #F2F2F2; font-family: 'Afacad', sans-serif; font-size: 16px; }
+      ::-webkit-scrollbar { width: 6px; }
+      ::-webkit-scrollbar-track { background: #0E0E0E; }
+      ::-webkit-scrollbar-thumb { background: #262626; border-radius: 9999px; }
+      ::-webkit-scrollbar-thumb:hover { background: #B8FF00; }
+    }
+    .neon-border-glow {
+      box-shadow: 0 0 25px -4px rgba(184, 255, 0, 0.25);
+    }
+    .badge-glow {
+      box-shadow: 0 0 16px rgba(184, 255, 0, 0.35);
+    }
+    #section-4 .flow-card { padding: 16px !important; }
+    #section-4 .flow-card h3 { font-size: 20px !important; line-height: 1.1 !important; }
+    #section-4 .flow-card p { font-size: 12px !important; line-height: 1.4 !important; margin-bottom: 0 !important; }
+    #section-4 .flow-card {
+      border-color: rgba(255,255,255,.10) !important;
+      box-shadow: none !important;
+      background: linear-gradient(135deg, rgba(184,255,0,.04) 0%, rgba(26,26,26,.96) 65%) !important;
+    }
+    #section-4 .flow-card.prototype-active {
+      border-color: #B8FF00 !important;
+      box-shadow: 0 0 20px rgba(184,255,0,.18) !important;
+      background: linear-gradient(135deg, rgba(184,255,0,.08) 0%, rgba(26,26,26,.95) 55%, rgba(16,185,129,.04) 100%) !important;
+    }
+    #section-4 .flow-card .w-9 {
+      background-color: #232323 !important;
+      color: #B8FF00 !important;
+    }
+    #section-4 .flow-card.prototype-active .w-9 {
+      background-color: #B8FF00 !important;
+      color: #000 !important;
+    }
+    #section-1 > .max-w-7xl, #section-2 > .max-w-7xl,
+    #section-3 > .max-w-7xl, #section-4 > .max-w-7xl {
+      padding-left: 40px !important;
+      padding-right: 40px !important;
+    }
+    @media (min-width: 1024px) {
+      #section-1 > .max-w-7xl, #section-2 > .max-w-7xl,
+      #section-3 > .max-w-7xl, #section-4 > .max-w-7xl {
+        padding-left: 80px !important;
+        padding-right: 80px !important;
+      }
+    }
+    .agile-chapter-nav { position: sticky; top: 0; z-index: 40; min-height: 96px; display: flex; align-items: center; background: rgba(14,14,14,.78); border-top: 1px solid rgba(255,255,255,.08); border-bottom: 1px solid rgba(255,255,255,.06); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+    .agile-chapter-nav__links { width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 0 24px; }
+    .agile-chapter-nav a { min-height: 30px; padding: 7px 18px; border: 1px solid #34383c; border-radius: 999px; color: #d1d5db; background: rgba(255,255,255,.035); font-family: 'Afacad', sans-serif; font-size: 16px; font-weight: 400; line-height: 16px; white-space: nowrap; transition: background .2s ease, box-shadow .2s ease, color .2s ease; }
+    .agile-chapter-nav a:hover, .agile-chapter-nav a.active { color: #111; background: #B8FF00; border-color: #B8FF00; box-shadow: 0 0 18px rgba(184,255,0,.45); font-weight: 700; }
+    @media (max-width: 760px) { .agile-chapter-nav { min-height: 76px; overflow-x: auto; } .agile-chapter-nav__links { justify-content: flex-start; } }
+    .font-headline, .font-display { font-family: 'Big Shoulders Display', sans-serif; font-weight: 900; }
+    .site-header { min-height: 80px; padding: 24px 0 16px; background: #0d0f10; border-bottom: 1px solid rgba(255,255,255,.16); }
+    .site-header .nav { width: 100%; max-width: 1440px; margin: auto; padding: 0 96px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .brand { font-family: 'Big Shoulders Display', sans-serif; font-size: 25px; font-weight: 900; line-height: 1; letter-spacing: -.4px; color: #fff; }
+    .site-header .nav-links { display: flex; gap: 48px; font-size: 20px; line-height: 28px; color: #f2f2f2; }
+    .site-header .nav-links a { border-bottom: 2px solid transparent; font-weight: 500; }
+    .site-header .nav-links a:hover, .site-header .nav-links a[aria-current="page"] { color: #fff; border-color: currentColor; }
+    .site-header .nav-links a[aria-current="page"] { font-weight: 700; }
+    @media (max-width: 760px) { .site-header .nav { padding: 0 24px; } .site-header .nav-links { display: none; } }
+  </style>
+<link rel="stylesheet" href="../../typography.css">
+</head>
+<body class="bg-[#0A0A0A] text-on-surface antialiased selection:bg-primary-fixed selection:text-black" style="background: radial-gradient(600px at 90% 10%, rgba(184, 255, 0, 0.18) 0%, rgba(16, 185, 129, 0.08) 40%, transparent 70%) fixed, radial-gradient(700px at 5% 45%, rgba(184, 255, 0, 0.12) 0%, rgba(0, 230, 118, 0.06) 45%, transparent 70%), radial-gradient(650px at 85% 80%, rgba(184, 255, 0, 0.15) 0%, rgba(16, 185, 129, 0.07) 40%, transparent 70%), rgb(13, 14, 17); min-height: 100vh;"><div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden"><div class="absolute top-[38%] -left-16 w-[360px] h-[240px] rounded-full blur-[100px] opacity-20 rotate-12 pointer-events-none" style="background: radial-gradient(circle, rgba(184, 255, 0, 0.7) 0%, rgba(0, 230, 118, 0.4) 55%, transparent 75%);"></div><div class="absolute bottom-[12%] right-[2%] w-[420px] h-[260px] rounded-full blur-[110px] opacity-20 pointer-events-none" style="background: radial-gradient(circle, rgba(184, 255, 0, 0.75) 0%, rgba(16, 185, 129, 0.35) 50%, transparent 75%);"></div></div>
+<!-- TOP BRAND NAVBAR -->
+<header class="site-header">
+<nav class="nav" aria-label="Primary navigation">
+<a class="brand" href="../../home.html">NguyenThao</a>
+<div class="nav-links">
+<a id="nav-home" href="../../home.html">Home</a>
+<a id="nav-works" href="../../work.html" aria-current="page">Works</a>
+<a href="../../about.html">About</a>
+</div>
+</nav>
+</header>
+<script>
+  const agileSource = new URLSearchParams(window.location.search).get('from');
+  if (agileSource === 'home') {
+    document.getElementById('nav-works').removeAttribute('aria-current');
+    document.getElementById('nav-home').setAttribute('aria-current', 'page');
+  }
+</script>
+<!-- MAIN WRAPPER -->
+<main>
+<!-- HERO HEADER: CASE STUDY TITLE & OVERVIEW -->
+<section class="relative overflow-hidden border-b border-white/5 pt-16 pb-20 lg:py-24" style="padding-left: 60px; padding-right: 60px;">
+<div class="absolute -top-12 -left-12 w-[280px] h-[280px] rounded-full blur-[90px] opacity-30 pointer-events-none -z-10" style="background: radial-gradient(circle, rgb(184, 255, 0) 0%, rgba(16, 185, 129, 0.7) 45%, transparent 75%);"></div>
+<div class="absolute -bottom-20 -right-20 w-[480px] h-[480px] rounded-full blur-[110px] opacity-25 pointer-events-none -z-10" style="background: radial-gradient(circle, rgb(184, 255, 0) 0%, rgba(16, 185, 129, 0.6) 40%, rgba(0, 230, 118, 0.2) 65%, transparent 80%);"></div>
+<div class="max-w-7xl mx-auto px-5 lg:px-8" style="padding-left: 48px; padding-right: 48px;"><div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"><div class="lg:col-span-7"><div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high border border-primary-fixed/30 text-primary-fixed font-display text-xs uppercase tracking-widest mb-6 badge-glow">ui/ux design • final project</div><h1 class="mb-3 uppercase tracking-tight"><span class="block font-headline text-6xl sm:text-8xl lg:text-[92px] lg:leading-[88px] text-primary-fixed tracking-tight">AGILEFIT</span></h1><h3 class="font-headline uppercase text-white tracking-tight glow-title mb-6">FITNESS APP FOR BUSY STUDENTS</h3><p class="text-zinc-300 text-base sm:text-lg lg:text-xl font-sans max-w-2xl leading-relaxed mb-8" style="text-align: justify;">A comprehensive human-centered design case study developing an intelligent academic timetable-sync engine and dual-mode workout companion radar to eliminate scheduling paralysis and isolation among university athletes.</p><div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6 rounded-2xl bg-surface-container-low border border-white/5" style="background: linear-gradient(135deg, rgba(184, 255, 0, 0.04) 0%, rgba(20, 20, 20, 0.95) 40%, rgba(16, 185, 129, 0.03) 100%);"><div><span class="text-[11px] font-display uppercase tracking-widest text-zinc-500 font-semibold block mb-2">TEAM MEMBERS</span><div class="space-y-1.5 text-sm font-semibold text-white"><div class="">Lâm Vĩ Khang</div><div class="">Lê Nguyên Thảo</div><div class="">Hà Bảo Ngọc</div></div></div><div><div class="space-y-1.5 text-sm font-semibold text-white"><div class=""><div><br></div>Trần Minh Quang</div><div class="">Ngô Hồng Thanh</div></div></div><div><span class="text-[11px] font-display uppercase tracking-widest text-zinc-500 font-semibold block mb-2">Target Audience</span><div class="text-sm font-semibold text-white mb-1">University Students&nbsp;<div class="">(Gen-Z)</div></div></div></div></div><div class="lg:col-span-5 flex justify-center lg:justify-end relative"><div class="w-full max-w-[320px] bg-[#1C1B1B] rounded-[48px] p-3 shadow-[0_25px_60px_rgba(0,0,0,0.95),0_0_40px_rgba(184,255,0,0.18)] border-2 border-primary-fixed/30 relative overflow-hidden"><div class="absolute -left-[5px] top-24 w-[3px] h-8 bg-[#383838] rounded-l"></div><div class="absolute -left-[5px] top-36 w-[3px] h-10 bg-[#383838] rounded-l"></div><div class="absolute -right-[5px] top-28 w-[3px] h-14 bg-[#383838] rounded-r"></div><div class="w-full bg-[#0E0E0E] rounded-[40px] overflow-hidden relative border border-white/10 flex flex-col"><div class="pt-3 px-5 pb-2 flex items-center justify-between z-20"><span class="text-xs font-semibold text-zinc-300">09:41</span><div class="w-20 h-4 bg-black rounded-full flex items-center justify-between px-2 shadow-inner"><span class="w-2 h-2 rounded-full bg-[#1F1F1F] ring-1 ring-zinc-800"></span><span class="w-1.5 h-1.5 rounded-full bg-emerald-500/80 animate-pulse"></span></div><div class="flex items-center gap-1 text-zinc-300"><span class="material-symbols-outlined text-[12px]">signal_cellular_alt</span><span class="material-symbols-outlined text-[12px]">wifi</span><span class="material-symbols-outlined text-[12px]">battery_full</span></div></div><div class="relative w-full aspect-[9/17] bg-[#0E0E0E] overflow-hidden"><img src="Cover.png" alt="AgileFit Mobile App Welcome Preview" class="w-full h-full object-cover object-center transform scale-105 hover:scale-110 transition-transform duration-500"><div class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black via-black/80 to-transparent flex flex-col gap-1"><div class="flex items-center justify-between"></div></div></div><div class="py-2 flex justify-center bg-black"><div class="w-24 h-1 bg-white/30 rounded-full"></div></div></div></div></div></div></div>
+</section>
+<nav class="agile-chapter-nav" aria-label="AgileFit case study sections">
+<div class="agile-chapter-nav__links">
+<a class="active" href="#section-1">01 · Competitor Research</a>
+<a href="#section-2">02 · User Research</a>
+<a href="#section-3">03 · User Analysis</a>
+<a href="#section-4">04 · Prototype</a>
+</div>
+</nav>
+<!-- SECTION 1: COMPETITOR RESEARCH -->
+<section class="py-24 border-b border-white/5 relative" id="section-1">
+<div class="max-w-7xl mx-auto px-5 lg:px-8">
+<!-- Section Title Header -->
+<div class="flex flex-col items-center justify-center text-center gap-2 mb-14"><div class="flex flex-col items-center"><div class="inline-flex items-center gap-2 text-primary-fixed font-display text-xs uppercase tracking-widest mb-2 font-bold"><span class="">Section 01</span></div><h2 class="font-headline text-4xl sm:text-5xl lg:text-6xl uppercase tracking-tight text-white glow-title">COMPETITOR RESEARCH</h2></div></div>
+<!-- Matrix Table Container -->
+<div class="overflow-x-auto rounded-2xl border border-white/10 bg-surface-container-low shadow-2xl mb-12" style="background: radial-gradient(circle at right top, rgba(184, 255, 0, 0.05) 0%, transparent 60%), linear-gradient(rgba(21, 21, 21, 0.95) 0%, rgba(14, 14, 14, 0.98) 100%);">
+<table class="w-full text-left border-collapse min-w-[760px]">
+<thead>
+<tr class="bg-surface-container-high/70 border-b border-white/10 font-display text-xs uppercase tracking-widest">
+<th class="p-5 text-zinc-400 w-1/5">Comparison Dimension</th>
+<th class="p-5 text-white w-1/4 text-center"><div class="flex items-center justify-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-orange-500"></span><span class="text-base font-headline uppercase tracking-widest" style="letter-spacing: 0.25em;">Strava</span></div></th>
+<th class="p-5 text-white w-1/4 text-center"><div class="flex items-center justify-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span><span class="text-base font-headline uppercase tracking-widest" style="letter-spacing: 0.25em;">UpRace</span></div></th>
+<th class="p-5 text-primary-fixed w-3/10 bg-primary-fixed/5 border-l border-primary-fixed/30 text-center"><div class="flex items-center justify-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-primary-fixed"></span><span class="text-base font-headline uppercase text-primary-fixed tracking-widest" style="letter-spacing: 0.25em;">AgileFit</span></div></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5 font-sans text-xs sm:text-sm"><tr class="hover:bg-white/[0.02] transition-colors">
+<td class="p-5 font-semibold text-zinc-300 font-display uppercase tracking-wider text-xs">Target Audience</td>
+<td class="p-5 text-zinc-300">Dedicated endurance athletes, marathon runners, avid cyclists.</td>
+<td class="p-5 text-zinc-300">Corporate teams, enterprise CSR events, annual charity runners.</td>
+<td class="p-5 text-zinc-300 bg-primary-fixed/[0.03] border-l border-primary-fixed/20 font-medium">Busy undergraduate students &amp; academic peers balancing rigorous study with fitness.</td>
+</tr>
+<tr class="hover:bg-white/[0.02] transition-colors">
+<td class="p-5 font-semibold text-zinc-300 font-display uppercase tracking-wider text-xs">Core Strengths</td>
+<td class="p-5 text-zinc-300">GPS segment leaderboards, deep post-activity biometrics, prestige social feed.</td>
+<td class="p-5 text-zinc-300">Corporate team donations, gamified milestone badges, fundraising leaderboards.</td>
+<td class="p-5 text-zinc-300 bg-primary-fixed/[0.03] border-l border-primary-fixed/20 font-medium">Smart workout time suggestions based on the student's existing class schedule and instant buddy workout invites.</td>
+</tr>
+<tr class="hover:bg-white/[0.02] transition-colors">
+
+
+
+
+</tr>
+<tr class="hover:bg-white/[0.02] transition-colors">
+<td class="p-5 font-semibold text-zinc-300 font-display uppercase tracking-wider text-xs">Accountability Mechanism</td>
+<td class="p-5 text-zinc-300">Passive "Kudos" and delayed comments posted after a workout is already finished.</td>
+<td class="p-5 text-zinc-300">Top-down organization distance goals and asynchronous team ranking lists.</td>
+<td class="p-5 text-zinc-300 bg-primary-fixed/[0.03] border-l border-primary-fixed/20 font-medium"><strong class="text-zinc-300 font-semibold">Synchronized Real-Time Presence:</strong> In-person proximity check-in or live two-way split video workout HUD.</td>
+</tr></tbody>
+</table>
+</div>
+<!-- Key Takeaways White Space Banner -->
+<div class="p-6 lg:p-8 rounded-2xl bg-surface-container border border-primary-fixed/30 relative overflow-hidden neon-border-glow" style="background: linear-gradient(135deg, rgba(184, 255, 0, 0.08) 0%, rgba(26, 26, 26, 0.95) 45%, rgba(16, 185, 129, 0.06) 100%);">
+<div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+<div class="space-y-2 w-full">
+<span class="px-3 py-1 bg-primary-fixed text-black font-display font-bold text-xs uppercase tracking-wider rounded-full">
+                Key Strategic Finding</span>
+<h3 class="font-headline text-2xl lg:text-3xl uppercase text-white">
+                LIMITED TIME AND EXERCISE PROCRASTINATION
+              </h3>
+<ul class="space-y-3 text-zinc-300 text-sm leading-relaxed w-full"><li class="flex items-start gap-3"><span class="w-1.5 h-1.5 rounded-full bg-primary-fixed shrink-0 mt-2"></span><span class="">Students often have to balance <strong>class schedules, assignments, and personal activities</strong>, making it difficult to find time for exercise. When they have free time, they may also <strong>procrastinate on exercising</strong>, thinking they can always work out later.</span></li><li class="flex items-start gap-3"><span class="w-1.5 h-1.5 rounded-full bg-primary-fixed shrink-0 mt-2"></span><span class=""><strong>AgileFit</strong> helps students easily identify their free time and quickly schedule workouts, turning those empty time slots into opportunities to stay active.</span></li></ul>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 2: USER RESEARCH -->
+<section class="py-24 border-b border-white/5 bg-[#0D0D0D]" id="section-2">
+<div class="max-w-7xl mx-auto px-5 lg:px-8">
+<!-- Section Header -->
+<div class="flex flex-col items-center justify-center text-center gap-2 mb-16"><div class="flex flex-col items-center"><div class="inline-flex items-center gap-2 text-primary-fixed font-display text-xs uppercase tracking-widest mb-2 font-bold"><span class="">Section 02</span></div><h2 class="font-headline text-4xl sm:text-5xl lg:text-6xl uppercase tracking-tight text-white glow-title">USER RESEARCH</h2></div></div>
+<div class="space-y-16">
+<!-- Pillar A: User Interview & Methodology -->
+<div class="p-8 lg:p-10 rounded-2xl bg-surface-container-low border border-white/5 shadow-xl space-y-8" style="background: radial-gradient(circle at left top, rgba(184, 255, 0, 0.06) 0%, transparent 50%), radial-gradient(circle at right bottom, rgba(16, 185, 129, 0.04) 0%, transparent 50%), rgb(21, 21, 21);"><div class="flex items-center justify-between flex-wrap gap-4 pb-6 border-b border-white/10"><div class="flex items-center gap-3"><span class="w-8 h-8 rounded-lg bg-primary-fixed text-black font-display font-black text-sm flex items-center justify-center">2A</span><div><h3 class="font-headline text-2xl uppercase tracking-wide text-white">User Interview &amp; Field Research</h3></div></div><span class="px-3 py-1 rounded-full bg-white/5 text-zinc-300 font-display text-xs uppercase tracking-wider border border-white/10">9 Participants (Age 21) • July 21–22, 2026</span></div><div class="p-6 rounded-xl bg-surface-container border border-primary-fixed/30 relative overflow-hidden" style="background: linear-gradient(135deg, rgba(184, 255, 0, 0.06) 0%, rgba(26, 26, 26, 0.95) 60%);"><div class="flex flex-col sm:flex-row items-start sm:items-center gap-4"><div class="w-10 h-10 rounded-xl bg-primary-fixed/20 text-primary-fixed flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[24px]">record_voice_over</span></div><div><div class="text-primary-fixed font-display font-bold text-xs uppercase tracking-wider mb-1">Field Methodology &amp; Demographics</div><p class="text-zinc-300 text-xs sm:text-sm leading-relaxed font-sans">We conducted interviews with <strong>9 university students</strong>, all aged 21 and living in Ho Chi Minh City. The interviews were conducted from <strong>July 21–22, 2026</strong>, using a structured qualitative questionnaire covering exercise habits, motivation, barriers, technology use, and desired support systems.</p></div></div></div><div><div class="flex items-center gap-2 mb-4"><span class="text-primary-fixed font-display text-xs uppercase tracking-wider font-bold">Core Objectives</span><h4 class="font-headline text-lg uppercase text-white tracking-wide">Research Goals</h4></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"><div class="bg-surface-container p-4 rounded-xl border border-white/5 flex items-start gap-3"><span class="w-6 h-6 rounded-md bg-primary-fixed/15 text-primary-fixed font-display font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">01</span><p class="text-zinc-300 text-xs leading-relaxed">Understand students' current exercise habits and routines.</p></div><div class="bg-surface-container p-4 rounded-xl border border-white/5 flex items-start gap-3"><span class="w-6 h-6 rounded-md bg-primary-fixed/15 text-primary-fixed font-display font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">02</span><p class="text-zinc-300 text-xs leading-relaxed">Identify why they postpone or skip workouts during the week.</p></div><div class="bg-surface-container p-4 rounded-xl border border-white/5 flex items-start gap-3"><span class="w-6 h-6 rounded-md bg-primary-fixed/15 text-primary-fixed font-display font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">03</span><p class="text-zinc-300 text-xs leading-relaxed">Explore factors that influence motivation and day-to-day consistency.</p></div><div class="bg-surface-container p-4 rounded-xl border border-white/5 flex items-start gap-3"><span class="w-6 h-6 rounded-md bg-primary-fixed/15 text-primary-fixed font-display font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">04</span><p class="text-zinc-300 text-xs leading-relaxed">Understand how workload, fatigue, weather, and social factors affect exercise.</p></div><div class="bg-surface-container p-4 rounded-xl border border-white/5 flex items-start gap-3"><span class="w-6 h-6 rounded-md bg-primary-fixed/15 text-primary-fixed font-display font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">05</span><p class="text-zinc-300 text-xs leading-relaxed">Investigate users' attitudes toward fitness tracking and reminders.</p></div><div class="bg-surface-container p-4 rounded-xl border border-white/5 flex items-start gap-3"><span class="w-6 h-6 rounded-md bg-primary-fixed/15 text-primary-fixed font-display font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">06</span><p class="text-zinc-300 text-xs leading-relaxed">Identify what kind of support users actually find helpful.</p></div></div></div></div>
+<!-- Pillar B: User Insight Cards -->
+<div class="space-y-8"><div class="flex items-center justify-between flex-wrap gap-4"><div class="flex items-center gap-3"><span class="w-8 h-8 rounded-lg bg-primary-fixed text-black font-display font-black text-sm flex items-center justify-center">2B</span><div><h3 class="font-headline text-2xl uppercase tracking-wide text-white">User Insights &amp; Behavioral Discoveries</h3></div></div></div><div class=""><div class="flex items-center justify-between mb-4"><div class="flex items-center gap-2"></div></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"><!-- Card 01: Consistency Deficit Donut / Segmented -->
+<div class="p-6 rounded-2xl bg-surface-container border border-primary-fixed/40 relative overflow-hidden flex flex-col justify-between shadow-[0_0_25px_rgba(184,255,0,0.12)] hover:border-primary-fixed transition-all" style="background: linear-gradient(145deg, rgba(184, 255, 0, 0.12) 0%, rgba(20, 30, 20, 0.7) 100%);">
+  <div class="flex flex-col items-center text-center">
+    <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-primary-fixed/15 border border-primary-fixed/30 text-primary-fixed font-display text-[10px] font-bold uppercase tracking-widest mb-3">
+      Insight 01
+    </div>
+    <h5 class="font-headline text-lg sm:text-xl uppercase text-white tracking-wide mb-2 text-center text-primary-fixed">
+      Consistency Deficit
+    </h5>
+    <p class="text-zinc-300 text-xs leading-relaxed mb-6 text-center max-w-xs">
+      Exercise is recognized as essential, yet weekly routine consistency collapses for the vast majority.
+    </p>
+    
+    <!-- Enlarged Visual Donut Chart -->
+    <div class="w-full h-[260px] p-5 rounded-xl bg-black/60 border border-primary-fixed/30 flex flex-col items-center justify-center text-center shadow-inner"><div class="w-full max-w-[280px] mx-auto flex flex-col items-center justify-center gap-4"><div class="relative w-36 h-36 shrink-0 flex items-center justify-center mx-auto"><svg class="w-full h-full -rotate-90" viewBox="0 0 36 36"><circle cx="18" cy="18" r="14" fill="none" stroke="#1F291B" stroke-width="4.5"></circle><circle cx="18" cy="18" r="14" fill="none" stroke="#B8FF00" stroke-width="4.5" stroke-dasharray="58.7 88" stroke-linecap="round"></circle><circle cx="18" cy="18" r="14" fill="none" stroke="#10b981" stroke-width="4.5" stroke-dasharray="29.3 88" stroke-dashoffset="-58.7" stroke-linecap="round"></circle></svg><div class="absolute flex flex-col items-center justify-center"><span class="text-2xl font-headline text-primary-fixed">67%</span><span class="text-[10px] font-mono text-zinc-300 font-bold">6 / 9 Users</span></div></div><div class="w-full space-y-2 text-xs pt-1 border-t border-white/10"><div class="flex items-center justify-between text-zinc-200"><span class="flex items-center gap-2 font-medium"><span class="w-2.5 h-2.5 rounded-full bg-primary-fixed shadow-[0_0_8px_#B8FF00]"></span> ≤ 2x / week</span><span class="font-mono font-bold text-primary-fixed text-sm">67% (6)</span></div><div class="flex items-center justify-between text-zinc-300"><span class="flex items-center gap-2 font-medium"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]"></span> 3–6x / week</span><span class="font-mono font-bold text-emerald-400 text-sm">33% (3)</span></div></div></div></div>
+  </div>
+</div>
+
+<!-- Card 02: Intention-Action Gap Comparison Bar -->
+<div class="p-6 rounded-2xl bg-surface-container border border-primary-fixed/40 relative overflow-hidden flex flex-col justify-between shadow-[0_0_25px_rgba(184,255,0,0.12)] hover:border-primary-fixed transition-all" style="background: linear-gradient(145deg, rgba(184, 255, 0, 0.12) 0%, rgba(20, 30, 20, 0.7) 100%);">
+  <div class="flex flex-col items-center text-center">
+    <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-primary-fixed/15 border border-primary-fixed/30 text-primary-fixed font-display text-[10px] font-bold uppercase tracking-widest mb-3">
+      Insight 02
+    </div>
+    <h5 class="font-headline text-lg sm:text-xl uppercase text-white tracking-wide mb-2 text-center text-primary-fixed">
+      Intention–Action Gap
+    </h5>
+    <p class="text-zinc-300 text-xs leading-relaxed mb-6 text-center max-w-xs">
+      Deadlines and academic burnout induce severe procrastination; good intentions are delayed indefinitely.
+    </p>
+    
+    <!-- Visual Bars Enlarged -->
+    <div class="w-full h-[260px] p-5 rounded-xl bg-black/60 border border-primary-fixed/30 flex flex-col items-center justify-center text-center shadow-inner"><div class="w-full max-w-[280px] mx-auto space-y-4"><div class="space-y-1.5"><div class="flex justify-between items-center text-xs"><span class="text-zinc-200 font-medium flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> Scheduled Intention</span><span class="font-mono text-emerald-400 font-bold text-sm">9/9 (100%)</span></div><div class="h-4 w-full bg-zinc-900 rounded-full overflow-hidden p-0.5 border border-white/5"><div class="h-full bg-emerald-500 rounded-full w-full shadow-[0_0_12px_#10b981]"></div></div></div><div class="space-y-1.5"><div class="flex justify-between items-center text-xs"><span class="text-primary-fixed font-medium flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary-fixed animate-pulse"></span> Skipped / Deprioritized</span><span class="font-mono font-bold text-primary-fixed text-sm">5/9 (56%)</span></div><div class="h-4 w-full bg-zinc-900 rounded-full overflow-hidden p-0.5 border border-white/5"><div class="h-full bg-primary-fixed rounded-full shadow-[0_0_12px_#B8FF00]" style="width: 56%;"></div></div></div><div class="pt-2 border-t border-white/10 text-center"><span class="text-[11px] font-mono text-primary-fixed font-bold">56% Dropout Rate Prior to First Rep</span></div></div></div>
+  </div>
+</div>
+
+<!-- Card 03: Solo Motivation Drop-Off Semi-Gauge -->
+<div class="p-6 rounded-2xl bg-surface-container border border-primary-fixed/40 relative overflow-hidden flex flex-col justify-between shadow-[0_0_25px_rgba(184,255,0,0.12)] hover:border-primary-fixed transition-all" style="background: linear-gradient(145deg, rgba(184, 255, 0, 0.12) 0%, rgba(20, 30, 20, 0.7) 100%);">
+  <div class="flex flex-col items-center text-center">
+    <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-primary-fixed/15 border border-primary-fixed/30 text-primary-fixed font-display text-[10px] font-bold uppercase tracking-widest mb-3">
+      Insight 03
+    </div>
+    <h5 class="font-headline text-lg sm:text-xl uppercase text-white tracking-wide mb-2 text-center text-primary-fixed">
+      Solo Motivation Drop-Off
+    </h5>
+    <p class="text-zinc-300 text-xs leading-relaxed mb-6 text-center max-w-xs">
+      Individual willpower decays quickly over time without synchronous external nudges and social glue.
+    </p>
+    
+    <!-- Enlarged Radial Gauge -->
+    <div class="w-full h-[260px] p-5 rounded-xl bg-black/60 border border-primary-fixed/30 flex flex-col items-center justify-center text-center shadow-inner"><div class="w-full max-w-[280px] mx-auto flex flex-col items-center justify-center gap-3"><div class="relative w-36 h-24 flex items-end justify-center overflow-hidden mx-auto"><svg class="w-36 h-36 absolute top-0" viewBox="0 0 36 36"><path d="M 4 22 A 14 14 0 0 1 32 22" fill="none" stroke="#1F291B" stroke-width="4.5" stroke-linecap="round"></path><path d="M 4 22 A 14 14 0 0 1 32 22" fill="none" stroke="#B8FF00" stroke-width="4.5" stroke-dasharray="29.5 44" stroke-linecap="round"></path></svg><span class="font-headline text-3xl text-primary-fixed mb-0.5 glow-title">67%</span></div><div class="text-center space-y-1 pt-2 border-t border-white/10 w-full"><div class="text-xs text-zinc-300">Routine failed previously: <strong class="text-primary-fixed font-mono text-sm">6 / 9 (67%)</strong></div><div class="text-[11px] text-emerald-400 font-medium">Main culprit: Isolation &amp; Zero Live Nudge</div></div></div></div>
+  </div>
+</div>
+
+<!-- Card 04: Buddy Accountability Factor -->
+<div class="p-6 rounded-2xl bg-surface-container border border-primary-fixed/40 relative overflow-hidden flex flex-col justify-between shadow-[0_0_25px_rgba(184,255,0,0.12)] hover:border-primary-fixed transition-all" style="background: linear-gradient(145deg, rgba(184, 255, 0, 0.12) 0%, rgba(20, 30, 20, 0.7) 100%);">
+  <div class="flex flex-col items-center text-center">
+    <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-primary-fixed/15 border border-primary-fixed/30 text-primary-fixed font-display text-[10px] font-bold uppercase tracking-widest mb-3">
+      Insight 04
+    </div>
+    <h5 class="font-headline text-lg sm:text-xl uppercase text-white tracking-wide mb-2 text-center text-primary-fixed">
+      Buddy Accountability Factor
+    </h5>
+    <p class="text-zinc-300 text-xs leading-relaxed mb-6 text-center max-w-xs">
+      Students seek collaborative comradeship and shared streaks rather than toxic public leaderboards.
+    </p>
+    
+    <!-- Enlarged Buddy Accountability Visual -->
+    <div class="w-full h-[260px] p-5 rounded-xl bg-black/60 border border-primary-fixed/30 flex flex-col items-center justify-center text-center shadow-inner"><div class="w-full max-w-[280px] mx-auto space-y-4"><div class="flex items-center justify-between text-xs"><span class="text-zinc-200 font-medium flex items-center gap-1.5"><span class="material-symbols-outlined text-primary-fixed text-[16px]">group</span> Shared Workout Partner</span><span class="font-mono font-bold text-primary-fixed text-sm">4/9 (44%)</span></div><div class="grid grid-cols-9 gap-2"><div class="h-4 rounded bg-primary-fixed shadow-[0_0_8px_#B8FF00]"></div><div class="h-4 rounded bg-primary-fixed shadow-[0_0_8px_#B8FF00]"></div><div class="h-4 rounded bg-primary-fixed shadow-[0_0_8px_#B8FF00]"></div><div class="h-4 rounded bg-primary-fixed shadow-[0_0_8px_#B8FF00]"></div><div class="h-4 rounded bg-zinc-800"></div><div class="h-4 rounded bg-zinc-800"></div><div class="h-4 rounded bg-zinc-800"></div><div class="h-4 rounded bg-zinc-800"></div><div class="h-4 rounded bg-zinc-800"></div></div><div class="pt-2 border-t border-white/10 flex items-center justify-between text-xs text-zinc-300"><span class="">Desire strict competition:</span><span class="text-primary-fixed font-mono font-bold">0 / 9 (0%)</span></div></div></div>
+  </div>
+</div>
+
+<!-- Card 05: Environmental Disruptions Breakdown -->
+<div class="p-6 rounded-2xl bg-surface-container border border-primary-fixed/40 relative overflow-hidden flex flex-col justify-between shadow-[0_0_25px_rgba(184,255,0,0.12)] hover:border-primary-fixed transition-all" style="background: linear-gradient(145deg, rgba(184, 255, 0, 0.12) 0%, rgba(20, 30, 20, 0.7) 100%);">
+  <div class="flex flex-col items-center text-center">
+    <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-primary-fixed/15 border border-primary-fixed/30 text-primary-fixed font-display text-[10px] font-bold uppercase tracking-widest mb-3">
+      Insight 05
+    </div>
+    <h5 class="font-headline text-lg sm:text-xl uppercase text-white tracking-wide mb-2 text-center text-primary-fixed">
+      Environmental Disruptions
+    </h5>
+    <p class="text-zinc-300 text-xs leading-relaxed mb-6 text-center max-w-xs">
+      Outdoor transit, monsoons, and crowded facilities frequently force last-minute workout cancellations.
+    </p>
+    
+    <!-- Enlarged Stacked Breakdown Bars -->
+    <div class="w-full h-[260px] p-5 rounded-xl bg-black/60 border border-primary-fixed/30 flex flex-col items-center justify-center text-center shadow-inner"><div class="w-full max-w-[280px] mx-auto space-y-3.5"><div class="space-y-1.5"><div class="flex justify-between text-xs text-zinc-200"><span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-primary-fixed text-[15px]">water_drop</span> Rain / Weather Barrier</span><span class="font-mono font-bold text-primary-fixed text-sm">7/9 (78%)</span></div><div class="h-3 w-full bg-zinc-900 rounded-full overflow-hidden p-0.5 border border-white/5"><div class="h-full bg-primary-fixed rounded-full shadow-[0_0_10px_#B8FF00]" style="width: 78%;"></div></div></div><div class="space-y-1.5"><div class="flex justify-between text-xs text-zinc-300"><span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-400 text-[15px]">directions_walk</span> Travel Distance to Gym</span><span class="font-mono font-bold text-emerald-400 text-sm">5/9 (56%)</span></div><div class="h-3 w-full bg-zinc-900 rounded-full overflow-hidden p-0.5 border border-white/5"><div class="h-full bg-emerald-500 rounded-full shadow-[0_0_8px_#10b981]" style="width: 56%;"></div></div></div><div class="space-y-1.5"><div class="flex justify-between text-xs text-zinc-400"><span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-zinc-400 text-[15px]">groups</span> Overcrowded Facilities</span><span class="font-mono font-bold text-zinc-200 text-sm">4/9 (44%)</span></div><div class="h-3 w-full bg-zinc-900 rounded-full overflow-hidden p-0.5 border border-white/5"><div class="h-full bg-zinc-500 rounded-full" style="width: 44%;"></div></div></div></div></div>
+  </div>
+</div>
+
+<!-- Card 06: Hardware Access vs. App Friction -->
+<div class="p-6 rounded-2xl bg-surface-container border border-primary-fixed/40 relative overflow-hidden flex flex-col justify-between shadow-[0_0_25px_rgba(184,255,0,0.12)] hover:border-primary-fixed transition-all" style="background: linear-gradient(145deg, rgba(184, 255, 0, 0.12) 0%, rgba(20, 30, 20, 0.7) 100%);">
+  <div class="flex flex-col items-center text-center">
+    <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-primary-fixed/15 border border-primary-fixed/30 text-primary-fixed font-display text-[10px] font-bold uppercase tracking-widest mb-3">
+      Insight 06
+    </div>
+    <h5 class="font-headline text-lg sm:text-xl uppercase text-white tracking-wide mb-2 text-center text-primary-fixed">
+      Hardware Access vs. App Friction
+    </h5>
+    <p class="text-zinc-300 text-xs leading-relaxed mb-6 text-center max-w-xs">
+      Students always have their phone during workouts, but current fitness apps are too tedious to maintain.
+    </p>
+    
+    <!-- Enlarged Side by Side Comparative Bar Charts -->
+    <div class="w-full h-[260px] p-5 rounded-xl bg-black/60 border border-primary-fixed/30 flex flex-col items-center justify-center text-center shadow-inner"><div class="w-full max-w-[280px] mx-auto"><div class="grid grid-cols-2 gap-4 text-center"><div class="p-3 rounded-xl bg-surface-container-high/80 border border-emerald-500/30 flex flex-col items-center"><span class="text-[11px] uppercase font-display text-emerald-400 font-bold mb-2 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">phone_iphone</span> Phone on Hand</span><div class="h-16 flex items-end w-full justify-center"><div class="w-10 bg-emerald-500 rounded-t-lg relative flex items-center justify-center shadow-[0_0_12px_#10b981]" style="height: 78%;"><span class="text-[11px] font-mono font-black text-black">7/9</span></div></div><span class="text-sm font-mono font-bold text-white mt-2">78% (7)</span><span class="text-[10px] text-zinc-400 mt-0.5">Ready Device</span></div><div class="p-3 rounded-xl bg-surface-container-high/80 border border-primary-fixed/40 flex flex-col items-center"><span class="text-[11px] uppercase font-display text-primary-fixed font-bold mb-2 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">fitness_center</span> Active App</span><div class="h-16 flex items-end w-full justify-center"><div class="w-10 bg-primary-fixed rounded-t-lg relative flex items-center justify-center shadow-[0_0_14px_#B8FF00]" style="height: 33%;"><span class="text-[11px] font-mono font-black text-black">3/9</span></div></div><span class="text-sm font-mono font-bold text-primary-fixed mt-2">33% (3)</span><span class="text-[10px] text-primary-fixed/80 mt-0.5 font-medium">High Friction</span></div></div></div></div>
+  </div>
+</div></div></div><div class="p-6 lg:p-8 rounded-2xl bg-surface-container border border-primary-fixed/40 relative overflow-hidden neon-border-glow" style="background: linear-gradient(135deg, rgba(184, 255, 0, 0.08) 0%, rgba(26, 26, 26, 0.96) 50%, rgba(16, 185, 129, 0.05) 100%);"><div class="flex flex-col sm:flex-row items-start gap-4"><div class="w-12 h-12 rounded-xl bg-primary-fixed text-black flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[28px]">lightbulb</span></div><div class="space-y-2"><div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-primary-fixed/20 text-primary-fixed font-display text-[11px] font-bold uppercase tracking-wider">Strategic Direction</div><h4 class="font-headline text-xl lg:text-2xl uppercase text-white tracking-wide">Core Insight: Flexible Support Over Rigid Demands</h4><p class="text-zinc-200 text-xs sm:text-sm leading-relaxed font-sans">Users don't need more motivation to exercise. They need a <strong>flexible way to keep exercising when their schedule, energy, or circumstances change</strong>. This directly supports a product direction focused on smart exercise suggestions based on users' existing schedules, rather than rigid workout targets.</p></div></div></div></div>
+<!-- Pillar C: User Persona Card -->
+<div>
+<div class="flex items-center gap-3 mb-6">
+<span class="w-8 h-8 rounded-lg bg-primary-fixed text-black font-display font-black text-sm flex items-center justify-center">2C</span>
+<div>
+<h3 class="font-headline text-2xl uppercase tracking-wide text-white">Target User Archetype: Persona</h3>
+
+</div>
+</div>
+<!-- Persona Profile Card -->
+<div class="rounded-3xl bg-surface-container-low border border-white/10 overflow-hidden shadow-2xl" style="background: radial-gradient(circle at right top, rgba(184, 255, 0, 0.06) 0%, transparent 45%), radial-gradient(circle at left bottom, rgba(16, 185, 129, 0.05) 0%, transparent 45%), rgb(21, 21, 21);"><div class="p-8 lg:p-10 space-y-10"><div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"><div class="lg:col-span-4 flex flex-col items-start"><div class="relative w-full aspect-square rounded-2xl overflow-hidden ring-1 ring-white/10 mb-6 bg-surface-container"><img alt="AgileFit user persona" class="w-full h-full object-cover" src="Persona.jpg"></div><div class="space-y-2.5 text-xs text-zinc-300 w-full pb-6 border-b border-white/10"><div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-primary-fixed text-[18px]">school</span><span class="">University student</span></div><div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-primary-fixed text-[18px]">calendar_month</span><span class="">1–2 times per week</span></div><div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-primary-fixed text-[18px]">location_on</span><span class="">Hồ Chí Minh City</span></div><div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-primary-fixed text-[18px]">smartphone</span><span class="">Mixed tracking use</span></div></div><div class="w-full pt-6 space-y-5"><span class="font-display text-[11px] uppercase tracking-widest text-primary-fixed font-bold block">Behavioral Spectrum</span><div><div class="flex justify-between text-[11px] text-zinc-400 font-display uppercase tracking-wider mb-1.5"><span class="">Exercise Routine: Irregular</span><span class="">Established</span></div><div class="h-1.5 w-full bg-surface-container-high rounded-full relative"><div class="absolute left-[20%] top-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-primary-fixed ring-4 ring-black"></div></div></div><div><div class="flex justify-between text-[11px] text-zinc-400 font-display uppercase tracking-wider mb-1.5"><span class="">Social Support: Solo</span><span class="">Social</span></div><div class="h-1.5 w-full bg-surface-container-high rounded-full relative"><div class="absolute left-[40%] top-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-primary-fixed ring-4 ring-black"></div></div></div><div><div class="flex justify-between text-[11px] text-zinc-400 font-display uppercase tracking-wider mb-1.5"><span class="">Tracking Use: None</span><span class="">Detailed</span></div><div class="h-1.5 w-full bg-surface-container-high rounded-full relative"><div class="absolute left-[30%] top-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-primary-fixed ring-4 ring-black"></div></div></div></div></div><div class="lg:col-span-8 flex flex-col justify-between space-y-8"><div><div class="mb-6"><h4 class="font-headline text-2xl sm:text-3xl lg:text-4xl uppercase text-white tracking-wide leading-tight mb-2">Trần Hoàng Mỹ An</h4><p class="text-zinc-300 text-sm sm:text-base leading-relaxed">Exercise is frequently displaced by workload, deadlines, or fatigue.</p></div><div class="p-6 rounded-2xl bg-surface-container border-l-4 border-primary-fixed border-t border-r border-b border-white/5 relative mb-8"><div class="font-headline text-2xl sm:text-3xl italic tracking-wide text-white mb-2">“I'll do it later.”</div><p class="text-xs sm:text-sm text-zinc-400 font-sans">Verbatim interview response · Participant 3 — explaining the thought that commonly leads to a skipped workout</p></div><div class="grid grid-cols-1 md:grid-cols-2 gap-8"><div class="p-5 rounded-xl bg-surface-container border border-white/5 space-y-3"><div class="flex items-center gap-2 text-primary-fixed font-display text-xs uppercase tracking-wider font-bold"><span class="material-symbols-outlined text-[18px]">track_changes</span><span class="">Reported Goals &amp; Outcomes</span></div><ul class="space-y-2 text-xs sm:text-sm text-zinc-300"><li class="flex items-start gap-2"><span class="text-primary-fixed font-bold">–</span><span class="">Improve health or manage weight</span></li><li class="flex items-start gap-2"><span class="text-primary-fixed font-bold">–</span><span class="">Reduce stress and feel mentally better</span></li><li class="flex items-start gap-2"><span class="text-primary-fixed font-bold">–</span><span class="">Relieve stiffness after sitting or studying</span></li><li class="flex items-start gap-2"><span class="text-primary-fixed font-bold">–</span><span class="">Sleep better after physical activity</span></li></ul></div><div class="p-5 rounded-xl bg-surface-container border border-white/5 space-y-3"><div class="flex items-center gap-2 text-red-400 font-display text-xs uppercase tracking-wider font-bold"><span class="material-symbols-outlined text-[18px]">error_outline</span><span class="">Reported Barriers</span></div><ul class="space-y-2 text-xs sm:text-sm text-zinc-300"><li class="flex items-start gap-2"><span class="text-red-400 font-bold">–</span><span class="">Work, study deadlines, or unfinished tasks</span></li><li class="flex items-start gap-2"><span class="text-red-400 font-bold">–</span><span class="">Laziness, low motivation, and postponement</span></li><li class="flex items-start gap-2"><span class="text-red-400 font-bold">–</span><span class="">Mental or physical tiredness</span></li><li class="flex items-start gap-2"><span class="text-red-400 font-bold">–</span><span class="">Rain, heat, or crowded environments</span></li><li class="flex items-start gap-2"><span class="text-red-400 font-bold">–</span><span class="">Complicated or inaccurate tracking</span></li></ul></div><div class="p-5 rounded-xl bg-surface-container border border-white/5 space-y-3"><div class="flex items-center gap-2 text-cyan-400 font-display text-xs uppercase tracking-wider font-bold"><span class="material-symbols-outlined text-[18px]">sync_alt</span><span class="">Reported Behaviors</span></div><ul class="space-y-2 text-xs sm:text-sm text-zinc-300"><li class="flex items-start gap-2"><span class="text-cyan-400 font-bold">–</span><span class="">Skip exercise when work takes priority</span></li><li class="flex items-start gap-2"><span class="text-cyan-400 font-bold">–</span><span class="">Postpone until later&nbsp; and lose motivation</span></li><li class="flex items-start gap-2"><span class="text-cyan-400 font-bold">–</span><span class="">Choose walking on low-energy days</span></li><li class="flex items-start gap-2"><span class="text-cyan-400 font-bold">–</span><span class="">Previous routines ended when motivation faded</span></li></ul></div><div class="p-5 rounded-xl bg-surface-container border border-white/5 space-y-3"><div class="flex items-center gap-2 text-primary-fixed font-display text-xs uppercase tracking-wider font-bold"><span class="material-symbols-outlined text-[18px]">explore</span><span class="">Stated Support &amp; Design Implications</span></div><ul class="space-y-2 text-xs sm:text-sm text-zinc-300"><li class="flex items-start gap-2"><span class="text-primary-fixed font-bold">–</span><span class="">Gentle reminders that don't emphasize missed days</span></li><li class="flex items-start gap-2"><span class="text-primary-fixed font-bold">–</span><span class="">Simple activities that fit directly into daily routine</span></li><li class="flex items-start gap-2"><span class="text-primary-fixed font-bold">–</span><span class="">Optional social support through friends</span></li><li class="flex items-start gap-2"><span class="text-primary-fixed font-bold">–</span><span class="">Minimal manual interaction with tracking</span></li></ul></div></div></div></div></div></div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: USER ANALYSIS (2 CORE USER PROBLEMS & SOLUTIONS) -->
+<section class="py-24 border-b border-white/5 relative" id="section-3">
+<div class="max-w-7xl mx-auto px-5 lg:px-8">
+<!-- Section Header -->
+<div class="flex flex-col items-center justify-center text-center gap-2 mb-16"><div class="flex flex-col items-center"><div class="inline-flex items-center gap-2 text-primary-fixed font-display text-xs uppercase tracking-widest mb-2 font-bold"><span class="">Section 03</span></div><h2 class="font-headline text-4xl sm:text-5xl lg:text-6xl uppercase tracking-tight text-white glow-title">USER ANALYSIS &amp; PROBLEM SOLVING</h2></div></div>
+<!-- PROBLEM 1 BLOCK -->
+<div class="mb-20 p-8 lg:p-10 rounded-3xl bg-surface-container-low border border-white/10 shadow-2xl" style="background: radial-gradient(circle at top left, rgba(16, 185, 129, 0.05) 0%, transparent 50%), radial-gradient(circle at bottom right, rgba(184, 255, 0, 0.04) 0%, transparent 50%), #151515;">
+<div class="flex items-center gap-3 mb-4">
+<span class="px-3 py-1 bg-red-500/20 text-red-400 border border-red-500/30 rounded-full font-display text-xs uppercase tracking-wider font-bold">
+              User Problem 01
+            </span>
+<span class="text-zinc-500 text-xs font-display uppercase tracking-wider">• Root-Cause Analysis</span>
+</div>
+<h3 class="font-headline text-3xl sm:text-4xl uppercase text-white mb-3 glow-title">
+            Balancing Fitness and Academic Schedule
+          </h3>
+
+<!-- 3 Candidate Solutions Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Option 1A (Rejected) -->
+<div class="p-6 rounded-2xl bg-surface-container border border-white/5 flex flex-col justify-between opacity-75 hover:opacity-100 transition-opacity">
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-display uppercase tracking-widest text-zinc-400 font-bold">Solution 1A</span>
+<span class="px-2 py-0.5 rounded text-[10px] uppercase font-display bg-red-500/20 text-red-400 font-bold">Rejected</span>
+</div>
+<h4 class="text-white font-headline text-lg uppercase mb-2"><span class="a_GcMg font-feature-liga-off font-feature-clig-off font-feature-calt-off text-decoration-none text-strikethrough-none" style="color: rgba(255,255,255,var(--O42jJQ,1)); caret-color: rgb(255, 255, 255); --Ys-XuQ: none; font-kerning: normal;">Equipment-Free Micro-Workouts</span></h4>
+<p class="text-zinc-400 text-xs leading-relaxed mb-4">
+                  5–15 minute home workouts that fit easily into study breaks.
+                </p>
+</div>
+<div class="pt-4 border-t border-white/5">
+
+
+</div>
+</div>
+<!-- Option 1B (WINNING SELECTED SOLUTION) -->
+<div class="p-6 rounded-2xl bg-surface-container border-2 border-primary-fixed shadow-[0_0_30px_rgba(184,255,0,0.18)] flex flex-col justify-between relative overflow-hidden" style="background: linear-gradient(135deg, rgba(184, 255, 0, 0.09) 0%, rgba(26, 26, 26, 0.96) 50%, rgba(16, 185, 129, 0.04) 100%);">
+<div class="absolute -top-12 -right-12 w-28 h-28 bg-primary-fixed/15 rounded-full blur-xl pointer-events-none"></div>
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-display uppercase tracking-widest text-primary-fixed font-bold">Solution 1B</span>
+<span class="px-2.5 py-1 rounded-full text-[10px] uppercase font-display bg-primary-fixed text-black font-black tracking-wider badge-glow">
+                    ★ Selected Winner
+                  </span>
+</div>
+<h4 class="text-white font-headline text-xl uppercase mb-2">Smart Schedule Recommendations</h4>
+<p class="text-zinc-200 text-xs sm:text-sm leading-relaxed mb-4">
+                  Suggests workouts based on available gaps in the user's academic schedule.
+                </p>
+</div>
+
+</div>
+<!-- Option 1C (Rejected) -->
+<div class="p-6 rounded-2xl bg-surface-container border border-white/5 flex flex-col justify-between opacity-75 hover:opacity-100 transition-opacity">
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-display uppercase tracking-widest text-zinc-400 font-bold">Solution 1C</span>
+<span class="px-2 py-0.5 rounded text-[10px] uppercase font-display bg-red-500/20 text-red-400 font-bold">Rejected</span>
+</div>
+<h4 class="text-white font-headline text-lg uppercase mb-2">Holistic Time-Boxing Scheduler</h4>
+<p class="text-zinc-400 text-xs leading-relaxed mb-4">Organizes study, exercise, and rest into a balanced daily schedule.
+                </p>
+</div>
+
+</div>
+</div>
+</div>
+<!-- PROBLEM 2 BLOCK -->
+<div class="p-8 lg:p-10 rounded-3xl bg-surface-container-low border border-white/10 shadow-2xl" style="background: radial-gradient(circle at left top, rgba(16, 185, 129, 0.05) 0%, transparent 50%), radial-gradient(circle at right bottom, rgba(184, 255, 0, 0.04) 0%, transparent 50%), rgb(21, 21, 21);">
+<div class="flex items-center gap-3 mb-4">
+<span class="px-3 py-1 bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-full font-display text-xs uppercase tracking-wider font-bold">
+              User Problem 02
+            </span>
+<span class="text-zinc-500 text-xs font-display uppercase tracking-wider">• Root-Cause Analysis</span>
+</div>
+<h3 class="font-headline text-3xl sm:text-4xl uppercase text-white mb-3 glow-title">
+            Exercise Procrastination and Low Motivation
+          </h3>
+
+<!-- 3 Candidate Solutions Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Option 2A (Rejected) -->
+<div class="p-6 rounded-2xl bg-surface-container border border-white/5 flex flex-col justify-between opacity-75 hover:opacity-100 transition-opacity">
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-display uppercase tracking-widest text-zinc-400 font-bold">Solution 2A</span>
+<span class="px-2 py-0.5 rounded text-[10px] uppercase font-display bg-red-500/20 text-red-400 font-bold">Rejected</span>
+</div>
+<h4 class="text-white font-headline text-lg uppercase mb-2">Energy-Aware Micro-Commitment</h4>
+<p class="text-zinc-400 text-xs leading-relaxed mb-4">
+                  Offers 2–5 minute workouts based on the user's energy level, making exercise easier to start.
+                </p>
+</div>
+
+</div>
+<!-- Option 2B (WINNING SELECTED SOLUTION) -->
+<div class="p-6 rounded-2xl bg-surface-container border-2 border-primary-fixed shadow-[0_0_30px_rgba(184,255,0,0.18)] flex flex-col justify-between relative overflow-hidden" style="background: linear-gradient(135deg, rgba(184, 255, 0, 0.09) 0%, rgba(26, 26, 26, 0.96) 50%, rgba(16, 185, 129, 0.04) 100%);">
+<div class="absolute -top-12 -right-12 w-28 h-28 bg-primary-fixed/15 rounded-full blur-xl pointer-events-none"></div>
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-display uppercase tracking-widest text-primary-fixed font-bold">Solution 2B</span>
+<span class="px-2.5 py-1 rounded-full text-[10px] uppercase font-display bg-primary-fixed text-black font-black tracking-wider badge-glow">
+                    ★ Selected Winner
+                  </span>
+</div>
+<h4 class="text-white font-headline text-xl uppercase mb-2">Non-Guilt Peer Accountability</h4>
+<p class="text-zinc-200 text-xs sm:text-sm leading-relaxed mb-4">
+                  Encourages users to exercise with friends through supportive check-ins instead of competition or punishment.
+                </p>
+</div>
+
+</div>
+<!-- Option 2C (Rejected) -->
+<div class="p-6 rounded-2xl bg-surface-container border border-white/5 flex flex-col justify-between opacity-75 hover:opacity-100 transition-opacity">
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-display uppercase tracking-widest text-zinc-400 font-bold">Solution 2C</span>
+<span class="px-2 py-0.5 rounded text-[10px] uppercase font-display bg-red-500/20 text-red-400 font-bold">Rejected</span>
+</div>
+<h4 class="text-white font-headline text-lg uppercase mb-2">Context-Triggered Adaptive Prompts</h4>
+<p class="text-zinc-400 text-xs leading-relaxed mb-4">
+                  Connects exercise reminders to existing routines, such as after finishing a study session.
+                </p>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 4: CORE APP FEATURES (INTERACTIVE PROTOTYPE SHOWCASE) -->
+<section class="py-24 relative bg-black" id="section-4">
+<div class="max-w-7xl mx-auto px-5 lg:px-8">
+<!-- Section Header -->
+<div class="flex flex-col items-center justify-center text-center gap-2 mb-16"><div class="flex flex-col items-center"><div class="inline-flex items-center gap-2 text-primary-fixed font-display text-xs uppercase tracking-widest mb-2 font-bold"><span class="">Section 04</span></div><h2 class="font-headline text-4xl sm:text-5xl lg:text-6xl uppercase tracking-tight text-white glow-title">CORE APP FEATURES &amp; PROTOTYPE</h2></div></div>
+<!-- 2-COLUMN LAYOUT -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+<!-- LEFT COLUMN: 4 STRUCTURED INTERACTIVE MODULE CARDS -->
+<div class="lg:col-span-7 space-y-6">
+<!-- Flow 1: Authentication & Onboarding -->
+<div class="flow-card p-6 rounded-2xl bg-surface-container border border-white/10 hover:border-primary-fixed/40 transition-all cursor-pointer group" onclick="switchPreview('flow1')" style="background: linear-gradient(135deg, rgba(184, 255, 0, 0.04) 0%, rgba(26, 26, 26, 0.96) 65%);">
+<div class="flex items-start justify-between gap-4 mb-3">
+<div class="flex items-center gap-3">
+<span class="w-9 h-9 rounded-xl bg-surface-container-high border border-white/10 text-primary-fixed flex items-center justify-center font-display font-bold text-sm group-hover:bg-primary-fixed group-hover:text-black transition-colors">
+                    01
+                  </span>
+<div>
+
+<h3 class="font-headline text-xl uppercase text-white tracking-wide">Authentication &amp; Onboarding</h3>
+</div>
+</div>
+
+</div>
+<p class="text-zinc-300 text-xs sm:text-sm font-sans leading-relaxed mb-4">
+                Quickly verify student identity using a email or Google/Facebook account. Users can also set privacy permissions for course notes and locations.
+              </p>
+
+</div>
+<!-- Flow 2: Smart Schedule (Google Calendar Connected) -->
+<div class="flow-card p-6 rounded-2xl bg-surface-container border border-primary-fixed/40 shadow-[0_0_20px_rgba(184,255,0,0.1)] transition-all cursor-pointer group" onclick="switchPreview('flow2')" style="background: linear-gradient(135deg, rgba(184, 255, 0, 0.08) 0%, rgba(26, 26, 26, 0.95) 55%, rgba(16, 185, 129, 0.04) 100%);">
+<div class="flex items-start justify-between gap-4 mb-3">
+<div class="flex items-center gap-3">
+<span class="w-9 h-9 rounded-xl bg-primary-fixed text-black flex items-center justify-center font-display font-bold text-sm">
+                    02
+                  </span>
+<div>
+
+<h3 class="font-headline text-xl uppercase text-white tracking-wide">Smart Schedule</h3>
+</div>
+</div>
+
+</div>
+<p class="text-zinc-300 text-xs sm:text-sm font-sans leading-relaxed mb-4">
+                Sync with Google Calendar to find free time between classes. The app suggests a suitable 20-minute workout and lets users add it with one tap.
+              </p>
+
+</div>
+<!-- Flow 3: Workout Together - Send Invitation -->
+<div class="flow-card p-6 rounded-2xl bg-surface-container border border-white/10 hover:border-primary-fixed/40 transition-all cursor-pointer group" onclick="switchPreview('flow3')" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(26, 26, 26, 0.96) 65%);">
+<div class="flex items-start justify-between gap-4 mb-3">
+<div class="flex items-center gap-3">
+<span class="w-9 h-9 rounded-xl bg-surface-container-high border border-white/10 text-primary-fixed flex items-center justify-center font-display font-bold text-sm group-hover:bg-primary-fixed group-hover:text-black transition-colors">
+                    03
+                  </span>
+<div>
+
+<h3 class="font-headline text-xl uppercase text-white tracking-wide">Workout Together: Send Invitation</h3>
+</div>
+</div>
+
+</div>
+<p class="text-zinc-300 text-xs sm:text-sm font-sans leading-relaxed mb-4">
+                Check friends’ availability in real time. Choose a workout mode and send an invitation instantly. Users can also build a workout streak together.
+              </p>
+
+</div>
+<!-- Flow 4: Workout Together - Remote Workout Video HUD -->
+<div class="flow-card p-6 rounded-2xl bg-surface-container border border-white/10 hover:border-primary-fixed/40 transition-all cursor-pointer group" onclick="switchPreview('flow4')" style="background: linear-gradient(135deg, rgba(184, 255, 0, 0.04) 0%, rgba(26, 26, 26, 0.96) 55%, rgba(16, 185, 129, 0.04) 100%);">
+<div class="flex items-start justify-between gap-4 mb-3">
+<div class="flex items-center gap-3">
+<span class="w-9 h-9 rounded-xl bg-surface-container-high border border-white/10 text-primary-fixed flex items-center justify-center font-display font-bold text-sm group-hover:bg-primary-fixed group-hover:text-black transition-colors">
+                    04
+                  </span>
+<div>
+
+<h3 class="font-headline text-xl uppercase text-white tracking-wide">Workout Together: Remote Workout Together</h3>
+</div>
+</div>
+
+</div>
+<p class="text-zinc-300 text-xs sm:text-sm font-sans leading-relaxed mb-4">
+                When friends cannot meet in person because of wheather or distance, they can start a video call and work out together remotely. Both users can see each other and follow the workout at the same time.
+              </p>
+
+</div>
+</div>
+<!-- RIGHT COLUMN: REALISTIC iPHONE 14 PRO FRAME WITH INTERACTIVE PREVIEW -->
+<div class="lg:col-span-5 flex justify-center">
+<video id="prototype-video" class="w-full max-w-[260px]" controls preload="metadata">
+<source src="Prototype.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- FOOTER -->
+<footer class="w-full bg-[#080808] border-t border-white/5 text-zinc-400 text-xs py-8"><div class="max-w-7xl mx-auto px-5 lg:px-8 flex items-center justify-center"><div class="flex items-center justify-center gap-3 text-center flex-wrap"><span class="text-primary-fixed uppercase tracking-wider font-extrabold text-xl sm:text-2xl leading-none" style="font-family: 'Big Shoulders Display', sans-serif;">AgileFit</span><span class="text-zinc-500 font-normal select-none text-base sm:text-lg">—</span><span class="text-white font-medium text-sm sm:text-base tracking-wide leading-none" style="font-family: 'Afacad', sans-serif;">UI/UX Design Final Project</span></div></div></footer>
+<!-- SIMPLE INTERACTIVE SCRIPT TO SWITCH IPHONE SCREENS -->
+<script>
+    function switchPreview(flowKey) {
+      // Hide all preview screens
+      const screens = ['flow1', 'flow2', 'flow3', 'flow4'];
+      screens.forEach(key => {
+        const el = document.getElementById('view-' + key);
+        if (el) {
+          el.classList.add('hidden');
+        }
+      });
+
+      // Show selected screen
+      const activeScreen = document.getElementById('view-' + flowKey);
+      if (activeScreen) {
+        activeScreen.classList.remove('hidden');
+      }
+
+      // Update button styling
+      const buttons = document.querySelectorAll('.preview-btn');
+      buttons.forEach(btn => {
+        if (btn.getAttribute('data-target') === flowKey) {
+          btn.className = 'preview-btn px-3 py-1 rounded-full text-xs font-display uppercase tracking-wider bg-primary-fixed text-black font-bold';
+        } else {
+          btn.className = 'preview-btn px-3 py-1 rounded-full text-xs font-display uppercase tracking-wider bg-surface-container border border-white/10 text-zinc-400 hover:text-white';
+        }
+      });
+
+      setActivePrototypeFlow(flowKey);
+    }
+
+    function setActivePrototypeFlow(flowKey) {
+      const cards = document.querySelectorAll('#section-4 .flow-card');
+      const flowIndex = Number(flowKey.replace('flow', '')) - 1;
+      cards.forEach((card, index) => card.classList.toggle('prototype-active', index === flowIndex));
+    }
+
+    function syncPrototypeFlowToVideo() {
+      const video = document.getElementById('prototype-video');
+      if (!video) return;
+      const time = video.currentTime;
+      const flowKey = time < 11 ? 'flow1' : time < 20 ? 'flow2' : time < 32 ? 'flow3' : 'flow4';
+      setActivePrototypeFlow(flowKey);
+    }
+
+    const prototypeVideo = document.getElementById('prototype-video');
+    if (prototypeVideo) {
+      ['loadedmetadata', 'timeupdate', 'seeking', 'seeked', 'ended'].forEach(eventName => {
+        prototypeVideo.addEventListener(eventName, syncPrototypeFlowToVideo);
+      });
+      syncPrototypeFlowToVideo();
+    }
+
+    const chapterLinks = [...document.querySelectorAll('.agile-chapter-nav a')];
+    const chapterSections = chapterLinks.map(link => document.querySelector(link.getAttribute('href')));
+    const setActiveChapter = index => chapterLinks.forEach((link, linkIndex) => link.classList.toggle('active', linkIndex === index));
+    const chapterObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const sectionIndex = chapterSections.indexOf(entry.target);
+        if (sectionIndex >= 0) setActiveChapter(sectionIndex);
+      });
+    }, { rootMargin: '-22% 0px -65% 0px', threshold: 0 });
+    chapterSections.forEach(section => section && chapterObserver.observe(section));
+    chapterLinks.forEach((link, index) => link.addEventListener('click', () => setActiveChapter(index)));
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>

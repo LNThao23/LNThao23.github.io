@@ -1,0 +1,8 @@
+H1: Big Shoulders Display 60px.
+H2: Big Shoulders Display 48px.
+H3: Big Shoulders Display 28px.
+H4: Big Shoulders Display 20px.
+Nội dung: Afacad 12px và 16px.
+Label: Afacad 16px.
+Navbar: Afacad regular 16px, giữ viết hoa chữ cái đầu.
+Logo NguyenThao: Big Shoulders Display 28px.

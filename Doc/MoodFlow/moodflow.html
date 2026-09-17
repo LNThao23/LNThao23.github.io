@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -8,14 +8,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Afacad:wght@400;500;600;700&family=Big+Shoulders+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260914-header-unified">
+<link rel="stylesheet" href="style.css?v=20260914-header-unified">
+<link rel="stylesheet" href="../../typography.css">
+  <style>
+    .site-header .brand { font-family: "Big Shoulders Display", sans-serif !important; font-size: 28px !important; font-weight: 900 !important; }
+    .site-header .main-nav a { font-family: "Afacad", sans-serif !important; font-size: 16px !important; font-weight: 400 !important; text-transform: none !important; }
+    .site-header .main-nav a[aria-current="page"], .site-header .main-nav a.active { font-weight: 700 !important; border-bottom: 2px solid currentColor !important; }
+  </style>
 </head>
 <body>
   <header class="site-header">
     <div class="nav-shell">
-      <a class="brand" href="../../index.html">NguyenThao</a>
+      <a class="brand" href="../../home.html">NguyenThao</a>
       <nav class="main-nav" aria-label="Primary navigation">
-        <a id="nav-home" href="../../index.html">Home</a>
+        <a id="nav-home" href="../../home.html">Home</a>
         <a id="nav-works" href="../../work.html" aria-current="page">Works</a>
         <a href="../../about.html">About</a>
       </nav>
@@ -108,9 +114,9 @@
         <article class="research-box soft"><h4>Summary of core interview findings</h4><p>Participants overwhelmingly revealed that while they frequently feel overwhelmed, they struggle to pinpoint the root causes of their burnout. Most rely on passive escapism (social media scrolling, binge-watching) which heightens guilt. They strongly expressed the need for gentle, non-judgmental guidance and self-talk tools over authoritative advice.</p></article>
         <p class="survey-summary" id="survey-results">The survey results outline a concerning reality: Users are being overwhelmed by negative emotions, but only know how to rely on passive relief habits. However, the majority admit that these coping methods are completely ineffective, leaving them stuck in a stress loop.</p>
         <div class="survey-grid">
-          <article class="survey-card"><h4>Emotions frequently appearing recently</h4><div class="donut" data-label="66.7%" style="--value:66.7%"></div><div class="chart-legend"><span class="legend-dot"></span>Negative 66.7% <span class="legend-dot light"></span>Positive 33.3%</div></article>
-          <article class="survey-card"><h4>Current relief habits</h4><div class="bar-chart" role="img" aria-label="Current relief habits: Watch movies 4, Eat or Sleep 3, Talk to friends 3"><div class="y-axis" aria-hidden="true"><span>4</span><span>3</span><span>2</span><span>1</span><span>0</span></div><div class="bar-plot"><div class="bars"><div class="bar" style="--value:4" data-value="4"><span>Watch movies</span></div><div class="bar" style="--value:3" data-value="3"><span>Eat/Sleep</span></div><div class="bar" style="--value:3" data-value="3"><span>Talk to friends</span></div></div></div></div></article>
-          <article class="survey-card"><h4>The effectiveness of current relief habits</h4><div class="donut" data-label="55.6%" style="--value:55.6%"></div><div class="chart-legend"><span class="legend-dot"></span>Ineffective 55.6% <span class="legend-dot light"></span>Effective 44.4%</div></article>
+          <article class="survey-card"><h4 class="survey-caption">Emotions frequently appearing recently</h4><div class="donut" data-label="66.7%" style="--value:66.7%"></div><div class="chart-legend"><span class="legend-dot"></span>Negative 66.7% <span class="legend-dot light"></span>Positive 33.3%</div></article>
+          <article class="survey-card"><h4 class="survey-caption">Current relief habits</h4><div class="bar-chart" role="img" aria-label="Current relief habits: Watch movies 4, Eat or Sleep 3, Talk to friends 3"><div class="y-axis" aria-hidden="true"><span>4</span><span>3</span><span>2</span><span>1</span><span>0</span></div><div class="bar-plot"><div class="bars"><div class="bar" style="--value:4" data-value="4"><span>Watch movies</span></div><div class="bar" style="--value:3" data-value="3"><span>Eat/Sleep</span></div><div class="bar" style="--value:3" data-value="3"><span>Talk to friends</span></div></div></div></div></article>
+          <article class="survey-card"><h4 class="survey-caption">The effectiveness of current relief habits</h4><div class="donut" data-label="55.6%" style="--value:55.6%"></div><div class="chart-legend"><span class="legend-dot"></span>Ineffective 55.6% <span class="legend-dot light"></span>Effective 44.4%</div></article>
         </div>
       </div>
     </section>
@@ -143,8 +149,8 @@
       <span class="chapter">03 / Orientation and Proposed Solutions</span>
       <h2 class="display-title" id="solutions-title">How Might We &amp; Proposed Solutions</h2>
       <div class="hmw-grid">
-        <article class="hmw-card"><span class="hmw-pill">HMW 1</span><h3>How might we turn the journey of self-discovery into a gentler and more healing experience?</h3><ul><li>The app provides cute emotion emojis for users to choose as their mood for that day instead of immediately writing about their feelings.</li><li>The Daily Challenge feature offers fun, short challenges for users to complete based on user preferences.</li><li>In the Journal feature, the app provides 2 modes: Self-talk and Chat (with AI) for users to choose according to their habits and personal needs.</li></ul></article>
-        <article class="hmw-card"><span class="hmw-pill">HMW 2</span><h3>How might we help users realize the behaviors/habits that they should improve?</h3><ul><li>The View Statistics function in Mood Tracking allows users to review their personal mood data and sleep indicators.</li><li>During Chatting/Journaling, users can track their own emotions and health, thereby making appropriate adjustments to improve their mood and lifestyle habits.</li></ul></article>
+        <article class="hmw-card"><span class="hmw-pill">HMW 1</span><h3 class="hmw-question">How might we turn the journey of self-discovery into a gentler and more healing experience?</h3><ul><li>The app provides cute emotion emojis for users to choose as their mood for that day instead of immediately writing about their feelings.</li><li>The Daily Challenge feature offers fun, short challenges for users to complete based on user preferences.</li><li>In the Journal feature, the app provides 2 modes: Self-talk and Chat (with AI) for users to choose according to their habits and personal needs.</li></ul></article>
+        <article class="hmw-card"><span class="hmw-pill">HMW 2</span><h3 class="hmw-question">How might we help users realize the behaviors/habits that they should improve?</h3><ul><li>The View Statistics function in Mood Tracking allows users to review their personal mood data and sleep indicators.</li><li>During Chatting/Journaling, users can track their own emotions and health, thereby making appropriate adjustments to improve their mood and lifestyle habits.</li></ul></article>
       </div>
     </section>
 

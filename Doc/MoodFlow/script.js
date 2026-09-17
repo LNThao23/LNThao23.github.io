@@ -189,7 +189,7 @@ if (entryPoint === "home") {
   navWorks.setAttribute("aria-current", "page");
   navHome.removeAttribute("aria-current");
 }
-if (backLink) backLink.href = entryPoint === "home" ? "../../index.html" : "../../work.html";
+if (backLink) backLink.href = entryPoint === "home" ? "../../home.html" : "../../work.html";
 
 const contentNavLinks = [...document.querySelectorAll(".content-nav a")];
 const contentSections = contentNavLinks

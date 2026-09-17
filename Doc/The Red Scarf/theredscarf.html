@@ -1,4 +1,4 @@
-﻿
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -67,22 +67,23 @@
     .thumbnails { display:flex; gap:9px; padding:15px; overflow-x:auto; }
     .reader .thumb { display:block; flex:0 0 auto; width:auto; height:46px; aspect-ratio:843 / 596; padding:0; border:2px solid transparent; border-radius:6px; overflow:hidden; background:none; box-shadow:none; font-size:0; cursor:pointer; opacity:.65; }
     .thumb.active { border-color:var(--red); opacity:1; }.thumb img { display:block; width:100%; }
-    footer { padding:48px clamp(20px, 8vw, 96px); text-align:center; background:#eee9e6; color:#544946; font-size:20px; line-height:28px; font-weight:500; letter-spacing:.02em; }
-    footer b { color:var(--red); font-family:"Big Shoulders Display", sans-serif; font-size:24px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; }
-    @media (max-width:760px) { .page { padding-top:72px; } header { height:72px; padding:0 24px; } nav { display:none; } main { min-height:0; flex-direction:column; align-items:stretch; padding:0 8% 30px; } main::before { position:relative; inset:auto; width:100%; aspect-ratio:1397 / 1080; background-position:center; background-size:contain; flex:none; } .copy { margin-top:16px; } h1 { font-size:42px; } .content-section { padding:60px 7%; } .section-heading h2 { font-size:34px; } .research-grid,.character { grid-template-columns:1fr; } .character { padding:22px; gap:25px; } .character .portrait { order:-1; } .reader-stage { min-height:250px; padding:20px 52px; } .reader-stage img { max-height:300px; } .reader .thumb { height:40px; } footer { padding:48px 20px; font-size:18px; line-height:26px; } }
+    footer { padding:34px 20px 42px; text-align:center; background:#eee9e6; color:#544946; font-size:14px; line-height:normal; font-weight:500; letter-spacing:.02em; }
+    footer b { color:var(--red); font-family:"Big Shoulders Display", sans-serif; font-size:16px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; }
+    @media (max-width:760px) { .page { padding-top:72px; } header { height:72px; padding:0 24px; } nav { display:none; } main { min-height:0; flex-direction:column; align-items:stretch; padding:0 8% 30px; } main::before { position:relative; inset:auto; width:100%; aspect-ratio:1397 / 1080; background-position:center; background-size:contain; flex:none; } .copy { margin-top:16px; } h1 { font-size:42px; } .content-section { padding:60px 7%; } .section-heading h2 { font-size:34px; } .research-grid,.character { grid-template-columns:1fr; } .character { padding:22px; gap:25px; } .character .portrait { order:-1; } .reader-stage { min-height:250px; padding:20px 52px; } .reader-stage img { max-height:300px; } .reader .thumb { height:40px; } }
   </style>
+<link rel="stylesheet" href="../../typography.css">
 </head>
 <body>
   <div class="page">
     <header>
-      <div class="logo"><a href="../../index.html" aria-label="Go to homepage">NguyenThao</a></div>
-      <nav aria-label="Primary navigation"><a id="nav-home" href="../../index.html">Home</a><a id="nav-works" class="active" href="../../work.html" aria-current="page">Works</a><a href="../../about.html">About</a></nav>
+      <div class="logo"><a href="../../home.html" aria-label="Go to homepage">NguyenThao</a></div>
+      <nav aria-label="Primary navigation"><a id="nav-home" href="../../home.html">Home</a><a id="nav-works" class="active" href="../../work.html" aria-current="page">Works</a><a href="../../about.html">About</a></nav>
     </header>
     <main id="home">
       <section class="copy">
         <span class="eyebrow">DRAWING ANGEL WINGS 2025 CONTEST</span>
-        <h1>The Red Scarf Fluttering<br>in the Wind</h1>
-        <h2>A heartfelt tribute to resilient children</h2>
+        <h1>The Red Scarf</h1>
+        <h3>A heartfelt tribute to resilient children</h3>
         <p class="intro">A touching picture book project created by Lê Nguyên Thảo, dedicated to children with disabilities in Vietnam. Inspired by the resilient land of Quảng Trị and the inspiring courage of little sprouts rising above the lingering wounds of war.</p>
         <div class="actions"><a class="button" href="#story">Read the Story <span class="arrow">→</span></a><a class="contest" href="https://lstf.org.vn/vecanhthienthan/" target="_blank" rel="noopener noreferrer">About the Contest <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6"></path><path d="M20 4 10 14"></path><path d="M20 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h5"></path></svg></a></div>
         <div class="details"><div>Author<strong>Lê Nguyên Thảo</strong></div><div>Genre<strong>Picture Book</strong></div></div>
@@ -129,7 +130,7 @@
     const homeLink = document.querySelector('#nav-home');
     const worksLink = document.querySelector('#nav-works');
     const openedFrom = new URLSearchParams(window.location.search).get('from');
-    const cameFromHome = openedFrom === 'home' || (!openedFrom && document.referrer.endsWith('/index.html'));
+    const cameFromHome = openedFrom === 'home' || (!openedFrom && document.referrer.endsWith('/home.html'));
     const activeNav = cameFromHome ? homeLink : worksLink;
     [homeLink, worksLink].forEach(link => {
       const isActive = link === activeNav;
