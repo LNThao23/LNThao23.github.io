@@ -561,6 +561,9 @@ Your browser does not support the video tag.
 <!-- SIMPLE INTERACTIVE SCRIPT TO SWITCH IPHONE SCREENS -->
 <script>
     function switchPreview(flowKey) {
+      const video = document.getElementById('prototype-video');
+      const flowStarts = { flow1: 0, flow2: 11, flow3: 20, flow4: 32 };
+
       // Hide all preview screens
       const screens = ['flow1', 'flow2', 'flow3', 'flow4'];
       screens.forEach(key => {
@@ -587,6 +590,23 @@ Your browser does not support the video tag.
       });
 
       setActivePrototypeFlow(flowKey);
+
+      // Each card represents a chapter in the single prototype recording.
+      // Selecting one should begin that chapter, even while another is playing.
+      if (video && Object.prototype.hasOwnProperty.call(flowStarts, flowKey)) {
+        const beginFlow = () => {
+          video.currentTime = flowStarts[flowKey];
+          const playback = video.play();
+          if (playback) playback.catch(() => {});
+        };
+
+        if (video.readyState >= HTMLMediaElement.HAVE_METADATA) {
+          beginFlow();
+        } else {
+          video.addEventListener('loadedmetadata', beginFlow, { once: true });
+          video.load();
+        }
+      }
     }
 
     function setActivePrototypeFlow(flowKey) {

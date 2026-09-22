@@ -31,13 +31,56 @@
         }
     </script>
 <link rel="stylesheet" href="typography.css">
+    <style>
+        .home-gradient {
+            position: relative;
+            background-color: #F4F7F6;
+            background-image: radial-gradient(
+                ellipse 38% 36% at 64% 60%,
+                rgba(155, 239, 217, 0.25) 0%,
+                rgba(171, 224, 231, 0.22) 40%,
+                rgba(173, 176, 244, 0.20) 60%,
+                rgba(195, 213, 251, 0.18) 80%,
+                transparent 100%
+            );
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            animation: home-gradient-drift 18s ease-in-out infinite alternate;
+        }
+
+        @keyframes home-gradient-drift {
+            to { background-position: 2% -2%; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .home-gradient { animation: none; }
+        }
+
+        .mobile-slider-dot {
+            padding: 0 !important;
+            width: 10px !important;
+            min-width: 10px !important;
+            height: 10px !important;
+        }
+
+        .mobile-view-project {
+            width: 160px;
+            min-width: 160px;
+            padding-top: 4px !important;
+            padding-bottom: 4px !important;
+        }
+
+        @media (max-width: 420px) {
+            .mobile-view-project, .mobile-about-link { width: calc(50vw - 36px) !important; min-width: 0 !important; }
+        }
+    </style>
 </head>
 <body class="font-body text-base text-text-body antialiased overflow-x-hidden">
 
     <!-- TopNavBar -->
-    <header class="w-full min-h-[80px] pt-6 pb-4 z-50 bg-white flex items-center">
+    <header class="relative z-50 flex min-h-[80px] w-full items-center bg-white pb-4 pt-6">
         <nav class="flex justify-between items-center w-full px-6 md:px-24 max-w-[1440px] mx-auto">
-            <a href="index.html" class="site-brand text-[25px] leading-none font-display font-black text-text-dark tracking-[-0.4px] hover:opacity-80 transition-opacity">
+            <a href="index.html" class="site-brand hidden md:block text-[25px] leading-none font-display font-black text-text-dark tracking-[-0.4px] hover:opacity-80 transition-opacity">
                 NguyenThao
             </a>
             <div class="hidden md:flex items-center gap-12">
@@ -45,12 +88,20 @@
                 <a class="text-text-dark hover:text-primary transition-colors text-xl leading-7 font-medium border-b-2 border-transparent" href="work.html">Works</a>
                 <a class="text-text-dark hover:text-primary transition-colors text-xl leading-7 font-medium border-b-2 border-transparent" href="about.html">About</a>
             </div>
+            <button id="mobile-menu-button" class="ml-auto md:hidden p-2 text-text-dark" type="button" aria-label="Open navigation menu" aria-expanded="false">
+                <svg viewBox="0 0 24 24" class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            </button>
         </nav>
+        <div id="mobile-menu" class="hidden absolute top-full inset-x-0 bg-white border-t border-black/5 px-6 py-4 shadow-lg md:hidden">
+            <a class="block py-2 font-bold text-primary" href="index.html">Home</a>
+            <a class="block py-2 font-medium" href="work.html">Works</a>
+            <a class="block py-2 font-medium" href="about.html">About</a>
+        </div>
     </header>
 
-    <main class="bg-[#E9EDED]">
+    <main class="home-gradient">
         <!-- Hero Section -->
-        <section class="relative min-h-[85vh] flex items-center px-6 md:px-24 max-w-[1440px] mx-auto overflow-hidden pt-6">
+        <section class="relative hidden min-h-[85vh] items-center px-6 md:flex md:px-24 max-w-[1440px] mx-auto overflow-hidden pt-6">
             
             <div class="grid md:grid-cols-12 gap-8 items-center w-full z-10">
                 
@@ -84,7 +135,7 @@
                             </div>
                             
                             <!-- Dấu chấm Slider -->
-                            <div class="flex justify-center gap-2.5 pt-5 w-full">
+                            <div class="flex justify-center gap-2.5 pt-5 w-full" data-slideshow-dots="desktop">
                                 <span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
                                 <span class="w-2.5 h-2.5 rounded-full bg-[#D9D9D9]"></span>
                                 <span class="w-2.5 h-2.5 rounded-full bg-[#D9D9D9]"></span>
@@ -104,43 +155,101 @@
                 
             </div>
         </section>
+
+        <!-- Mobile hero -->
+        <section class="mx-auto flex min-h-[calc(100vh-80px)] max-w-md flex-col px-6 py-7 md:hidden">
+            <div class="mb-10">
+                <h1 class="font-display text-[46px] font-extrabold leading-[0.98] tracking-tight text-text-dark">I'm Nguyên Thảo</h1>
+                <p class="mt-3 text-base font-medium leading-[1.45] text-[#5E6966]">I design thoughtful digital experiences and bring stories to life through illustration.</p>
+            </div>
+
+            <article class="overflow-hidden rounded-[20px] bg-white shadow-[0_2px_12px_rgba(32,53,48,0.06)]">
+                <img id="mobile-featured-project" alt="Featured project" class="aspect-video w-full object-cover transition-opacity duration-700" src="Cover - Small/AgileFit.png">
+                <div class="px-5 pb-5 pt-4">
+                    <div>
+                        <h4 id="mobile-project-title" class="font-display text-[16px] font-extrabold leading-none tracking-tight text-text-dark">AgileFit - Mobile App</h4>
+                    </div>
+                    <p id="mobile-project-subtitle" class="mt-3 text-base leading-tight text-[#69736F]">UI/UX Design Final Project</p>
+                </div>
+            </article>
+
+            <div class="mt-8 flex justify-center gap-2.5" data-slideshow-dots="mobile">
+                <span role="button" tabindex="0" aria-label="Show AgileFit" class="mobile-slider-dot rounded-full bg-primary transition-colors"></span>
+                <span role="button" tabindex="0" aria-label="Show Dearly" class="mobile-slider-dot rounded-full bg-[#C6D0CA] transition-colors"></span>
+                <span role="button" tabindex="0" aria-label="Show MoodFlow" class="mobile-slider-dot rounded-full bg-[#C6D0CA] transition-colors"></span>
+                <span role="button" tabindex="0" aria-label="Show HomeStay Dorm" class="mobile-slider-dot rounded-full bg-[#C6D0CA] transition-colors"></span>
+                <span role="button" tabindex="0" aria-label="Show 2027 Calender" class="mobile-slider-dot rounded-full bg-[#C6D0CA] transition-colors"></span>
+                <span role="button" tabindex="0" aria-label="Show Treasure" class="mobile-slider-dot rounded-full bg-[#C6D0CA] transition-colors"></span>
+            </div>
+
+            <div class="mt-8 flex justify-center gap-4">
+                <button id="mobile-view-project-btn" class="mobile-view-project rounded-full border-2 border-primary bg-primary px-7 py-2 font-body font-bold text-base text-white transition-all hover:bg-opacity-90">View Project</button>
+                <a href="about.html" class="mobile-about-link button-link rounded-full border-[1.5px] border-secondary bg-transparent px-9 py-2 text-center font-body font-bold text-base text-secondary transition-all hover:bg-secondary hover:text-white">About Me</a>
+            </div>
+        </section>
     </main>
 
     <script>
         (function(){
             const img = document.querySelector('img[alt="Featured project"]');
+            const mobileImg = document.getElementById('mobile-featured-project');
             const projectTitle = document.getElementById('project-title');
+            const mobileProjectTitle = document.getElementById('mobile-project-title');
+            const mobileProjectSubtitle = document.getElementById('mobile-project-subtitle');
             const projectTitles = [
                 'AgileFit - Mobile App',
+                'Dearly - Mobile App',
                 'MoodFlow - Mobile App',
                 'HomeStay Dorm - Website',
                 '2027 Calender',
-                '2026 Calender',
                 'Treasure - Children\'s Book'
             ];
             const projectSlugs = [
                 'AgileFit',
+                'Dearly',
                 'MoodFlow',
                 'HomeStay Dorm',
                 '2027 Calender',
-                '2026 Calender',
                 'Treasure'
             ];
-            const dots = Array.from(document.querySelectorAll('.flex.justify-center span'));
-            const total = dots.length;
+            const projectSubtitles = [
+                'UI/UX Design Final Project',
+                'Product Design',
+                'UX/UI Product Design Project',
+                'Analyze & Design Information System · Final Project',
+                'Personal Project',
+                'Drawing Angel Wings 2025'
+            ];
+            const desktopDots = Array.from(document.querySelectorAll('[data-slideshow-dots="desktop"] span'));
+            const mobileDots = Array.from(document.querySelectorAll('[data-slideshow-dots="mobile"] [role="button"]'));
+            const total = projectTitles.length;
             let idx = 0;
             let autoSlide = null;
 
-            function setActive(i){
-                dots.forEach((d, j)=>{
-                    if(j===i){
-                        d.classList.remove('bg-[#D9D9D9]');
-                        d.classList.add('bg-primary');
-                    } else {
-                        d.classList.remove('bg-primary');
-                        d.classList.add('bg-[#D9D9D9]');
-                    }
+            function updateDesktopDots(i){
+                desktopDots.forEach((dot, index) => {
+                    dot.classList.toggle('bg-primary', index === i);
+                    dot.classList.toggle('bg-[#D9D9D9]', index !== i);
                 });
+            }
+
+            function updateMobileDots(i){
+                mobileDots.forEach((dot, index) => {
+                    dot.classList.toggle('bg-primary', index === i);
+                    dot.classList.toggle('bg-[#C6D0CA]', index !== i);
+                });
+            }
+
+            function swapImage(element, src){
+                if(!element || element.getAttribute('src') === src) return;
+                element.classList.add('opacity-0');
+                element.onload = () => element.classList.remove('opacity-0');
+                element.src = src;
+            }
+
+            function setActive(i){
+                updateDesktopDots(i);
+                updateMobileDots(i);
 
                 if(projectTitle){
                     projectTitle.classList.add('opacity-0');
@@ -150,24 +259,21 @@
                     }, 250);
                 }
 
-                const targetSrc = `Cover/${projectSlugs[i]}.svg`;
-                if(img.src.endsWith(targetSrc)){
-                    return;
+                if(mobileProjectTitle){
+                    mobileProjectTitle.textContent = projectTitles[i];
+                    mobileProjectSubtitle.textContent = projectSubtitles[i];
                 }
 
-                img.classList.add('opacity-0');
-                img.onload = () => {
-                    img.classList.remove('opacity-0');
-                };
-                img.src = targetSrc;
+                swapImage(img, `Cover/${projectSlugs[i]}.svg`);
+                swapImage(mobileImg, `Cover - Small/${projectSlugs[i]}.png`);
             }
 
             const projectFiles = [
                 'Doc/AgileFit/agilefit.html?from=index',
+                'Doc/Dearly/dearly.html?from=index',
                 'Doc/MoodFlow/moodflow.html?from=index',
                 'Doc/HomeStay Dorm/homestaydorm.html?from=index',
                 'Doc/2027 Calender/2027calender.html?from=index',
-                'Doc/2026 Calender/2026calender.html?from=index',
                 'Doc/Treasure/treasure.html?from=index'
             ];
 
@@ -185,12 +291,27 @@
                 }, 5000);
             }
 
-            dots.forEach((dot, index)=>{
+            desktopDots.forEach((dot, index)=>{
                 dot.classList.add('cursor-pointer');
                 dot.addEventListener('click', ()=>{
                     idx = index;
                     setActive(idx);
                     resetAutoSlide();
+                });
+            });
+
+            mobileDots.forEach((dot, index)=>{
+                const selectProject = ()=>{
+                    idx = index;
+                    setActive(idx);
+                    resetAutoSlide();
+                };
+                dot.addEventListener('click', selectProject);
+                dot.addEventListener('keydown', event=>{
+                    if(event.key === 'Enter' || event.key === ' '){
+                        event.preventDefault();
+                        selectProject();
+                    }
                 });
             });
 
@@ -202,6 +323,25 @@
             if(img){
                 img.classList.add('cursor-pointer');
                 img.addEventListener('click', openProject);
+            }
+
+            const mobileViewProjectBtn = document.getElementById('mobile-view-project-btn');
+            if(mobileViewProjectBtn){
+                mobileViewProjectBtn.addEventListener('click', openProject);
+            }
+
+            if(mobileImg){
+                mobileImg.classList.add('cursor-pointer');
+                mobileImg.addEventListener('click', openProject);
+            }
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if(mobileMenuButton && mobileMenu){
+                mobileMenuButton.addEventListener('click', ()=>{
+                    const isOpen = mobileMenu.classList.toggle('hidden') === false;
+                    mobileMenuButton.setAttribute('aria-expanded', String(isOpen));
+                });
             }
 
             setActive(idx);
