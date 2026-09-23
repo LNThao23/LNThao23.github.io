@@ -21,6 +21,11 @@
                         "background-color": "#f8f9fa",
                         "text-dark": "#000000",
                         "text-body": "#1A1A1A",
+                        "lavender": "#E0BBE4",
+                        "mint": "#B5EAD7",
+                        "baby-blue": "#C7CEEA",
+                        "peach": "#FFDAC1",
+                        "on-primary": "#ffffff",
                     },
                     fontFamily: {
                         "display": ["'Big Shoulders Display'", "sans-serif"],
@@ -73,12 +78,37 @@
         @media (max-width: 420px) {
             .mobile-view-project, .mobile-about-link { width: calc(50vw - 36px) !important; min-width: 0 !important; }
         }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 30px 60px -12px rgba(54, 103, 88, 0.04);
+        }
+
+        .skill-chip { transition: all 0.2s ease; }
+        .skill-chip:hover { filter: brightness(0.95); transform: translateY(-2px); }
+
+        .portrait-about, .portrait-footer { display: none; }
+
+        @media (orientation: portrait) {
+            .portrait-about { display: block; }
+            .portrait-footer { display: block; }
+        }
+
+        .mobile-profile-photo {
+            transform: rotate(-2deg);
+            box-shadow: 0 18px 35px rgba(32, 53, 48, 0.12);
+        }
+
+        .portrait-about .mobile-about-title + h2,
+        .portrait-about .profile-name-original { display: none; }
     </style>
 </head>
 <body class="font-body text-base text-text-body antialiased overflow-x-hidden">
 
     <!-- TopNavBar -->
-    <header class="relative z-50 flex min-h-[80px] w-full items-center bg-white pb-4 pt-6">
+    <header class="relative z-50 hidden min-h-[80px] w-full items-center bg-white pb-4 pt-6 md:flex">
         <nav class="flex justify-between items-center w-full px-6 md:px-24 max-w-[1440px] mx-auto">
             <a href="index.html" class="site-brand hidden md:block text-[25px] leading-none font-display font-black text-text-dark tracking-[-0.4px] hover:opacity-80 transition-opacity">
                 NguyenThao
@@ -95,7 +125,7 @@
         <div id="mobile-menu" class="hidden absolute top-full inset-x-0 bg-white border-t border-black/5 px-6 py-4 shadow-lg md:hidden">
             <a class="block py-2 font-bold text-primary" href="index.html">Home</a>
             <a class="block py-2 font-medium" href="work.html">Works</a>
-            <a class="block py-2 font-medium" href="about.html">About</a>
+            <a class="block py-2 font-medium" href="#about">About</a>
         </div>
     </header>
 
@@ -157,10 +187,14 @@
         </section>
 
         <!-- Mobile hero -->
-        <section class="mx-auto flex min-h-[calc(100vh-80px)] max-w-md flex-col px-6 py-7 md:hidden">
+        <section class="mx-auto flex min-h-screen max-w-md flex-col px-6 py-7 md:min-h-[calc(100vh-80px)] md:hidden">
             <div class="mb-10">
-                <h1 class="font-display text-[46px] font-extrabold leading-[0.98] tracking-tight text-text-dark">I'm Nguyên Thảo</h1>
+                <h1 class="font-display text-[26px] font-extrabold leading-[1] tracking-tight text-text-dark">I'm Nguyên Thảo</h1>
                 <p class="mt-3 text-base font-medium leading-[1.45] text-[#5E6966]">I design thoughtful digital experiences and bring stories to life through illustration.</p>
+            </div>
+
+            <div class="mb-3 flex justify-end">
+                <a href="work.html" class="inline-flex items-center gap-1 text-sm font-medium text-primary transition-opacity hover:opacity-70">View all projects <span aria-hidden="true">→</span></a>
             </div>
 
             <article class="overflow-hidden rounded-[20px] bg-white shadow-[0_2px_12px_rgba(32,53,48,0.06)]">
@@ -184,10 +218,68 @@
 
             <div class="mt-8 flex justify-center gap-4">
                 <button id="mobile-view-project-btn" class="mobile-view-project rounded-full border-2 border-primary bg-primary px-7 py-2 font-body font-bold text-base text-white transition-all hover:bg-opacity-90">View Project</button>
-                <a href="about.html" class="mobile-about-link button-link rounded-full border-[1.5px] border-secondary bg-transparent px-9 py-2 text-center font-body font-bold text-base text-secondary transition-all hover:bg-secondary hover:text-white">About Me</a>
+                <a href="#about" class="mobile-about-link button-link rounded-full border-[1.5px] border-secondary bg-transparent px-9 py-2 text-center font-body font-bold text-base text-secondary transition-all hover:bg-secondary hover:text-white">About Me</a>
+            </div>
+        </section>
+
+        <!-- About is part of the mobile home page; desktop keeps its separate About page. -->
+        <section id="about" class="portrait-about bg-[#E9EDED] px-6 py-16">
+            <div class="mx-auto max-w-md">
+                <div class="hidden">
+                    <div class="space-y-4">
+                        <p class="font-body text-sm font-bold uppercase tracking-[0.12em] text-primary">About me</p>
+                        <h2 class="font-display text-[42px] font-extrabold leading-[0.98] tracking-tight text-text-dark">Hi, I'm Nguyên Thảo.</h2>
+                        <h3 class="font-display text-[38px] font-extrabold leading-[1] tracking-tight text-text-dark">I blend logic with <span class="text-primary">creativity</span>.</h3>
+                        <p class="text-base font-medium leading-[1.45] text-[#5E6966]">I'm an aspiring Product Designer with a background in Information Technology and a passion for creating user-centered digital experiences. My journey began with illustration, which taught me how visual storytelling can communicate ideas and evoke emotions. Today, I combine creativity with UX thinking to design intuitive, accessible, and engaging products that solve real user problems while delivering meaningful experiences.</p>
+                        <div class="pt-2">
+                            <p class="text-sm font-bold uppercase tracking-[0.12em] text-primary opacity-80">Location</p>
+                            <p class="mt-2 text-base font-medium text-text-dark">Ho Chi Minh City, Vietnam</p>
+                        </div>
+                    </div>
+                    <img alt="Profile Illustration" class="w-full" src="Profile.svg">
+                </div>
+
+                <div class="text-center">
+                    <h1 class="mobile-about-title font-display text-[24px] font-extrabold leading-[1] tracking-tight text-text-dark">I'M NGUY&#202;N TH&#7842;O</h1>
+                    <h2 class="font-display text-[24px] font-extrabold leading-[1] tracking-tight text-text-dark">I'M NGUYỄN THẢO</h2>
+                    <h3 class="mt-2 font-body text-sm font-medium text-text-body">I blend logic with <span class="text-primary">creativity</span>.</h3>
+                </div>
+
+                <div class="mt-14 rounded-[24px] bg-white px-6 pb-9 pt-8">
+                    <div class="relative mx-auto w-[min(78vw,290px)]">
+                        <div class="mobile-profile-photo overflow-hidden rounded-[14px] border-[10px] border-white bg-white">
+                            <img alt="Nguyên Thảo" class="aspect-square w-full object-cover" src="Profile - Small.JPG">
+                        </div>
+                        <span class="profile-name-original absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-primary px-7 py-2 font-display text-xl font-extrabold text-white shadow-lg">NGUYỄN THẢO</span>
+                        <span class="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-primary px-7 py-2 font-display text-xl font-extrabold text-white shadow-lg">NGUY&#202;N TH&#7842;O</span>
+                    </div>
+                    <p class="mt-16 text-justify text-base font-medium leading-[1.45] text-text-body">I'm an aspiring Product Designer with a background in Information Technology and a passion for creating user-centered digital experiences. My journey began with illustration, which taught me how visual storytelling can communicate ideas and evoke emotions. Today, I combine creativity with UX thinking to design intuitive, accessible, and engaging products that solve real user problems while delivering meaningful experiences.</p>
+                </div>
+
+                <div class="mt-12 space-y-6">
+                    <article class="glass-card rounded-[24px] p-6">
+                        <h3 class="font-display text-[24px] font-extrabold tracking-tight text-text-dark">Soft Skills &amp; Languages</h3>
+                        <div class="mt-6 space-y-5">
+                            <div><h4 class="text-sm font-bold uppercase tracking-widest text-primary">Soft Skills</h4><div class="mt-3 flex flex-wrap gap-2"><span class="skill-chip rounded-full bg-mint px-4 py-2 text-sm font-bold text-primary">Leadership</span><span class="skill-chip rounded-full bg-mint px-4 py-2 text-sm font-bold text-primary">Team Collaboration</span><span class="skill-chip rounded-full bg-mint px-4 py-2 text-sm font-bold text-primary">Communication</span></div></div>
+                            <div><h4 class="text-sm font-bold uppercase tracking-widest text-primary">Language</h4><div class="mt-3 flex flex-wrap gap-2"><span class="skill-chip rounded-full bg-baby-blue px-4 py-2 text-sm font-bold text-primary">English (B2 Level)</span><span class="skill-chip rounded-full bg-baby-blue px-4 py-2 text-sm font-bold text-primary">Chinese (A1-A2 Level)</span></div></div>
+                        </div>
+                    </article>
+                    <article class="glass-card rounded-[24px] bg-primary/5 p-6">
+                        <h3 class="font-display text-[24px] font-extrabold tracking-tight text-text-dark">Toolbox</h3>
+                        <div class="mt-6 grid grid-cols-2 gap-4 text-base font-bold text-text-dark"><div><h4 class="text-sm font-bold uppercase tracking-widest text-primary">Design</h4><p class="mt-2">Figma, Illustrator, Photoshop</p><p>Blender, Procreate</p></div><div><h4 class="text-sm font-bold uppercase tracking-widest text-primary">Technical</h4><p class="mt-2">VSCode, PowerBI, Antigravity</p></div></div>
+                    </article>
+                    <article class="glass-card rounded-[24px] p-6">
+                        <h3 class="font-display text-[24px] font-extrabold tracking-tight text-text-dark">Education</h3>
+                        <div class="mt-6 space-y-6"><div><p class="text-sm font-bold uppercase tracking-widest text-primary">11/2023 - 08/2024</p><h4 class="mt-1 text-xl font-bold text-text-dark">2D Graphic Design</h4><p class="text-base text-[#5E6966]">Green Academy</p></div><div><p class="text-sm font-bold uppercase tracking-widest text-primary">05/2026 - 10/2026</p><h4 class="mt-1 text-xl font-bold text-text-dark">UX/UI Product Design<br>Figma UI Design</h4><p class="text-base text-[#5E6966]">Keyframe</p></div><div><p class="text-sm font-bold uppercase tracking-widest text-primary">10/2023 - Present</p><h4 class="mt-1 text-xl font-bold text-text-dark">Information Technology</h4><p class="text-base text-[#5E6966]">Ho Chi Minh University of Science - VNUHCM</p></div></div>
+                    </article>
+                </div>
             </div>
         </section>
     </main>
+
+    <footer class="portrait-footer bg-primary px-6 py-7 text-center text-white">
+        <p class="text-sm opacity-90">© 2026 Nguyên Thảo. Crafted with curiosity and creativity.</p>
+    </footer>
 
     <script>
         (function(){
