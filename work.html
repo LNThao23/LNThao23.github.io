@@ -56,9 +56,43 @@
         }
 
         /* Style cho nút filter đang được chọn */
-        .filter-btn.active {
+        .filter-chip.active {
             background-color: #366758; /* Màu primary */
             color: #ffffff;
+        }
+
+        .filter-chip {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.34);
+        }
+
+        .filter-checkbox {
+            display: inline-flex;
+            width: 18px;
+            height: 18px;
+            flex: 0 0 18px;
+            align-items: center;
+            justify-content: center;
+            border: 1.5px solid rgba(54, 103, 88, 0.65);
+            border-radius: 5px;
+        }
+
+        .filter-chip.active .filter-checkbox {
+            border-color: #ffffff;
+            background: #ffffff;
+        }
+
+        .filter-chip.active .filter-checkbox::after {
+            content: '';
+            width: 8px;
+            height: 4px;
+            margin-top: -2px;
+            border-bottom: 2px solid #366758;
+            border-left: 2px solid #366758;
+            transform: rotate(-45deg);
         }
 
         /* Tùy chỉnh layout cho hàng illustration */
@@ -116,10 +150,18 @@
             <!-- Filter Controls -->
             <div class="flex flex-nowrap items-center justify-between gap-2 mb-8 md:mb-12 md:gap-6">
                 <h2 class="shrink-0 font-display text-[22px] md:text-[48px] font-extrabold text-text-dark tracking-tight">Selected Works</h2>
-                <div class="flex shrink-0 items-center space-x-1 rounded-full border border-white/50 bg-white p-1 shadow-sm md:p-1.5">
-                    <button class="filter-btn active rounded-full px-3 py-1.5 font-body text-sm font-bold transition-all duration-300 md:px-6 md:py-2 md:text-lg" onclick="filterProjects('all')">All</button>
-                    <button class="filter-btn rounded-full px-3 py-1.5 font-body text-sm font-bold text-text-dark transition-all duration-300 hover:bg-gray-100 md:px-6 md:py-2 md:text-lg" onclick="filterProjects('product')">Product</button>
-                    <button class="filter-btn rounded-full px-3 py-1.5 font-body text-sm font-bold text-text-dark transition-all duration-300 hover:bg-gray-100 md:px-6 md:py-2 md:text-lg" onclick="filterProjects('illustration')">Illustration</button>
+                <div class="relative shrink-0">
+                    <button id="filter-menu-button" type="button" class="flex h-11 items-center justify-center gap-2 rounded-full border border-white/50 bg-white px-4 font-body text-sm font-bold text-primary shadow-sm transition-all hover:bg-gray-50 md:h-12 md:text-base" aria-label="Filter projects" aria-expanded="false" aria-controls="filter-menu">
+                        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/></svg>
+                        <span>Filter</span>
+                    </button>
+                    <div id="filter-menu" class="hidden absolute right-0 top-[calc(100%+0.5rem)] z-20 w-48 rounded-2xl border border-white/55 bg-white/55 p-3 shadow-[0_12px_30px_rgba(32,53,48,0.12)] backdrop-blur-xl">
+                        <p class="mb-2 px-1 text-sm font-semibold text-text-dark">Filter projects</p>
+                        <div class="flex flex-col gap-2">
+                            <button type="button" class="filter-chip rounded-xl border border-primary/70 px-3 py-2 font-body text-sm font-bold text-text-dark transition-all duration-200 hover:bg-white/60" data-filter="product" data-label="Product" aria-pressed="true"><span class="filter-chip-label">Product</span><span class="filter-checkbox" aria-hidden="true"></span></button>
+                            <button type="button" class="filter-chip rounded-xl border border-primary/70 px-3 py-2 font-body text-sm font-bold text-text-dark transition-all duration-200 hover:bg-white/60" data-filter="illustration" data-label="Illustration" aria-pressed="true"><span class="filter-chip-label">Illustration</span><span class="filter-checkbox" aria-hidden="true"></span></button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -185,26 +227,40 @@
             });
         }
 
+        const activeFilters = new Set(['product', 'illustration']);
+
+        function updateFilterButton(button, isActive) {
+            button.classList.toggle('active', isActive);
+            button.classList.toggle('text-white', isActive);
+            button.classList.toggle('text-text-dark', !isActive);
+            button.classList.toggle('hover:bg-gray-100', !isActive);
+            button.setAttribute('aria-pressed', String(isActive));
+            button.querySelector('.filter-chip-label').textContent = button.dataset.label;
+        }
+
         function filterProjects(category) {
             const items = document.querySelectorAll('.project-item');
-            const buttons = document.querySelectorAll('.filter-btn');
+            const buttons = document.querySelectorAll('.filter-chip');
             
             // Cập nhật trạng thái nút (Active)
-            buttons.forEach(btn => {
-                btn.classList.remove('active', 'text-white');
-                btn.classList.add('text-text-dark', 'hover:bg-gray-100');
-                
-                if((category === 'all' && btn.innerText === 'All') || 
-                   (category === 'product' && btn.innerText === 'Product') || 
-                   (category === 'illustration' && btn.innerText === 'Illustration')) {
-                    btn.classList.add('active', 'text-white');
-                    btn.classList.remove('text-text-dark', 'hover:bg-gray-100');
-                }
+            if (category === 'all') {
+                activeFilters.clear();
+                activeFilters.add('product');
+                activeFilters.add('illustration');
+            } else if (activeFilters.has(category)) {
+                activeFilters.delete(category);
+            } else {
+                activeFilters.add(category);
+            }
+
+            buttons.forEach(button => {
+                const buttonFilter = button.dataset.filter;
+                updateFilterButton(button, activeFilters.has(buttonFilter));
             });
 
             // Lọc các dự án với hiệu ứng fade
             items.forEach(item => {
-                if (category === 'all' || item.classList.contains(category)) {
+                if (activeFilters.size === 0 || Array.from(activeFilters).some(filter => item.classList.contains(filter))) {
                     item.style.display = 'block';
                     setTimeout(() => {
                         item.style.opacity = '1';
@@ -226,6 +282,24 @@
             const items = document.querySelectorAll('.project-item');
             items.forEach(item => {
                 item.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+            const filterMenuButton = document.getElementById('filter-menu-button');
+            const filterMenu = document.getElementById('filter-menu');
+            document.querySelectorAll('.filter-chip').forEach(button => {
+                button.addEventListener('click', () => filterProjects(button.dataset.filter));
+            });
+            document.querySelectorAll('.filter-chip').forEach(button => {
+                updateFilterButton(button, activeFilters.has(button.dataset.filter));
+            });
+            filterMenuButton.addEventListener('click', () => {
+                const isOpen = filterMenu.classList.toggle('hidden') === false;
+                filterMenuButton.setAttribute('aria-expanded', String(isOpen));
+            });
+            document.addEventListener('click', event => {
+                if (!filterMenu.contains(event.target) && !filterMenuButton.contains(event.target)) {
+                    filterMenu.classList.add('hidden');
+                    filterMenuButton.setAttribute('aria-expanded', 'false');
+                }
             });
         });
     </script>
