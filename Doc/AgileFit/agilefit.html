@@ -101,6 +101,16 @@
     .site-header .nav-links a:hover, .site-header .nav-links a[aria-current="page"] { color: #fff; border-color: currentColor; }
     .site-header .nav-links a[aria-current="page"] { font-weight: 700; }
     @media (max-width: 760px) { .site-header .nav { padding: 0 24px; } .site-header .nav-links { display: none; } }
+    @media (max-width: 1023px) {
+      main > section:first-of-type { padding-top: 32px !important; padding-left: 40px !important; padding-right: 40px !important; }
+      main > section:first-of-type > .max-w-7xl { padding-left: 0 !important; padding-right: 0 !important; }
+      .site-header { display: none; }
+      .mobile-back { display: inline-flex !important; }
+      .mobile-team-list { grid-template-columns: 124px 96px !important; justify-content: center !important; column-gap: 8px !important; row-gap: 0 !important; margin-top: 32px !important; }
+      .mobile-team-list .space-y-1\.5 { display: flex; flex-direction: column; gap: 6px !important; }
+      #section-4 .lg\:col-span-5 { order: -1; }
+    }
+    .mobile-back { display: none; align-items: center; gap: 8px; padding: 16px 40px 0; color: #B8FF00; font-size: 16px; font-weight: 600; }
   </style>
 <link rel="stylesheet" href="../../typography.css">
 </head>
@@ -116,11 +126,13 @@
 </div>
 </nav>
 </header>
+<a id="mobile-back" class="mobile-back" href="../../work.html" aria-label="Back to works"><span aria-hidden="true">←</span><span>Back</span></a>
 <script>
   const agileSource = new URLSearchParams(window.location.search).get('from');
   if (agileSource === 'home') {
     document.getElementById('nav-works').removeAttribute('aria-current');
     document.getElementById('nav-home').setAttribute('aria-current', 'page');
+    document.getElementById('mobile-back').href = '../../index.html';
   }
 </script>
 <!-- MAIN WRAPPER -->
@@ -609,10 +621,61 @@ Your browser does not support the video tag.
       }
     }
 
+    let displayedPrototypeFlow = -1;
+
     function setActivePrototypeFlow(flowKey) {
-      const cards = document.querySelectorAll('#section-4 .flow-card');
+      const cards = [...document.querySelectorAll('#section-4 .flow-card')]
+        .map((card, index) => {
+          if (!card.dataset.flowOrder) card.dataset.flowOrder = String(index);
+          return card;
+        })
+        .sort((first, second) => Number(first.dataset.flowOrder) - Number(second.dataset.flowOrder));
       const flowIndex = Number(flowKey.replace('flow', '')) - 1;
       cards.forEach((card, index) => card.classList.toggle('prototype-active', index === flowIndex));
+
+      // On mobile, keep the currently playing prototype at the top and rotate
+      // preceding cards to the end, matching MoodFlow's walkthrough behavior.
+      if (window.matchMedia('(max-width: 1023px)').matches && displayedPrototypeFlow !== flowIndex) {
+        const cardList = cards[0] && cards[0].parentElement;
+        if (cardList) {
+          cards.slice(flowIndex).concat(cards.slice(0, flowIndex)).forEach(card => cardList.appendChild(card));
+        }
+        displayedPrototypeFlow = flowIndex;
+      }
+    }
+
+    function arrangeMobileHero() {
+      const hero = document.querySelector('main > section:first-of-type');
+      if (!hero) return;
+      const heroGrid = hero.querySelector(':scope > .max-w-7xl > .grid');
+      if (!heroGrid || !heroGrid.children.length) return;
+
+      const copyColumn = heroGrid.children[0];
+      const phoneColumn = heroGrid.querySelector(':scope > .lg\\:col-span-5') ||
+        copyColumn.querySelector(':scope > .lg\\:col-span-5');
+      const teamLabel = [...copyColumn.querySelectorAll('span')]
+        .find(label => label.textContent.trim() === 'TEAM MEMBERS');
+      const teamCard = teamLabel && teamLabel.closest('.grid');
+      if (!phoneColumn || !teamCard) return;
+
+      if (window.matchMedia('(max-width: 1023px)').matches) {
+        teamCard.classList.add('mobile-team-list');
+        const blankLine = [...teamCard.querySelectorAll('div')]
+          .find(element => element.children.length === 1 && element.firstElementChild.tagName === 'BR');
+        if (blankLine) blankLine.remove();
+        if (teamCard.children.length === 3) {
+          const memberList = teamCard.children[0].querySelector('.space-y-1\\.5');
+          const remainingMembers = teamCard.children[1].querySelector('.space-y-1\\.5');
+          if (memberList && remainingMembers) {
+            [...remainingMembers.children].forEach(member => memberList.appendChild(member));
+            teamCard.children[1].remove();
+          }
+        }
+        copyColumn.insertBefore(phoneColumn, teamCard);
+      } else if (phoneColumn.parentElement !== heroGrid) {
+        teamCard.classList.remove('mobile-team-list');
+        heroGrid.appendChild(phoneColumn);
+      }
     }
 
     function syncPrototypeFlowToVideo() {
@@ -630,6 +693,8 @@ Your browser does not support the video tag.
       });
       syncPrototypeFlowToVideo();
     }
+    arrangeMobileHero();
+    window.addEventListener('resize', arrangeMobileHero);
 
     const chapterLinks = [...document.querySelectorAll('.agile-chapter-nav a')];
     const chapterSections = chapterLinks.map(link => document.querySelector(link.getAttribute('href')));
