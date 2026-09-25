@@ -46,10 +46,10 @@
     h3 { margin-top:22px; font-size:34px; line-height:1.15; }
     .month-name { margin:20px 0 14px; color:var(--coral); font-family:"Big Shoulders Display",sans-serif; font-size:18px; font-weight:900; text-transform:uppercase; }
     .description { max-width:450px; min-height:75px; color:var(--muted); font-size:16px; line-height:1.6; text-align:justify; }
-    .month-navigation { width:100%; max-width:450px; margin-top:34px; }
+    .month-navigation { width:100%; max-width:450px; margin-top:16px; }
     .dots { display:flex; align-items:center; justify-content:center; gap:9px; width:100%; min-height:30px; }
-    .dot { width:9px; height:9px; padding:0; border:0; border-radius:50%; background:#ece2d4; cursor:pointer; transition:.25s ease; }
-    .dot.active { width:25px; border-radius:999px; background:var(--gold); }
+    .dot { flex:0 0 9px; width:9px; min-width:9px; height:9px; padding:0 !important; border:0; border-radius:50%; background:#ece2d4; cursor:pointer; transition:.25s ease; }
+    .dot.active { flex-basis:9px; width:9px; border-radius:50%; background:var(--gold); }
     .card-stage { position:relative; height:650px; }
     .calendar-card { position:absolute; top:50%; left:50%; width:350px; aspect-ratio:2475/3500; border-radius:20px; object-fit:cover; box-shadow:0 24px 35px rgba(57,38,26,.16); transform-origin:center; transition:transform .55s cubic-bezier(.22,.8,.24,1),opacity .4s ease; cursor:pointer; }
     .calendar-card.active { z-index:4; transform:translate(-63%,-50%); opacity:1; }
