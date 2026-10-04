@@ -1,0 +1,632 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>TiniNote — UX Case Study</title>
+<!-- Google Fonts: Big Shoulders Display & Afacad -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&amp;family=Big+Shoulders+Display:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: "#f0f8ff",
+              100: "#e0f2fe",
+              200: "#bae6fd",
+              300: "#7dd3fc",
+              400: "#38bdf8",
+              500: "#0284c7",
+              600: "#006194",
+              700: "#0369a1",
+              800: "#075985",
+              900: "#0c4a6e",
+            },
+            warmth: {
+              50: "#fffbeb",
+              100: "#fef3c7",
+              200: "#fde68a",
+              300: "#fcd34d",
+              400: "#fbbf24",
+              500: "#f59e0b",
+            },
+            slate: {
+              850: "#0f172a",
+              950: "#020617",
+            }
+          },
+          fontFamily: {
+            display: ['"Big Shoulders Display"', 'sans-serif'],
+            body: ['"Afacad"', 'sans-serif'],
+          },
+          borderRadius: {
+            '3xl': '1.75rem',
+            '4xl': '2.25rem',
+            '5xl': '3rem',
+          },
+          boxShadow: {
+            'glass': '0 20px 50px rgba(0, 97, 148, 0.08), 0 1px 3px rgba(0, 0, 0, 0.02)',
+            'glow-cyan': '0 0 60px -10px rgba(56, 189, 248, 0.35)',
+            'glow-warm': '0 0 70px -15px rgba(251, 191, 36, 0.25)',
+          }
+        }
+      }
+    }
+  </script>
+<link href="../../typography.css" rel="stylesheet">
+<style>
+    body {
+      font-family: 'Afacad', sans-serif;
+      overflow-x: hidden;
+      background-color: #f7faff;
+    }
+    .font-display {
+      font-family: 'Big Shoulders Display', sans-serif;
+    }
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+    }
+    .glass-panel-subtle {
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+    .glass-card-interactive {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(12px);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card-interactive:hover {
+      background: rgba(255, 255, 255, 0.95);
+      transform: translateY(-4px);
+      box-shadow: 0 25px 45px -10px rgba(2, 132, 199, 0.12);
+    }
+    .active-flow {
+      background: #ffffff !important;
+      border-color: #0284c7 !important;
+      box-shadow: 0 16px 36px -8px rgba(2, 132, 199, 0.2) !important;
+      transform: translateX(6px);
+    }
+    /* Hide scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(2, 132, 199, 0.2);
+      border-radius: 9999px;
+    }
+    /* MoodFlow navigation behavior, adapted to TiniNote's blue palette. */
+    .site-header { min-height: 80px; display: flex; align-items: center; background: rgba(247, 250, 255, .94); border-bottom: 1px solid rgba(2, 132, 199, .18); backdrop-filter: blur(14px); }
+    .nav-shell { width: 100%; max-width: 1440px; padding: 0 24px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .brand { color: #006194; text-decoration: none; font-weight: 900 !important; line-height: 1; letter-spacing: -.4px; }
+    .site-header .main-nav { display: flex; align-items: center; gap: 48px; }
+    .site-header .main-nav a { color: #475569; line-height: 28px; text-decoration: none; border-bottom: 2px solid transparent; transition: color .2s ease, border-color .2s ease; }
+    .site-header .main-nav a:hover, .site-header .main-nav a[aria-current="page"] { color: #006194; }
+    .content-nav { position: sticky; top: 0; z-index: 40; width: 100%; background: rgba(247, 250, 255, .94); border-bottom: 1px solid rgba(2, 132, 199, .12); backdrop-filter: blur(14px); }
+    .content-nav-track { width: min(calc(100% - 48px), 1280px); min-height: 70px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .content-nav a { flex: 0 0 auto; padding: 8px 16px !important; border: 1px solid #7dd3fc; border-radius: 999px; background: rgba(255, 255, 255, .8); color: #0369a1; text-decoration: none; font-family: "Afacad", sans-serif !important; font-size: 12px !important; font-weight: 700 !important; letter-spacing: .45px; line-height: 1.4; text-transform: uppercase; white-space: nowrap; transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease; }
+    .content-nav a:hover { border-color: #0284c7; color: #006194; transform: translateY(-1px); }
+    .content-nav a[aria-current="location"] { border-color: #006194; background: #006194; color: #fff; }
+    section[id] { scroll-margin-top: 82px; }
+    .section-tag { font-size: var(--type-label) !important; }
+    #part-1 > div:first-child .inline-flex, #part-2 > div:first-child .inline-flex, #part-3 > div:first-child .inline-flex, #part-4 > div:first-child .inline-flex { font-family: "Afacad", sans-serif !important; font-size: var(--type-label) !important; }
+    .hero-tagline, .hero-intro, .hero-tagline + p { font-family: "Afacad", sans-serif !important; font-size: var(--type-label) !important; }
+    #hero > div:nth-of-type(2) > div:nth-child(2) { opacity: .8; }
+    .promo-video, .walkthrough-video { display: block; width: 100%; background: #0c4a6e; }
+    .promo-video { max-width: 1024px; border-radius: 1rem; }
+    .walkthrough-video { aspect-ratio: 9 / 16; object-fit: contain; border-radius: 2rem; }
+    .timeline-card { padding: 24px !important; text-align: left; }
+    .timeline-card > span:first-child { display: inline-flex; font-family: "Afacad", sans-serif !important; font-size: var(--type-label) !important; }
+    .timeline-card[aria-current="true"] { border-width: 2px; box-shadow: 0 4px 16px rgba(2, 132, 199, .14); }
+    .part4-legacy .screen-view { display: none; }
+    .part4-prototype-video { width: 100%; height: 100%; object-fit: cover; background: #0c4a6e; }
+    .part4-legacy .module-card[aria-current="true"] { border-width: 2px; box-shadow: 0 4px 16px rgba(2, 132, 199, .14); }
+    #part4-module-timeline .module-card[aria-current="false"] { background: #fff; border-color: #e2e8f0; border-width: 1px; box-shadow: none; }
+    #card-auth[aria-current="true"] { border-color: #f43f5e; background: #fff1f2; }
+    #card-qr[aria-current="true"] { border-color: #f59e0b; background: #fffbeb; }
+    #card-journal[aria-current="true"] { border-color: #10b981; background: #ecfdf5; }
+    #card-schedule[aria-current="true"] { border-color: #0ea5e9; background: #f0f9ff; }
+    @media (min-width: 768px) { .nav-shell { padding-right: 96px; padding-left: 96px; } }
+    @media (max-width: 767px) { .site-header .main-nav { display: none; } .content-nav-track { width: 100%; justify-content: flex-start; padding: 0 24px; overflow-x: auto; scrollbar-width: none; } .content-nav-track::-webkit-scrollbar { display: none; } }
+  </style>
+</head>
+<body class="text-slate-700 antialiased selection:bg-brand-200 selection:text-brand-900 relative min-h-screen">
+<!-- BACKGROUND ATMOSPHERIC GRADIENT & SOFT ORBS -->
+<div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+<!-- Top Ocean Cyan Gradient Wave -->
+<div class="absolute -top-[10%] left-1/2 -translate-x-1/2 w-[120vw] h-[750px] bg-gradient-to-b from-sky-200/50 via-cyan-100/30 to-transparent blur-3xl opacity-80"></div>
+<!-- Soft Sunlight Orb -->
+<div class="absolute top-[8%] -left-[10%] w-[550px] h-[550px] rounded-full bg-gradient-to-tr from-amber-200/40 via-yellow-100/30 to-transparent blur-[120px] pointer-events-none opacity-40"></div>
+<!-- Deep Cyan Cyber Cloud Right Orb -->
+<div class="absolute top-[25%] -right-[15%] w-[680px] h-[680px] rounded-full bg-gradient-to-bl from-brand-300/35 via-sky-200/20 to-transparent blur-[130px] pointer-events-none"></div>
+<!-- Midsection Ambient Floating Glow -->
+<div class="absolute top-[55%] left-[5%] w-[500px] h-[500px] rounded-full bg-cyan-100/40 blur-[110px] pointer-events-none"></div>
+<!-- Bottom Dynamic Curve Atmosphere -->
+<div class="absolute bottom-0 right-0 w-[80vw] h-[600px] bg-gradient-to-t from-sky-100/60 via-blue-50/30 to-transparent blur-[120px] pointer-events-none"></div>
+</div>
+<!-- PRIMARY PORTFOLIO HEADER -->
+<header class="site-header">
+  <div class="nav-shell">
+    <a class="brand" href="../../index.html">NguyenThao</a>
+    <nav class="main-nav" aria-label="Primary navigation">
+      <a id="nav-home" href="../../index.html">Home</a>
+      <a id="nav-works" href="../../work.html" aria-current="page">Works</a>
+      <a href="../../about.html">About</a>
+    </nav>
+  </div>
+</header>
+<main class="w-full">
+<!-- HERO / TITLE & CASE STUDY OVERVIEW -->
+<section class="relative max-w-7xl mx-auto mt-0 mb-0 pt-0 pb-16 lg:pb-24 px-8 md:px-16 lg:px-24 bg-gradient-to-br from-white via-[#f7fbff] to-[#edf6fe] shadow-glass border border-white/90 overflow-hidden min-h-[640px] lg:min-h-[720px] flex items-center justify-center" id="hero" style="border-radius: 0px;">
+<!-- Soft Ambient Glow Base -->
+<div class="absolute -top-12 -left-12 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-sky-100/40 to-transparent blur-[100px] pointer-events-none -z-10"></div>
+<!-- CONCENTRIC CIRCLE SYSTEM (ACCURATE TO IMAGE_2) -->
+<!-- Centered behind the phone mockups on the right side -->
+<div class="absolute -right-40 sm:-right-28 lg:-right-[15%] top-1/2 -translate-y-1/2 w-[1100px] h-[1100px] pointer-events-none z-0 flex items-center justify-center select-none overflow-visible"><div class="absolute w-[1100px] h-[1100px] rounded-full border border-sky-100/60 bg-gradient-to-br from-sky-100/50 via-sky-50/20 to-transparent"></div><div class="absolute w-[900px] h-[900px] rounded-full border border-sky-200/50 bg-gradient-to-tr from-sky-200/40 via-sky-100/30 to-transparent shadow-[inset_0_0_80px_rgba(56,189,248,0.14)]"></div><div class="absolute w-[720px] h-[720px] rounded-full border border-sky-200/50 bg-gradient-to-br from-sky-200/40 via-sky-100/30 to-white/40 shadow-sm"></div><div class="absolute w-[540px] h-[540px] rounded-full border border-sky-200/40 bg-gradient-to-br from-sky-200/50 to-sky-100/40 shadow-xs"></div><div class="absolute w-[380px] h-[380px] rounded-full bg-gradient-to-t from-sky-200/60 via-sky-100/50 to-transparent blur-xl opacity-70"></div><div class="absolute top-[16%] left-[26%] w-2 h-2 rounded-full bg-sky-200/80 shadow-[0_0_6px_#bae6fd]"></div><div class="absolute top-[22%] left-[34%] w-1.5 h-1.5 rounded-full bg-white/80 shadow-[0_0_4px_#ffffff]"></div><div class="absolute top-[28%] left-[16%] w-1.5 h-1.5 rounded-full bg-sky-200/70 shadow-[0_0_4px_#bae6fd]"></div><div class="absolute top-[38%] left-[30%] w-2.5 h-2.5 rounded-full bg-sky-200/80 shadow-[0_0_8px_#bae6fd]"></div><div class="absolute top-[48%] left-[14%] w-2 h-2 rounded-full bg-sky-100/80 shadow-[0_0_6px_#bae6fd]"></div><div class="absolute bottom-[28%] left-[22%] w-2 h-2 rounded-full bg-sky-200/70 shadow-[0_0_6px_#bae6fd]"></div><div class="absolute bottom-[18%] left-[32%] w-1.5 h-1.5 rounded-full bg-white/80 shadow-[0_0_4px_#ffffff]"></div><div class="absolute top-[12%] right-[30%] w-2 h-2 rounded-full bg-sky-200/70 shadow-[0_0_6px_#bae6fd]"></div><div class="absolute top-[22%] right-[20%] w-1.5 h-1.5 rounded-full bg-white/80 shadow-[0_0_4px_#ffffff]"></div><div class="absolute top-[32%] right-[14%] w-2.5 h-2.5 rounded-full bg-sky-200/80 shadow-[0_0_8px_#bae6fd]"></div><div class="absolute top-[44%] right-[22%] w-1.5 h-1.5 rounded-full bg-sky-200/70 shadow-[0_0_4px_#bae6fd]"></div><div class="absolute bottom-[22%] right-[24%] w-1.5 h-1.5 rounded-full bg-sky-100/80 shadow-[0_0_6px_#bae6fd]"></div><div class="absolute bottom-[34%] right-[12%] w-2 h-2 rounded-full bg-sky-200/70 shadow-[0_0_6px_#bae6fd]"></div><div class="absolute bottom-[16%] right-[34%] w-2 h-2 rounded-full bg-sky-200/80 shadow-[0_0_6px_#bae6fd]"></div></div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center w-full relative z-10 pt-8 lg:pt-12">
+<div class="lg:col-span-6 flex flex-col justify-center"><div class="pointer-events-none select-none"><div class="absolute top-[8%] left-[4%] w-2 h-2 rounded-full bg-sky-200/70 shadow-[0_0_8px_#7dd3fc]"></div><div class="absolute top-[24%] left-[-2%] w-1.5 h-1.5 rounded-full bg-sky-100/90 shadow-[0_0_6px_#ffffff]"></div><div class="absolute top-[42%] left-[48%] w-2 h-2 rounded-full bg-sky-200/60 shadow-[0_0_6px_#7dd3fc]"></div><div class="absolute bottom-[26%] left-[6%] w-2.5 h-2.5 rounded-full bg-sky-100/80 shadow-[0_0_8px_#bae6fd]"></div><div class="absolute bottom-[12%] left-[36%] w-1.5 h-1.5 rounded-full bg-sky-200/60 shadow-[0_0_6px_#ffffff]"></div><div class="absolute top-[70%] -left-3 w-2 h-2 rounded-full bg-sky-200/50 shadow-[0_0_6px_#7dd3fc]"></div></div>
+<div class="flex flex-wrap items-center gap-2 mb-6">
+<div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-sky-100/90 text-brand-600 text-xs font-bold uppercase tracking-wider shadow-xs border border-sky-200/70">
+<span class="w-2 h-2 rounded-full bg-brand-500"></span>
+<span class="">FIGMA UI DESIGN FINAL PROJECT</span>
+</div>
+</div>
+<h1 class="font-display font-black text-6xl sm:text-7xl lg:text-[104px] leading-[0.9] tracking-tight uppercase mb-6 text-brand-600">TININOTE</h1>
+<h2 class="hero-tagline text-brand-600 font-bold text-lg sm:text-xl lg:text-2xl tracking-wide uppercase mb-4">Growing with your child, every step of the way.</h2>
+<p class="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-xl mb-8" style="text-align: justify;">TiniNote helps parents track their child’s growth, organize health information and care appointments, and share essential details with caregivers through a QR code.</p>
+<div>
+<a class="inline-flex items-center gap-3 px-8 py-2 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-semibold text-base shadow-lg hover:shadow-xl transition-all hover:scale-[1.02] cursor-pointer" href="#part-1">
+<span class="">Explore Now</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<div class="lg:col-span-6 flex items-center justify-center relative">
+<div class="relative w-full flex items-center justify-center">
+<!-- Clean phone showcase layered gracefully over concentric circular backdrop -->
+<img alt="TiniNote UI Design Project Cover Showcase" class="w-full max-h-[580px] lg:max-h-[640px] object-contain transition-transform duration-500 hover:scale-[1.01]" src="Cover.png">
+</div>
+</div>
+</div>
+</section>
+<nav class="content-nav" aria-label="TiniNote case study sections">
+  <div class="content-nav-track">
+    <a href="#part-1">01 &middot; Overview</a>
+    <a href="#part-2">02 &middot; Research</a>
+    <a href="#part-3">03 &middot; Persona</a>
+    <a href="#part-4">04 &middot; Prototype</a>
+  </div>
+</nav>
+<!-- PART 1 — PRODUCT INTRODUCTION: APP PROMO VIDEO -->
+<section class="relative py-16 lg:py-24 max-w-7xl mx-auto px-6 lg:px-12" id="part-1">
+<!-- Section Tag Header -->
+<div class="flex flex-col items-center text-center justify-center gap-4 mb-8 mx-auto">
+<div>
+<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-100/70 text-brand-700 text-xs font-extrabold uppercase tracking-wider mb-2">
+<span class="">PART 1</span>
+<span class="text-brand-300">•</span>
+<span class="">PRODUCT OVERVIEW &amp; VISUAL SHOWCASE</span>
+</div>
+<h2 class="font-display font-black text-3xl sm:text-5xl text-slate-850 uppercase tracking-tight">APP PROMO VIDEO
+          </h2>
+</div>
+</div>
+<!-- CENTERPIECE HERO SHOWCASE CONTAINER (High-tech Editorial Frame) -->
+<div class="w-full flex items-center justify-center p-2 sm:p-4"><video class="promo-video shadow-[0_25px_35px_rgba(2,132,199,0.18)]" controls playsinline preload="metadata" aria-label="TiniNote product overview video"><source src="Part%201.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+</section>
+<!-- PART 2 — USER RESEARCH & EVIDENCE -->
+<section class="relative py-16 lg:py-24 max-w-7xl mx-auto px-6 lg:px-12" id="part-2">
+<!-- Section Header -->
+<div class="max-w-3xl mb-14 mx-auto text-center">
+<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-100/70 text-brand-700 text-xs font-extrabold uppercase tracking-wider mb-2">
+<span class="">PART 2</span>
+<span class="text-brand-300">•</span>
+<span class="">DATA &amp; EMPIRICAL EVIDENCE</span>
+</div>
+<h2 class="font-display font-black text-3xl sm:text-5xl text-slate-850 uppercase tracking-tight mb-4">
+          USER RESEARCH&nbsp;</h2>
+</div>
+<!-- 3-COLUMNS BENTO MODERN GLASS CARDS -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8"><!-- CARD 1 -->
+<div class="glass-panel rounded-3xl p-8 flex flex-col justify-between h-full relative overflow-hidden border border-white/90 shadow-glass group hover:border-brand-300 transition-all duration-300">
+  <div>
+    <div class="flex flex-col items-center select-none pointer-events-none mb-3">
+      <h2 class="font-display font-black text-3xl text-brand-600 tracking-wider">01</h2>
+    </div>
+    <h4 class="font-display font-bold text-2xl text-slate-850 uppercase tracking-tight mb-6 mt-0 leading-tight text-center min-h-[56px] flex items-center justify-center">
+      Parents need a convenient way to track their child’s development
+    </h4>
+    <!-- Research Evidence Items -->
+    <div class="space-y-4 mb-2">
+      <div class="bg-white/90 p-5 rounded-2xl border border-sky-100/70 shadow-xs flex flex-col justify-between min-h-[160px]">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+            <span class="text-xs font-bold text-brand-700 uppercase tracking-wider">International</span>
+          </div>
+          <p class="text-sm text-slate-600 leading-normal text-left">
+            A study of 60 parents and expectant parents in the US and China documented strong demand for tracking infant feeding, sleep, and physical growth.
+          </p>
+        </div>
+        <div class="mt-3 pt-2 border-t border-sky-100 text-[11px] font-semibold text-slate-400">JMIR, 2019</div>
+      </div>
+      <div class="bg-white/90 p-5 rounded-2xl border border-sky-100/70 shadow-xs flex flex-col justify-between min-h-[160px]">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+            <span class="text-xs font-bold text-brand-700 uppercase tracking-wider">Vietnam</span>
+          </div>
+          <p class="text-sm text-slate-600 leading-normal text-left" style="text-align: justify;">
+            A BeBo survey of 49 parents with children under 5 (primarily in Hanoi) revealed high demand for an app to support tracking their child's developmental milestones.
+          </p>
+        </div>
+        <div class="mt-3 pt-2 border-sky-100 text-[11px] font-semibold text-slate-400">BeBo, 2023</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CARD 2 -->
+<div class="glass-panel rounded-3xl p-8 flex flex-col justify-between h-full relative overflow-hidden border border-white/90 shadow-glass group hover:border-amber-300 transition-all duration-300">
+  <div>
+    <div class="flex flex-col items-center select-none pointer-events-none mb-3">
+      <h2 class="font-display font-black text-3xl text-amber-600 tracking-wider">02</h2>
+    </div>
+    <h4 class="font-display font-bold text-2xl text-slate-850 uppercase tracking-tight mb-6 mt-0 leading-tight text-center min-h-[56px] flex items-center justify-center">
+      Parents need to manage and receive reminders about childcare schedules
+    </h4>
+    <!-- Research Evidence Items -->
+    <div class="space-y-4 mb-2">
+      <div class="bg-white/90 p-5 rounded-2xl border border-amber-100/70 shadow-xs flex flex-col justify-between min-h-[160px]">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+            <span class="text-xs font-bold text-amber-700 uppercase tracking-wider">Vietnam</span>
+          </div>
+          <p class="text-sm text-slate-600 leading-normal text-left" style="text-align: justify;">
+            Surveyed parents in the BeBo study strongly desired advance event notifications and timely reminders. In Ben Tre, <strong>93.3%</strong> of interviewees expressed willingness to pay for SMS vaccination reminders.
+          </p>
+        </div>
+        <div class="mt-3 pt-2 border-t border-amber-100/70 text-[11px] font-semibold text-slate-400">BeBo, 2023; Ben Tre Study, 2017</div>
+      </div>
+      <div class="bg-white/90 p-5 rounded-2xl border border-amber-100/70 shadow-xs flex flex-col justify-between min-h-[160px]">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+            <span class="text-xs font-bold text-amber-700 uppercase tracking-wider">International Benchmark</span>
+          </div>
+          <p class="text-sm text-slate-600 leading-normal text-left" style="text-align: justify;">
+            The CDC Milestone Tracker integrates scheduled appointments and developmental screening reminders.
+          </p>
+        </div>
+        <div class="mt-3 pt-2 border-amber-100/70 text-[11px] font-semibold text-slate-400">CDC</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CARD 3 -->
+<div class="glass-panel rounded-3xl p-8 flex flex-col justify-between h-full relative overflow-hidden border border-white/90 shadow-glass group hover:border-emerald-300 transition-all duration-300">
+  <div>
+    <div class="flex flex-col items-center select-none pointer-events-none mb-3">
+      <h2 class="font-display font-black text-3xl text-emerald-600 tracking-wider">03</h2>
+    </div>
+    <h4 class="font-display font-bold text-2xl text-slate-850 uppercase tracking-tight mb-6 mt-0 leading-tight text-center min-h-[56px] flex items-center justify-center">
+      Parents want to record milestones and special moments of their child
+    </h4>
+    <!-- Research Evidence Items -->
+    <div class="space-y-4 mb-2">
+      <div class="bg-white/90 p-5 rounded-2xl border border-emerald-100/70 shadow-xs flex flex-col justify-between min-h-[160px]">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider">International</span>
+          </div>
+          <p class="text-sm text-slate-600 leading-normal text-left">
+            JMIR research found that parents actively use digital applications to capture developmental milestones and memorable moments in their child’s growth journey.
+          </p>
+        </div>
+        <div class="mt-3 pt-2 border-t border-emerald-100/70 text-[11px] font-semibold text-slate-400">JMIR, 2019</div>
+      </div>
+      <!-- Insight card -->
+      <div class="bg-gradient-to-tr from-emerald-50/70 to-teal-50/40 p-5 rounded-2xl border border-emerald-100 shadow-xs flex flex-col justify-between min-h-[160px]">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="material-symbols-outlined text-emerald-600 text-[18px]">psychology</span>
+            <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider">Behavioral Insight</span>
+          </div>
+          <p class="text-sm text-slate-600 leading-normal text-left" style="text-align: justify;">
+            Saving photos and audio of a child's firsts delivers high emotional value and strengthens bonding.
+          </p>
+        </div>
+        <div class="mt-3 pt-2 border-t border-emerald-100/70 text-[11px] font-semibold text-slate-400">JMIR, 2019</div>
+      </div>
+    </div>
+  </div>
+</div></div>
+</section>
+<!-- PART 3 — TARGET USER -->
+<section class="relative py-16 lg:py-24 max-w-7xl mx-auto px-6 lg:px-12" id="part-3"><!-- Section Tag Header -->
+<div class="max-w-3xl mb-12 text-center mx-auto">
+<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-100/70 text-brand-700 text-xs font-extrabold uppercase tracking-wider mb-2">
+<span class="">PART 3</span>
+
+<span class="">TARGET USER PERSONA</span>
+</div>
+<h2 class="font-display font-black text-3xl sm:text-5xl text-slate-850 uppercase tracking-tight mb-4">
+    USER PERSONA: MINH ANH
+  </h2>
+</div>
+<!-- MAIN PERSONA CARD CONTAINER -->
+<div class="rounded-3xl border border-sky-100/80 bg-white/80 backdrop-blur-xl shadow-xl p-6 sm:p-8 lg:p-10">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch"><div class="col-span-12 lg:col-span-4 flex flex-col justify-between h-full"><div class="w-full rounded-3xl overflow-hidden border border-sky-100 shadow-md mb-6 bg-sky-50 flex items-center justify-center flex-1"><img alt="Minh Anh - User Persona" class="w-full h-full min-h-[300px] object-cover object-top hover:scale-[1.01] transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0rxWr2H0xZUocKYNo8VkHkkGbg-ghaWUKLLdmFttyVvd12gscoT1z_PMqxso2OzBjY-5BZX2vxKu_B5w3YB4D1pRLMyNvYpWTDkv9L8vSRQTNe1I4FufRzBRoQFJ5fm-UrfeXdu5MLVjBS_IteD_zSBl8wTR7-oWGjho9wlJ9ixXN2cHSfcq1rVg6T_nHk7cN40ByZf7ZzAUo6h1faFcwGX8Z5XjPsqz1NnOTOIkTfC920v-Mz_sDU_ZxhAgIeDyy2N3scX-Xib57pIQ"></div><div class="flex flex-col items-center text-center"><h3 class="font-display font-black text-4xl text-slate-850 tracking-tight mb-1">Minh Anh</h3><p class="text-brand-700 font-bold text-sm mb-5">Office Worker · 30 years old</p><div class="rounded-2xl bg-sky-50/70 border border-sky-100/80 p-5 w-full space-y-2.5 text-sm text-slate-600 text-left shadow-xs"><div class="flex items-start gap-2"><span class="font-bold text-slate-850 min-w-[90px]">• Age:</span><span class="">30</span></div><div class="flex items-start gap-2"><span class="font-bold text-slate-850 min-w-[90px]">• Occupation:</span><span class="">Corporate Office Worker</span></div><div class="flex items-start gap-2"><span class="font-bold text-slate-850 min-w-[90px]">• Child:</span><span class="">Bé Bơ (Baby Bo), 19 Months</span></div><div class="flex items-start gap-2"><span class="font-bold text-slate-850 min-w-[90px]">• Address:</span><span class="">Ho Chi Minh City</span></div></div></div></div><div class="col-span-12 lg:col-span-8 flex flex-col justify-between gap-6 h-full"><div class="p-6 sm:p-7 rounded-2xl bg-gradient-to-br from-brand-50/90 via-sky-50/50 to-amber-50/40 border border-brand-200/60 shadow-sm relative overflow-hidden"><blockquote class="relative z-10 text-lg sm:text-xl lg:text-2xl text-slate-850 font-medium italic leading-relaxed mb-3">“When a relative or a new caregiver looks after my child, I want to give them all the information they need as quickly as possible."</blockquote></div><div class="grid grid-cols-1 sm:grid-cols-2 gap-5 flex-1"><div class="bg-white rounded-2xl p-5 border border-sky-100 shadow-sm flex flex-col justify-between hover:shadow-md transition-all"><div><div class="flex items-center gap-2.5 text-brand-600 mb-3"><div class="w-8 h-8 rounded-xl bg-brand-100 flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">flag</span></div><h4 class="font-display font-bold text-2xl uppercase tracking-tight text-slate-850">Goals</h4></div><ul class="space-y-2.5 text-sm text-slate-600 leading-normal"><li class="flex items-start gap-2"><span class="text-brand-500 font-bold">•</span><span class="">Track height, weight, and developmental changes.</span></li><li class="flex items-start gap-2"><span class="text-brand-500 font-bold">•</span><span class="">Remember vaccination appointments and routine checkups.</span></li><li class="flex items-start gap-2"><span class="text-brand-500 font-bold">•</span><span class="">Preserve memorable moments throughout her child's growth journey.</span></li></ul></div></div><div class="bg-white rounded-2xl p-5 border border-sky-100 shadow-sm flex flex-col justify-between hover:shadow-md transition-all"><div><div class="flex items-center gap-2.5 text-amber-600 mb-3"><div class="w-8 h-8 rounded-xl bg-amber-100 flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">touch_app</span></div><h4 class="font-display font-bold text-2xl uppercase tracking-tight text-slate-850">Behaviors</h4></div><ul class="space-y-2.5 text-sm text-slate-600 leading-normal"><li class="flex items-start gap-2"><span class="text-amber-500 font-bold">•</span><span class="">Quickly checks baby info on her smartphone on the go.</span></li><li class="flex items-start gap-2"><span class="text-amber-500 font-bold">•</span><span class="">Updates measurements as soon as new data is taken.</span></li><li class="flex items-start gap-2"><span class="text-amber-500 font-bold">•</span><span class="">Reviews schedules before vaccination or hospital appointments.</span></li></ul></div></div><div class="bg-white rounded-2xl p-5 border border-sky-100 shadow-sm flex flex-col justify-between hover:shadow-md transition-all"><div><div class="flex items-center gap-2.5 text-red-500 mb-3"><div class="w-8 h-8 rounded-xl bg-red-100 flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">error</span></div><h4 class="font-display font-bold text-2xl uppercase tracking-tight text-slate-850">Pain Points</h4></div><ul class="space-y-2.5 text-sm text-slate-600 leading-normal"><li class="flex items-start gap-2"><span class="text-red-400 font-bold">•</span><span class="">Information is scattered across calendar apps, photo galleries, and physical health books.</span></li><li class="flex items-start gap-2"><span class="text-red-400 font-bold">•</span><span class="">Difficult to get an overview of developmental trends over time.</span></li><li class="flex items-start gap-2"><span class="text-red-400 font-bold">•</span><span class="">Time-consuming to locate health records during urgent handoffs.</span></li></ul></div></div><div class="bg-white rounded-2xl p-5 border border-sky-100 shadow-sm flex flex-col justify-between hover:shadow-md transition-all"><div><div class="flex items-center gap-2.5 text-emerald-600 mb-3"><div class="w-8 h-8 rounded-xl bg-emerald-100 flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">verified</span></div><h4 class="font-display font-bold text-2xl uppercase tracking-tight text-slate-850">Expectations &amp; Needs</h4></div><ul class="space-y-2.5 text-sm text-slate-600 leading-normal"><li class="flex items-start gap-2"><span class="text-emerald-500 font-bold">•</span><span class="">See an instant overview of the child immediately upon opening the app.</span></li><li class="flex items-start gap-2"><span class="text-emerald-500 font-bold">•</span><span class="">Easily retrieve schedules and medical records in seconds.</span></li><li class="flex items-start gap-2"><span class="text-emerald-500 font-bold">•</span><span class="">Save a memory card with minimal taps.</span></li><li class="flex items-start gap-2"><span class="text-emerald-500 font-bold">•</span><span class="">Let a caregiver access the information they need by scanning a QR code.</span></li></ul></div></div></div></div></div>
+</div></section>
+<!-- PART 4 — UI & PROTOTYPE -->
+<section class="relative py-16 lg:py-24 max-w-7xl mx-auto px-6 lg:px-12" id="part-4"><!-- SECTION HEADER TAG -->
+<div class="max-w-3xl mb-12 mx-auto text-center">
+<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-100/70 text-brand-700 text-xs font-extrabold uppercase tracking-wider mb-2">
+<span class="">PART 4</span>
+<span class="text-brand-300">•</span>
+<span class="">INTERACTIVE EXPERIENCE</span>
+</div>
+<h2 class="font-display font-black text-3xl sm:text-5xl text-slate-850 uppercase tracking-tight mb-3 text-center">UI &amp; PROTOTYPE WALKTHROUGH</h2>
+</div>
+<!-- 2-COLUMN LAYOUT MATCHING REFERENCE: PHONE ON LEFT, MODULE STACK ON RIGHT -->
+<div class="part4-legacy grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center max-w-6xl mx-auto">
+<!-- LEFT COLUMN: REALISTIC PHONE MOCKUP (5 Cols) -->
+<div class="lg:col-span-5 flex justify-center sticky top-24">
+<div class="relative bg-slate-900 rounded-[54px] p-3.5 shadow-2xl ring-1 ring-white/20 shadow-brand-900/20 w-full max-w-[320px] mx-auto" style="box-sizing: border-box; aspect-ratio: 390 / 844; max-height: 844px;">
+<!-- Speaker & Dynamic Island Pill -->
+<div class="absolute top-5 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-full z-40 flex items-center justify-between px-3 shadow-md">
+<div class="w-2.5 h-2.5 rounded-full bg-[#111]"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-[#082f49] shadow-inner"></div>
+</div>
+<!-- Screen Display Area (Standard iPhone 390x844 Screen Proportion) -->
+<div class="relative w-full h-full bg-white rounded-[44px] overflow-hidden shadow-inner flex flex-col">
+<video id="part4-video" class="part4-prototype-video" controls playsinline preload="metadata" aria-label="TiniNote UI and prototype walkthrough"><source src="Part%204.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+<!-- Screen 1: Authentication & Setup -->
+<div class="screen-view absolute inset-0 w-full h-full overflow-y-auto transition-opacity duration-300 opacity-100 z-20" id="screen-auth">
+<img alt="Authentication &amp; Setup" class="w-full h-auto min-h-full object-cover object-top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCE1Z5fwV3raIqGEU0EjPsPMmxnHYw1RMZz2sQ2JDDWjOvs3iKpQJB3IXOCGm8K577FWlJWmxol1EVIwSMwJ__kheGV6MVsAV7NVrKDGT4U1I2oYoMuiTEq-ZKaee8RoivvL2UfH8V56j_b52WSGbtXsQ3ejYyXNBKuUy3nMTEhcutLQkw6eRYcnOddMreRi70xARMMuX3T4n1ulYyB47W3o9ljfYWZAfXEx7iarbpywdcIfxtfCYChoP2pqLHi4usfSkw">
+</div>
+<!-- Screen 2: Schedule & Reminders -->
+<div class="screen-view absolute inset-0 w-full h-full overflow-y-auto transition-opacity duration-300 opacity-0 pointer-events-none z-10" id="screen-schedule"><img alt="Schedule &amp; Reminders" class="w-full h-auto min-h-full object-cover object-top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEe172g7Fhi-R2G7Z4VOz92P39gncqy-xNYzK7UD0Zz8LuHLQqbhFaYj3Kg9fl_XWGWYi1hI4O-zmTQPUQQrKkeMIFdkGIWM0jgbBktmmUU7ZEPy_XuRVFxemvzMmxphcGnq_8XZOHfMnRwoqELgcBE1LEiTHO5tseXUa4UmWZBWm9a-8ciUtK-8qyYpPsV9qHnE3zctMMKpjU1v3CfknlPMoHreV_vtIk76ed8i8mj5BEQLrQgQvKzWeLzPDSodKZyM4"></div>
+<!-- Screen 3: Journal & Memories (Active default) -->
+<div class="screen-view absolute inset-0 w-full h-full overflow-y-auto transition-opacity duration-300 opacity-0 pointer-events-none z-10" id="screen-journal">
+<img alt="Milestone Memories &amp; Journal" class="w-full h-auto min-h-full object-cover object-top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIuTF6OHVSuyAfvO_5L0Wtj0iHOeWJpXg1jzXYaZfSyVBj5ZDu3zakktfaYvjNUsDkS49KqdFMha_Dbtqt-U_NbtkYfKUy_49fK4cpFDl9aLYJY0PMu3lPIgy1_IMkt7Z627Lqvd3vFalAbl5FWRSgO3tjVbFuG-z-l_tVLbwWZwWj3YPepSCdAZrbI8tVwk66GSIrz-H8pGEIuiM-NXHB7wlnFF4geffp_XDoGO82uZ_4hC9-ttyLHfyqrjBh2cIYd3s">
+</div>
+<!-- Screen 4: QR Sharing & Medical Profile -->
+<div class="screen-view absolute inset-0 w-full h-full overflow-y-auto transition-opacity duration-300 opacity-0 pointer-events-none z-10" id="screen-qr"><img alt="QR Sharing &amp; Profile" class="w-full h-auto min-h-full object-cover object-top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDGSPYe3I5xtFWPBiq5JfDR87KLpWK5YXH7oQiFF4YBGVgjaQD93pvMG-sO3O923fRj1kfGRU-NlOBZOGai3rc1SjLrPucVVsFOthvyS306C0mtaw8o7iw8r-5VDdJ47Fj-1z2sJorlB2xC7gqddKJFIIrJ1htyBv38MsjFkFjs1LJh6oJub4MmdC253NuIKatgZyiPASJN9V1pENpngiC-CNhb0HZfXarcJZx-UQb1bTv1KoxWh_MBzB5RiHd36Ih8XU"></div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: FEATURE MODULE CARDS STACK (7 Cols) -->
+<div class="lg:col-span-7 flex flex-col gap-4" id="part4-module-timeline"><!-- MODULE 1: AUTHENTICATION & SETUP -->
+<div class="module-card p-6 rounded-3xl bg-white hover:border-red-300 hover:shadow-md cursor-pointer transition-all duration-300 relative border-2 border-rose-500 shadow-md" id="card-auth" data-start="0" aria-current="true" onclick="seekPart4Video(0)">
+<div class="flex items-center justify-between gap-4 mb-3">
+<div class="flex items-center gap-3">
+<span class="px-3.5 py-1 rounded-full border border-rose-300 bg-red-50 text-red-600 text-xs font-bold uppercase tracking-wider">MODULE 1</span>
+<span class="text-xs sm:text-sm text-slate-500 font-medium">Sign Up, Sign In, Create Profile &amp; Homepage</span>
+</div>
+<div class="module-pause-btn hidden w-7 h-7 rounded-full border border-rose-500 flex items-center justify-center text-red-600">
+<span class="material-symbols-outlined text-[16px]">pause</span>
+</div>
+</div>
+<h3 class="font-display font-black text-3xl sm:text-4xl text-slate-850 tracking-tight mb-2">Authentication &amp; Homepage</h3>
+<p class="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+        Parents can create a profile for their child, then view growth measurements and upcoming events on the homepage.
+      </p>
+</div>
+<!-- MODULE 2: CALENDAR -->
+<div class="module-card p-6 rounded-3xl bg-white hover:border-amber-300 hover:shadow-md cursor-pointer transition-all duration-300 relative border border-slate-200" id="card-qr" data-start="94" aria-current="false" onclick="seekPart4Video(94)">
+<div class="flex items-center justify-between gap-4 mb-3">
+<div class="flex items-center gap-3">
+<span class="px-3.5 py-1 rounded-full border border-amber-300 bg-amber-50 text-amber-700 text-xs font-bold uppercase tracking-wider">MODULE 2</span>
+<span class="text-xs sm:text-sm text-slate-500 font-medium">Proactive Schedule &amp; Hospital Reminders</span>
+</div>
+
+</div>
+<h3 class="font-display font-black text-3xl sm:text-4xl text-slate-850 tracking-tight mb-2">Calendar</h3>
+<p class="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+        Parents can view and add vaccination and routine checkup appointments.
+      </p>
+</div>
+<!-- MODULE 3: PROFILE & SHARING -->
+<div class="module-card p-6 rounded-3xl bg-white hover:border-emerald-300 hover:shadow-md cursor-pointer transition-all duration-300 relative border border-slate-200" id="card-journal" data-start="110" aria-current="false" onclick="seekPart4Video(110)">
+<div class="flex items-center justify-between gap-4 mb-3">
+<div class="flex items-center gap-3">
+<span class="px-3.5 py-1 rounded-full border border-emerald-500 bg-emerald-50 text-emerald-700 text-xs font-bold uppercase tracking-wider">MODULE 3</span>
+<span class="text-xs sm:text-sm text-slate-500 font-medium">Profile Information &amp; QR Code</span>
+</div>
+<div class="module-pause-btn hidden w-7 h-7 rounded-full border border-emerald-500 flex items-center justify-center text-emerald-600">
+<span class="material-symbols-outlined text-[16px]">pause</span>
+</div>
+</div>
+<h3 class="font-display font-black text-3xl sm:text-4xl text-slate-850 tracking-tight mb-2">Profile &amp; Sharing</h3>
+<p class="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+        Parents can update their child’s profile and share essential information with a caregiver through a QR code.
+      </p>
+</div>
+<!-- MODULE 4: MEMORIES -->
+<div class="module-card p-6 rounded-3xl bg-white hover:border-sky-300 hover:shadow-md cursor-pointer transition-all duration-300 relative border border-slate-200" id="card-schedule" data-start="149" aria-current="false" onclick="seekPart4Video(149)">
+<div class="flex items-center justify-between gap-4 mb-3">
+<div class="flex items-center gap-3">
+<span class="px-3.5 py-1 rounded-full border border-sky-400 bg-sky-50 text-sky-700 text-xs font-bold uppercase tracking-wider">MODULE 4</span>
+<span class="text-xs sm:text-sm text-slate-500 font-medium">Milestone Memories, Voice &amp; Photo Notes</span>
+</div>
+<div class="module-pause-btn hidden w-7 h-7 rounded-full border border-sky-500 flex items-center justify-center text-sky-600">
+<span class="material-symbols-outlined text-[16px]">pause</span>
+</div>
+</div>
+<h3 class="font-display font-black text-3xl sm:text-4xl text-slate-850 tracking-tight mb-2">Memories</h3>
+<p class="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+        Parents can create memory cards with photos and milestones to look back on as their child grows.
+      </p>
+</div></div>
+</div>
+<script class="">
+  function switchModule(screenId, cardId, activeBorderClass) {
+    // Hide all screens
+    const screens = document.querySelectorAll('.screen-view');
+    screens.forEach(s => {
+      s.classList.remove('opacity-100', 'z-20');
+      s.classList.add('opacity-0', 'pointer-events-none', 'z-10');
+    });
+
+    // Show selected screen
+    const target = document.getElementById(screenId);
+    if (target) {
+      target.classList.remove('opacity-0', 'pointer-events-none', 'z-10');
+      target.classList.add('opacity-100', 'z-20');
+    }
+
+    // Reset cards styling
+    const cards = document.querySelectorAll('.module-card');
+    cards.forEach(c => {
+      c.classList.remove('border-2', 'border-emerald-500', 'border-sky-500', 'border-rose-500', 'border-amber-500', 'shadow-md');
+      c.classList.add('border', 'border-slate-200');
+    });
+
+    // Activate clicked card
+    const card = document.getElementById(cardId);
+    if (card) {
+      card.classList.remove('border', 'border-slate-200');
+      card.classList.add('border-2', activeBorderClass, 'shadow-md');
+    }
+  }
+</script></section>
+<!-- IMPACT & QUANTITATIVE RESULTS SECTION -->
+<section class="relative py-6 max-w-7xl mx-auto px-6 lg:px-12 mb-4">
+</section>
+</main>
+<!-- MODERN EDITORIAL FOOTER -->
+<footer class="w-full text-white relative overflow-hidden py-0" style="background-color: rgb(0, 97, 148);"><div class="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-center text-center pt-[34px] pb-[42px]"><p class="text-white tracking-wide text-lg sm:text-xl flex items-center justify-center flex-wrap gap-2"><span class="font-display font-black text-2xl sm:text-3xl tracking-tight text-white">TiniNote</span><span class="text-slate-400 font-normal">—</span><span class="font-normal text-slate-200 text-base sm:text-lg">Figma UI Design Project</span></p></div></footer>
+<!-- INTERACTIVE PROTOTYPE JAVASCRIPT -->
+<script>
+    function selectScreen(screenId, flowTitle, curTime, timeRange, cardElement) {
+      // Hide all screen images
+      const screens = document.querySelectorAll('.screen-view');
+      screens.forEach(s => {
+        s.classList.remove('opacity-100', 'z-20');
+        s.classList.add('opacity-0', 'pointer-events-none', 'z-10');
+      });
+
+      // Show targeted screen
+      const target = document.getElementById(screenId);
+      if (target) {
+        target.classList.remove('opacity-0', 'pointer-events-none', 'z-10');
+        target.classList.add('opacity-100', 'z-20');
+      }
+
+      // Update active states on cards
+      const cards = document.querySelectorAll('.flow-step');
+      cards.forEach(c => c.classList.remove('active-flow'));
+      if (cardElement) {
+        cardElement.classList.add('active-flow');
+      }
+
+      // Update player labels
+      const pTitle = document.getElementById('playerTitle');
+      const pDuration = document.getElementById('playerDuration');
+      const pProgress = document.getElementById('playerProgress');
+
+      if (pTitle) pTitle.innerText = flowTitle;
+      if (pDuration) pDuration.innerText = curTime + ' / 02:45';
+
+      // Calculate progress
+      const parts = curTime.split(':');
+      const seconds = parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+      const percent = Math.min(100, Math.round((seconds / 165) * 100));
+      if (pProgress) pProgress.style.width = percent + '%';
+    }
+
+    function tabSwitch(screenId, tabName, curTime, buttonElem) {
+      selectScreen(screenId, 'Screen: ' + tabName, curTime, '', null);
+
+      // Update button styling
+      const tabs = document.querySelectorAll('.screen-tab');
+      tabs.forEach(t => {
+        t.classList.remove('bg-brand-600', 'text-white', 'shadow-xs');
+        t.classList.add('text-slate-600');
+      });
+      if (buttonElem) {
+        buttonElem.classList.remove('text-slate-600');
+        buttonElem.classList.add('bg-brand-600', 'text-white', 'shadow-xs');
+      }
+    }
+
+    let isPlaying = true;
+    function togglePlay() {
+      isPlaying = !isPlaying;
+      const icon = document.getElementById('playIcon');
+      if (icon) {
+        icon.innerText = isPlaying ? 'pause' : 'play_arrow';
+      }
+    }
+  </script>
+<script>
+  // Keep portfolio navigation consistent with MoodFlow's entry-point behavior.
+  const entryParam = new URLSearchParams(window.location.search).get('from');
+  let entryPoint = entryParam === 'index' || entryParam === 'works' ? entryParam : 'works';
+  if (!entryParam && document.referrer) {
+    try { entryPoint = new URL(document.referrer).pathname.endsWith('/work.html') ? 'works' : 'index'; } catch (_) {}
+  }
+  const navHome = document.getElementById('nav-home');
+  const navWorks = document.getElementById('nav-works');
+  if (entryPoint === 'index') { navHome?.setAttribute('aria-current', 'page'); navWorks?.removeAttribute('aria-current'); }
+
+  const contentNavLinks = [...document.querySelectorAll('.content-nav a')];
+  const contentSections = contentNavLinks.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+  function setActiveContentSection(sectionId) {
+    contentNavLinks.forEach(link => {
+      const active = link.getAttribute('href') === `#${sectionId}`;
+      link.toggleAttribute('aria-current', active);
+      if (active) link.setAttribute('aria-current', 'location');
+    });
+  }
+  if (contentSections.length) {
+    setActiveContentSection(contentSections[0].id);
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries.filter(entry => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible) setActiveContentSection(visible.target.id);
+    }, { rootMargin: '-18% 0px -62%', threshold: [0, .15, .35, .6] });
+    contentSections.forEach(section => observer.observe(section));
+  }
+
+  // The supplied local portrait replaces the former remote persona image.
+  const personaImage = document.querySelector('#part-3 img[alt="Minh Anh - User Persona"]');
+  if (personaImage) personaImage.src = 'Persona.jpg';
+
+  const part4Video = document.getElementById('part4-video');
+  const timelineCards = [...document.querySelectorAll('#part4-module-timeline [data-start]')];
+  function setActiveModule(time) {
+    let activeCard = timelineCards[0];
+    timelineCards.forEach(card => { if (time >= Number(card.dataset.start)) activeCard = card; });
+    timelineCards.forEach(card => card.setAttribute('aria-current', String(card === activeCard)));
+  }
+  function seekPart4Video(startTime) {
+    if (!part4Video) return;
+    part4Video.currentTime = Number(startTime);
+    setActiveModule(part4Video.currentTime);
+    part4Video.play().catch(() => {});
+  }
+  part4Video?.addEventListener('timeupdate', () => setActiveModule(part4Video.currentTime));
+</script>
+
+
+
+
+
+
+</body></html>
