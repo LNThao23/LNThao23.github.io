@@ -258,12 +258,14 @@ let featureTransitionId = 0;
 let featureProgressFrame = 0;
 
 function renderFeatureProgress() {
+  if (!featureItems.length) return;
   const video = prototypeVideos[activeVideoIndex];
   const progress = video.duration ? Math.min(video.currentTime / video.duration, 1) : 0;
   featureItems[currentFeatureIndex].querySelector(".feature-progress span").style.transform = `scaleX(${progress})`;
 }
 
 function startFeatureProgress() {
+  if (!featureItems.length) return;
   cancelAnimationFrame(featureProgressFrame);
   const update = () => {
     renderFeatureProgress();
@@ -362,7 +364,7 @@ featureItems.forEach((item, index) => {
 });
 prototypeVideos.forEach(video => {
   const syncPlaybackButton = () => {
-    if (!video.classList.contains("is-active")) return;
+    if (!featureItems.length || !video.classList.contains("is-active")) return;
     const button = featureItems[currentFeatureIndex].querySelector(".feature-stop");
     const isPaused = video.paused;
     button.querySelector("span").textContent = "";
@@ -381,7 +383,7 @@ prototypeVideos.forEach(video => {
   });
 
   video.addEventListener("ended", () => {
-  if (!video.classList.contains("is-active")) return;
+  if (!featureItems.length || !video.classList.contains("is-active")) return;
   const completedItem = featureItems[currentFeatureIndex];
   completedItem.querySelector(".feature-progress span").style.transform = "scaleX(1)";
   selectFeature((currentFeatureIndex + 1) % featureItems.length);

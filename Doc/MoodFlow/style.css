@@ -72,6 +72,7 @@ p, h1, h2, h3, h4 { margin: 0; }
 .main-nav a[aria-current="page"]::after {
   content: none;
 }
+.mobile-back { display: none; }
 
 @media (min-width: 768px) {
   .nav-shell { padding-right: 96px; padding-left: 96px; }
@@ -296,7 +297,7 @@ main { overflow: visible; }
 .stat-number {
   color: var(--coral);
   font-family: var(--heading);
-  font-size: 39px;
+  font-size: 48px;
   font-weight: 900;
   line-height: 1;
   margin-bottom: 12px;
@@ -731,9 +732,15 @@ main { overflow: visible; }
   .hero-copy { padding-left: 0; }
   .hero-art img { width: min(520px, 92vw); margin: 0 auto; }
   .problem { min-height: auto; padding-bottom: 90px; }
-  .competitor { grid-template-columns: 1fr; padding: 30px 0 80px; }
-  .competitor-copy { padding-top: 20px; transform: none; }
-  .competitor-phone { grid-row: 1; transform: none; }
+  .competitor { display: flex; flex-direction: column; gap: 0; padding: 30px 0 80px; }
+  .competitor-copy, .competitor-dynamic { display: contents; }
+  .competitor-heading-row { order: 1; width: 100%; }
+  .competitor-app { order: 2; width: 100%; }
+  .competitor-desc { order: 3; width: 100%; }
+  .competitor-phone { order: 4; align-self: stretch; transform: none; }
+  .analysis-grid { order: 5; width: 100%; }
+  .competitor-progress { order: 6; }
+  .competitor-dots { order: 7; }
   .competitor-phone img { height: 560px; margin: 0 auto; }
   .competitor-dots { margin-left: auto; margin-right: auto; }
   .persona { grid-template-columns: 1fr; padding-left: 30px; padding-right: 30px; }
@@ -743,7 +750,58 @@ main { overflow: visible; }
 }
 
 @media (max-width: 767px) {
-  .main-nav { display: none; }
+  .site-header { display: none; }
+  .mobile-back {
+    width: 100%;
+    min-height: 58px;
+    padding: 16px 24px 0;
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: var(--ink);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+  }
+  .mobile-back svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .hero.hero {
+    width: min(calc(100% - 48px), var(--content));
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding-top: 16px;
+  }
+  .hero-copy { display: contents; }
+  .project-pill { order: 1; align-self: flex-start; margin-bottom: 18px; padding: 7px 18px 4px; line-height: 1.2; }
+  .hero h1 { order: 2; width: 100%; margin-bottom: 16px; text-align: left; }
+  .hero-art { order: 3; width: 100%; }
+  .hero-art img { width: min(420px, 100%); margin: 0 auto; }
+  .hero-summary {
+    order: 4;
+    align-self: center;
+    width: 100%;
+    max-width: none;
+    margin-top: 22px;
+    text-align: justify;
+  }
+  .hero.hero .hero-meta {
+    order: 5;
+    width: 100%;
+    max-width: none;
+    grid-template-columns: 1fr;
+    gap: 34px;
+    margin: 28px 0 0;
+    padding-top: 24px;
+    text-align: left;
+  }
+  .hero-meta > div { width: min(100%, 360px); margin: 0 auto; }
+  .team-names { grid-template-columns: max-content max-content; justify-content: space-between; gap: 2px 0; }
+  .competitor-phone { margin-top: 32px; }
+  .persona-details { text-align: left; }
+  .persona-copy { text-align: left; }
+  .persona-columns { row-gap: 0; }
+  .fact-box { width: 82%; margin-right: auto; margin-left: 0; }
   .content-nav-track {
     width: 100%;
     min-height: 66px;
@@ -765,6 +823,7 @@ main { overflow: visible; }
   .main-nav a { font-size: 14px; }
   .section, .hero { width: min(calc(100% - 30px), var(--content)); }
   .display-title { font-size: 31px; }
+  .stat-number { font-size: 42px; }
   .hero h1 { font-size: 62px; }
   .hero-meta { grid-template-columns: 1fr; gap: 16px; }
   .problem-head { align-items: flex-start; flex-direction: column; gap: 14px; }
