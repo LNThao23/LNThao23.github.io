@@ -56,6 +56,7 @@
     .calendar-card.next-1 { z-index:3; transform:translate(-35%,-47%) scale(.9); opacity:1; }
     .calendar-card.next-2 { z-index:2; transform:translate(-8%,-44%) scale(.8); opacity:1; }
     .calendar-card.hidden { z-index:0; transform:translate(10%,-45%) scale(.72); opacity:0; pointer-events:none; }
+    .mobile-back,.mobile-calendar-controls { display:none; }
     footer {background:#fffaf0; padding:36px 20px; text-align:center; color:#6d5f55; }
     footer strong { color:var(--ink); font-family:"Big Shoulders Display",sans-serif; font-size:18px; font-weight:900; }
     @media (min-width:768px) { header .shell { padding-right:96px; padding-left:96px; } }
@@ -64,16 +65,27 @@
       .showcase { grid-template-columns:1fr; gap:20px; padding-top:70px; }
       .month-copy { text-align:center; } .description,.month-navigation { margin-inline:auto; } .card-stage { height:590px; }
     }
-    @media (max-width:767px) { .nav-links { display:none; } header { min-height:80px; } }
+    @media (max-width:767px) {
+      header { display:none; }
+      .mobile-back { display:flex; width:fit-content; align-items:center; gap:7px; margin:0 0 18px; color:var(--ink); font-size:15px; font-weight:700; }
+      .mobile-back::before { content:"←"; font-size:16px; line-height:1; }
+      .filters,.quarter-label,.month-navigation { display:none; }
+      .showcase { display:flex; flex-direction:column; min-height:0; padding-top:36px; }
+      .month-copy { order:2; text-align:center; padding-top:28px; }
+      .month-copy .description { text-align:center; }
+      .card-stage { order:1; height:auto; min-height:0; display:flex; justify-content:center; padding-top:18px; }
+      .calendar-card { position:static; display:none; width:min(310px,82vw); transform:none !important; border-radius:16px; }
+      .calendar-card.active { display:block; opacity:1; }
+      .mobile-calendar-controls { order:0; display:flex; align-items:center; justify-content:center; gap:14px; width:min(310px,82vw); margin:0 auto; }
+      .calendar-arrow { display:grid; width:44px; height:44px; place-items:center; border:1px solid var(--line); border-radius:50%; color:var(--ink); background:#fff; font-size:34px; line-height:1; cursor:pointer; }
+      .calendar-arrow:hover { border-color:var(--ink); background:var(--cream); }
+    }
     @media (max-width:620px) {
       .shell { width:min(100% - 30px,1120px); } header { min-height:78px; } header .shell { width:100%; padding-right:24px; padding-left:24px; }
       .hero { position:relative; min-height:650px; background-position:63% center; }
       .hero::before { content:""; position:absolute; inset:0; background:rgba(255,250,244,.45); }
       .hero-copy { position:relative; width:100%; padding:70px 0; z-index:1; } h1 { font-size:48px; } .hero-lead { font-size:18px; }
-      .gallery { padding-top:70px; } .filters { gap:8px; } .filter { padding:9px 12px; font-size:10px; }
-      .card-stage { height:490px; } .calendar-card { width:min(275px,72vw); border-radius:14px; }
-      .calendar-card.active { transform:translate(-58%,-50%); } .calendar-card.next-1 { transform:translate(-34%,-47%) scale(.9); }
-      .calendar-card.next-2 { transform:translate(-10%,-44%) scale(.8); }
+      .gallery { padding-top:70px; }
     }
     @media (max-width:620px) { header { min-height:80px; } }
   </style>
@@ -86,6 +98,7 @@
   </nav></header>
   <main>
     <section class="hero"><div class="shell"><div class="hero-copy">
+      <a class="mobile-back" href="../../work.html">Back</a>
       <span class="eyebrow">2027 Calendar</span><h1>Four Seasons Chronicle</h1>
       <p class="hero-lead">“Preserving four peaceful seasons through stories of childhood memories, fragrant lotus blooms, and the gentle conical hat of rural Vietnam.”</p>
       <p>An illustrative calendar project inspired by folk festivals, simple everyday beauty, and a whimsical white bunny journeying through twelve tender months.</p>
@@ -107,6 +120,10 @@
             <div class="dots" id="dots" aria-label="Choose a month"></div>
           </div>
         </div><div class="card-stage" id="card-stage" aria-label="Calendar artwork"></div>
+        <div class="mobile-calendar-controls" aria-label="Calendar navigation">
+          <button class="calendar-arrow" id="previous-month" type="button" aria-label="Previous month">‹</button>
+          <button class="calendar-arrow" id="next-month" type="button" aria-label="Next month">›</button>
+        </div>
       </div>
     </div></section>
   </main>
@@ -142,6 +159,9 @@
       [...stage.children].forEach((card,i)=>{const position=visibleMonths.indexOf(i);const distance=position<0?-1:(position-activePosition+visibleMonths.length)%visibleMonths.length;card.className=`calendar-card ${distance===0?"active":distance>0&&distance<=2?`next-${distance}`:"hidden"}`;});
     }
     document.querySelectorAll(".filter").forEach(button=>button.addEventListener("click",()=>{document.querySelectorAll(".filter").forEach(item=>item.classList.toggle("active",item===button));const start=Number(button.dataset.start),count=Number(button.dataset.count);visibleMonths=Array.from({length:count},(_,offset)=>start+offset);showMonth(start);}));
+    function moveMonth(direction){const position=visibleMonths.indexOf(activeMonth);showMonth(visibleMonths[(position+direction+visibleMonths.length)%visibleMonths.length]);}
+    document.getElementById("previous-month").addEventListener("click",()=>moveMonth(-1));
+    document.getElementById("next-month").addEventListener("click",()=>moveMonth(1));
     document.addEventListener("keydown",event=>{const position=visibleMonths.indexOf(activeMonth);if(event.key==="ArrowRight")showMonth(visibleMonths[(position+1)%visibleMonths.length]);if(event.key==="ArrowLeft")showMonth(visibleMonths[(position+visibleMonths.length-1)%visibleMonths.length]);});
 
     const entryParam=new URLSearchParams(window.location.search).get("from"); let entryPoint=entryParam==="home"||entryParam==="works"?entryParam:"works";
