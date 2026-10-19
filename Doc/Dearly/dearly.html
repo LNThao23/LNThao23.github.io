@@ -310,7 +310,16 @@
       .content-nav a { padding: 8px 16px !important; border: 1px solid #a5d0ba; border-radius: 999px; background: #fff; color: #264e3d; font-family: 'Afacad', sans-serif; font-size: 16px !important; font-weight: 600; line-height: 1.4; text-decoration: none; transition: .2s ease; }
       .content-nav a:hover, .content-nav a[aria-current='location'] { border-color: #153e2e; background: #153e2e; color: #fff; }
       section[id] { scroll-margin-top: 70px; }
-      @media (max-width: 760px) { .nav-shell { padding: 0 24px; } .main-nav { display: none; } .content-nav-track { justify-content: flex-start; overflow-x: auto; } }
+      .hero-phone-mobile, .hero-back { display: none; }
+      @media (max-width: 760px) {
+        .site-header, .content-nav { display: none; }
+        .flow-cards { display: none; }
+        .dearly-hero { padding-left:0 !important; padding-right:0 !important; }
+        .hero-phone-desktop { display: none; }
+        .hero-phone-mobile { display: block; width: 100%; margin: 0 auto 2rem; }
+        .hero-back { display:inline-flex; align-items:center; gap:6px; margin-bottom:18px; color:#153e2e; font-weight:700; text-decoration:none; }
+        .hero-back::before { content:"←"; font-size:16px; line-height:1; }
+      }
     </style>
   </head>
   <body
@@ -322,7 +331,7 @@
         <!-- Top Hero Banner / Notification -->
         <!-- HERO SECTION -->
         <section
-          class="relative w-full overflow-hidden bg-surface py-12 lg:py-20"
+          class="dearly-hero relative w-full overflow-hidden bg-surface py-12 lg:py-20"
           style="padding-left: 60px; padding-right: 60px"
         >
           <div class="max-w-7xl mx-auto px-6 lg:px-12">
@@ -331,6 +340,7 @@
             >
               <!-- Left Hero Copy -->
               <div class="lg:col-span-7 flex flex-col items-start">
+                <a class="hero-back" href="../../work.html">Back</a>
                 <div
                   class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-container-high text-primary font-label-md text-label-md mb-6 shadow-sm"
                 >
@@ -363,9 +373,18 @@
                   reminders, while family members can remotely manage settings
                   and receive lightweight activity updates.
                 </p>
+                <div class="hero-phone-mobile">
+                  <div class="relative mx-auto w-full max-w-[250px]">
+                    <div class="relative rounded-[48px] p-2.5 bg-black shadow-[0_25px_60px_-15px_rgba(0,33,21,0.35),0_0_0_1px_rgba(255,255,255,0.15)] ring-1 ring-black">
+                      <div class="relative overflow-hidden rounded-[38px] bg-background border border-black shadow-inner aspect-[390/844] w-full flex items-center justify-center">
+                        <img alt="Dearly app cover" class="w-full h-full object-cover block select-none pointer-events-none" src="Cover.png" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <!-- CTAs -->
                 <div
-                  class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mb-10"
+                  class="hero-actions flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mb-10"
                 >
                   <a
                   class="hero-view-project inline-flex items-center justify-center min-h-[56px] px-8 rounded-full bg-primary text-on-primary font-label-lg text-label-lg hover:bg-primary-container transition-all shadow-[0_8px_28px_-4px_rgba(21,62,46,0.2)] group"
@@ -378,7 +397,7 @@
                   >
                 </div>
                 <!-- Reassurance Mini Pill Strip -->
-                <div class="w-full max-w-2xl pt-3">
+                <div class="hero-team w-full max-w-2xl pt-3">
                   <div class="flex items-center gap-2 mb-3">
                     <span
                       class="font-label-md text-label-md font-semibold uppercase tracking-wider text-secondary"
@@ -387,7 +406,7 @@
                   </div>
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <div
-                      class="flex items-center gap-3.5 p-3.5 rounded-2xl bg-surface-container-low border border-surface-container-high shadow-sm hover:shadow-md transition-all"
+                      class="team-member flex items-center gap-3.5 p-3.5 rounded-2xl bg-surface-container-low border border-surface-container-high shadow-sm hover:shadow-md transition-all"
                     >
                       <div class="flex flex-col min-w-0">
                         <div class="flex items-center gap-2">
@@ -404,7 +423,7 @@
                       </div>
                     </div>
                     <div
-                      class="flex items-center gap-3.5 p-3.5 rounded-2xl bg-surface-container-low border border-surface-container-high shadow-sm hover:shadow-md transition-all"
+                      class="team-member flex items-center gap-3.5 p-3.5 rounded-2xl bg-surface-container-low border border-surface-container-high shadow-sm hover:shadow-md transition-all"
                     >
                       <div class="flex flex-col min-w-0">
                         <div class="flex items-center gap-2">
@@ -424,7 +443,7 @@
                 </div>
               </div>
               <!-- Right Hero Mockup Card with Hero Asset -->
-              <div class="lg:col-span-5 relative">
+              <div class="hero-phone-desktop lg:col-span-5 relative">
                 <!-- Background Atmospheric Glow -->
                 <div
                   class="absolute -top-12 -right-12 w-96 h-96 rounded-full bg-secondary-fixed/40 blur-3xl -z-10 pointer-events-none"
@@ -1323,7 +1342,7 @@
               class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
             >
               <!-- Left Side: 3 Flow Cards -->
-              <div class="lg:col-span-7 flex flex-col gap-5">
+              <div class="flow-cards lg:col-span-7 flex flex-col gap-5">
                 <!-- Flow 1 Card -->
                 <div
                   class="flow-card group cursor-pointer p-6 rounded-2xl bg-surface-container-lowest border-2 transition-all duration-300 shadow-sm hover:shadow-md relative overflow-hidden shadow-md"
@@ -1463,7 +1482,7 @@
               </div>
               <!-- Right Side: Phone Mockup with Prototype Preview & Video Player -->
               <div class="lg:col-span-5 flex justify-center">
-                <video id="prototypeVideo" class="w-full max-w-[300px]" playsinline preload="metadata">
+                <video id="prototypeVideo" class="w-full max-w-[300px]" controls playsinline preload="metadata">
                   <source src="Prototype.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
