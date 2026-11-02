@@ -80,7 +80,7 @@ searchForm.addEventListener('submit', event => {
   return;
  }
  filterMenu();
- const target = searchInput.value.trim() ? searchStatus : document.querySelector('#menu');
+ const target = searchInput.value.trim() ? searchStatus : document.querySelector(mobileLayout.matches ? '#rolls' : '#menu');
  target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
 });
 
@@ -189,11 +189,11 @@ heroDots.forEach((dot, index) => dot.addEventListener('click', () => {
 startCarousel();
 
 const categoryNav = document.querySelector('.category-nav');
-const categoryNavLinks = [...categoryNav.querySelectorAll('a')];
+const categoryNavLinks = [...categoryNav.querySelectorAll('.category-nav-menu a')];
 const menuOverview = document.querySelector('#menu');
 
 function updateCategoryNav() {
- const visible = menuOverview.getBoundingClientRect().bottom <= 0;
+ const visible = (mobileLayout.matches ? document.querySelector('.hero') : menuOverview).getBoundingClientRect().bottom <= 0;
  categoryNav.classList.toggle('is-visible', visible);
  categoryNav.inert = !visible;
  let currentSection = menuSections[0];

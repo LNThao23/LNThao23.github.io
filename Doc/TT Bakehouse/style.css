@@ -82,3 +82,18 @@
  .header-search:not(.is-open) input{display:none}
  .header-search.is-open{width:min(420px,calc(100% - 80px))}
 }
+
+/* Category links and contact shortcuts share the navigation bar. */
+.category-nav{justify-content:space-between}
+.category-nav-menu,.category-nav-contact{display:flex;align-items:center}
+.category-nav-contact a{display:grid;place-items:center;width:44px;height:44px;padding:10px}
+.category-nav-contact svg{width:22px;height:22px}
+@media(max-width:750px){
+ .menu{display:none}
+ .rolls,.sweet{background:#fcf5ee}
+ .savoury{background:#f8e8dc}
+ .category-nav{gap:0;padding-left:2%;padding-right:2%}
+ .category-nav-menu a{padding:9px 8px}
+ .category-nav-contact a{width:40px;height:40px;padding:9px}
+ #rolls{scroll-margin-top:56px}
+}
