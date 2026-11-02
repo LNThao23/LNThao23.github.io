@@ -14,6 +14,22 @@ document.querySelector('#savoury-grid').innerHTML = savoury.map(([name,price])=>
 document.querySelector('#sweet-grid').innerHTML = sweet.map(([name,label])=>`<article class="product"><div class="product-image">${img('Sweet',name)}</div><h3>${label || name}</h3></article>`).join('');
 const searchForm = document.querySelector('.header-search');
 const searchInput = document.querySelector('#menu-search');
+const searchToggle = document.querySelector('.search-toggle');
+const mobileLayout = window.matchMedia('(max-width: 750px)');
+
+function setSearchOpen(open) {
+ searchForm.classList.toggle('is-open', open);
+ searchToggle.setAttribute('aria-expanded', String(open));
+ searchToggle.setAttribute('aria-label', open ? 'Close search' : 'Open search');
+ if (open) searchInput.focus();
+}
+searchToggle.addEventListener('click', () => setSearchOpen(searchToggle.getAttribute('aria-expanded') !== 'true'));
+searchForm.addEventListener('keydown', event => {
+ if (event.key === 'Escape' && mobileLayout.matches) {
+  setSearchOpen(false);
+  searchToggle.focus();
+ }
+});
 const searchStatus = document.querySelector('#search-status');
 const menuSections = [...document.querySelectorAll('#rolls, #savoury, #sweet')];
 const normalizeSearch = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
@@ -87,6 +103,14 @@ function dockHero(parent) {
 function renderHero() {
  animationFrame = 0;
  if (!heroGeometry) return;
+ if (mobileLayout.matches) {
+  categoryImages.forEach(slot => slot.classList.remove('is-destination'));
+  dockHero(heroAnchor);
+  scrollProgress = 0;
+  previousScrollY = window.scrollY;
+  returningToTop = false;
+  return;
+ }
  const { source, targets, start } = heroGeometry;
  const target = targets[activeSlide];
  const finish = Math.max(start + source.height * .8, target.top - window.innerHeight * .55);
