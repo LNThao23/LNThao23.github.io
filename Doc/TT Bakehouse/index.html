@@ -1,0 +1,55 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TT Bakehouse — Freshly baked, freshly made</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<section id="project-lock" aria-labelledby="lock-title" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#E9EDED;font-family:'DM Sans',sans-serif;box-sizing:border-box">
+  <form id="project-lock-form" style="width:min(100%,420px);padding:32px;border-radius:24px;background:#fff;box-shadow:0 20px 60px rgba(54,103,88,.12);box-sizing:border-box">
+    <a href="../../work.html" style="color:#366758;text-decoration:none;font-size:14px">&#8592; Back to Works</a>
+    <h1 id="lock-title" style="margin:28px 0 8px;color:#1a1a1a;font-size:28px">TT Bakehouse</h1>
+    <p style="margin:0 0 24px;color:#69736f;line-height:1.5">Enter the password to view this project.</p>
+    <label for="project-password" style="display:block;margin-bottom:8px;font-weight:700;color:#1a1a1a">Password</label>
+    <input id="project-password" type="password" autocomplete="current-password" required style="display:block;width:100%;padding:12px;border:1px solid #b9c8c2;border-radius:10px;font:inherit;box-sizing:border-box">
+    <p id="password-error" role="alert" hidden style="margin:8px 0 0;color:#b42318;font-size:14px">Incorrect password. Please try again.</p>
+    <button type="submit" style="width:100%;margin-top:20px;padding:12px;border:0;border-radius:999px;background:#366758;color:#fff;font:700 16px 'DM Sans',sans-serif;cursor:pointer">View project</button>
+  </form>
+</section>
+<div id="project-content" hidden>
+<header class="header"><a class="logo" href="#top" aria-label="TT Bakehouse home"><img src="Logo.svg" alt="TT Bakehouse"></a><form class="header-search" role="search"><input id="menu-search" type="search" name="q" placeholder="Search the menu…" aria-label="Search the menu" aria-controls="roll-grid savoury-grid sweet-grid"><button type="submit" aria-label="Search"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg></button></form></header>
+<nav class="category-nav" aria-label="Menu categories"><a href="#rolls">Rolls</a><a href="#savoury">Savoury</a><a href="#sweet">Sweet</a></nav>
+<main id="top">
+<section class="hero"><div class="hero-title"><h1>TT Bakehouse</h1><div aria-hidden="true">TT Bakehouse</div></div><svg class="hero-wave" viewBox="0 0 1440 500" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="hero-wave-gradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E2BD9C"/><stop offset="100%" stop-color="#fcf5ee"/></linearGradient></defs><path d="M0 60 C260 -20 480 5 720 85 C970 170 1170 205 1440 60 L1440 500 H0 Z" fill="url(#hero-wave-gradient)"/></svg><div class="hero-image-anchor"><div class="hero-image" role="img" aria-label="BBQ Pork Roll"><img class="is-active" src="Rolls/BBQ pork roll.svg" alt=""><img src="Savoury/Sausage roll.svg" alt=""><img src="Sweet/Eclair.svg" alt=""><div class="hero-callout" aria-hidden="true"><svg viewBox="0 0 120 100" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9 C51 4 68 34 81 84 M101 61 L81 85 L59 64"/></svg><span class="hero-food-name">Rolls</span></div></div></div><div class="hero-pagination" role="group" aria-label="Featured categories"><button type="button" aria-label="Show Rolls" aria-pressed="true"><span aria-hidden="true"></span></button><button type="button" aria-label="Show Savoury" aria-pressed="false"><span aria-hidden="true"></span></button><button type="button" aria-label="Show Sweet" aria-pressed="false"><span aria-hidden="true"></span></button></div><div class="contact"><a class="contact-link" href="https://maps.app.goo.gl/DbHi2v7y8Eged8o88" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Shop 8, Clarinda Shopping Centre,<br>121&#8211;131 Bourke Rd, Clayton Sth, VIC 3169</span></a><a class="contact-link" href="tel:0385228666"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.7 19.7 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7l.5 2.9a2 2 0 0 1-.6 1.7L7.1 10a16 16 0 0 0 6.9 6.9l1.7-1.8a2 2 0 0 1 1.7-.6l2.9.5a2 2 0 0 1 1.7 1.9Z"/></svg><span>Phone : 03 8522 8666</span></a></div></section>
+<section class="menu section" id="menu"><h2>TT Bakehouse Menu</h2><div class="category-grid">
+<a class="category" href="#rolls"><span class="category-image"><img src="Rolls/BBQ pork roll.svg" alt=""></span><div class="category-copy"><b>01</b><div><h3>ROLLS</h3><p>Freshly made rolls filled with savoury meats, crisp vegetables and flavourful sauces.</p></div></div></a>
+<a class="category" href="#savoury"><span class="category-image"><img src="Savoury/Sausage roll.svg" alt=""></span><div class="category-copy"><b>02</b><div><h3>SAVOURY</h3><p>Golden-baked pastries packed with hearty fillings, rich flavours and savoury goodness.</p></div></div></a>
+<a class="category" href="#sweet"><span class="category-image"><img src="Sweet/Eclair.svg" alt=""></span><div class="category-copy"><b>03</b><div><h3>SWEET</h3><p>A delicious selection of sweet treats, from soft donuts to flaky pastries and creamy delights.</p></div></div></a>
+</div></section>
+<p class="search-status" id="search-status" role="status" aria-live="polite" aria-atomic="true" hidden></p>
+<section class="rolls section tinted" id="rolls"><h2>ROLLS</h2><p class="intro">Freshly made rolls filled with savoury meats, crisp vegetables and flavourful sauces.</p><div class="roll-grid" id="roll-grid"></div></section>
+<section class="savoury section" id="savoury"><h2>SAVOURY</h2><p class="intro">Golden-baked pastries packed with hearty fillings, rich flavours and savoury goodness.</p><div class="product-grid savoury-grid" id="savoury-grid"></div></section>
+<section class="sweet section tinted" id="sweet"><h2>SWEET</h2><p class="intro">A delicious selection of sweet treats, from soft donuts to flaky pastries and creamy delights.</p><div class="product-grid sweet-grid" id="sweet-grid"></div></section>
+</main><footer>© 2026 TT Bakehouse. All rights reserved.</footer><script src="script.js"></script>
+</div>
+<script>
+  document.getElementById('project-lock-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+    const password = document.getElementById('project-password');
+    if (password.value === 'ttbh123') {
+      document.getElementById('project-lock').hidden = true;
+      document.getElementById('project-lock').style.display = 'none';
+      document.getElementById('project-content').hidden = false;
+      window.dispatchEvent(new Event('resize'));
+    } else {
+      document.getElementById('password-error').hidden = false;
+      password.setAttribute('aria-invalid', 'true');
+      password.setAttribute('aria-describedby', 'password-error');
+      password.select();
+    }
+  });
+</script>
+</body></html>
+
