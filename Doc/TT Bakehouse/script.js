@@ -14,21 +14,38 @@ document.querySelector('#savoury-grid').innerHTML = savoury.map(([name,price])=>
 document.querySelector('#sweet-grid').innerHTML = sweet.map(([name,label])=>`<article class="product"><div class="product-image">${img('Sweet',name)}</div><h3>${label || name}</h3></article>`).join('');
 const searchForm = document.querySelector('.header-search');
 const searchInput = document.querySelector('#menu-search');
-const searchToggle = document.querySelector('.search-toggle');
+const searchButton = searchForm.querySelector('button');
 const mobileLayout = window.matchMedia('(max-width: 750px)');
 
 function setSearchOpen(open) {
  searchForm.classList.toggle('is-open', open);
- searchToggle.setAttribute('aria-expanded', String(open));
- searchToggle.setAttribute('aria-label', open ? 'Close search' : 'Open search');
+ if (mobileLayout.matches) {
+  searchButton.setAttribute('aria-expanded', String(open));
+  searchButton.setAttribute('aria-label', open ? 'Search' : 'Open search');
+ }
  if (open) searchInput.focus();
 }
-searchToggle.addEventListener('click', () => setSearchOpen(searchToggle.getAttribute('aria-expanded') !== 'true'));
 searchForm.addEventListener('keydown', event => {
  if (event.key === 'Escape' && mobileLayout.matches) {
   setSearchOpen(false);
-  searchToggle.focus();
+  searchButton.focus();
  }
+});
+function updateSearchLayout() {
+ if (mobileLayout.matches) {
+  searchButton.setAttribute('aria-controls', 'menu-search');
+  searchButton.setAttribute('aria-expanded', String(searchForm.classList.contains('is-open')));
+  searchButton.setAttribute('aria-label', searchForm.classList.contains('is-open') ? 'Search' : 'Open search');
+ } else {
+  searchButton.removeAttribute('aria-controls');
+  searchButton.removeAttribute('aria-expanded');
+  searchButton.setAttribute('aria-label', 'Search');
+ }
+}
+mobileLayout.addEventListener('change', updateSearchLayout);
+updateSearchLayout();
+document.addEventListener('click', event => {
+ if (mobileLayout.matches && searchForm.classList.contains('is-open') && !searchForm.contains(event.target)) setSearchOpen(false);
 });
 const searchStatus = document.querySelector('#search-status');
 const menuSections = [...document.querySelectorAll('#rolls, #savoury, #sweet')];
@@ -58,6 +75,10 @@ function filterMenu() {
 searchInput.addEventListener('input', filterMenu);
 searchForm.addEventListener('submit', event => {
  event.preventDefault();
+ if (mobileLayout.matches && !searchForm.classList.contains('is-open')) {
+  setSearchOpen(true);
+  return;
+ }
  filterMenu();
  const target = searchInput.value.trim() ? searchStatus : document.querySelector('#menu');
  target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
