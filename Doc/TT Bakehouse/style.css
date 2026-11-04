@@ -28,16 +28,6 @@
 .sweet-grid .product-image{margin-bottom:14px}
 .sweet-grid .product-image img{margin-bottom:0}
 
-/* Navigation appears after the menu overview scrolls out of view. */
-.category-nav{position:fixed;top:0;left:0;right:0;z-index:10;min-height:64px;padding:8px 5.5%;display:flex;align-items:center;justify-content:center;gap:12px;background:#B04126;color:white;box-shadow:0 3px 10px #0002;opacity:0;visibility:hidden;transform:translateY(-100%);pointer-events:none;transition:opacity .22s ease,transform .22s ease,visibility .22s ease}
-.category-nav.is-visible{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
-.category-nav a{padding:10px 18px;border-radius:24px;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
-.category-nav a:hover,.category-nav a[aria-current],.category-nav a:focus-visible{background:#fff7f0;color:#812b18}
-.category-nav a:focus-visible{outline:2px solid #812b18;outline-offset:2px}
-#rolls,#savoury,#sweet{scroll-margin-top:64px}
-@media(max-width:750px){.category-nav{min-height:56px;gap:4px;padding:6px 3%}.category-nav a{padding:9px 12px;font-size:12px}#rolls,#savoury,#sweet{scroll-margin-top:56px}}
-@media(prefers-reduced-motion:reduce){.category-nav{transition:none}}
-#rolls{scroll-margin-top:0}
 
 /* Hero layout from the bakery reference: a soft wave, prominent product and label. */
 .hero{height:800px}
@@ -83,22 +73,86 @@
  .header-search.is-open{width:min(420px,calc(100% - 80px))}
 }
 
-/* Category links and contact shortcuts share the navigation bar. */
-.category-nav{justify-content:space-between}
-.category-nav-menu,.category-nav-contact{display:flex;align-items:center}
-.category-nav-contact a{display:grid;place-items:center;width:44px;height:44px;padding:10px}
-.category-nav-contact svg{width:22px;height:22px}
 @media(max-width:750px){
- .menu{display:none}
  .rolls,.sweet{background:#fcf5ee}
  .savoury{background:#f8e8dc}
- .category-nav{gap:0;padding-left:2%;padding-right:2%}
- .category-nav-menu a{padding:9px 8px}
- .category-nav-contact a{width:40px;height:40px;padding:9px}
- #rolls{scroll-margin-top:56px}
 }
 
+/* Reference-inspired bakery hero. */
+.header{--header-red:#ad4026;position:sticky;top:0;height:72px;padding:0 5%;justify-content:space-between;z-index:12;background:var(--header-red);box-shadow:none}
+.header-links,.header-actions{display:flex;align-items:center;gap:clamp(22px,4vw,65px);width:42%}
+.header-links a{font-size:13px;font-weight:700;letter-spacing:.04em;white-space:nowrap}
+.header-links a span{margin-left:4px}
+.header-links a:hover,.header-actions>a:hover{opacity:.75}
+.header-links a:focus-visible,.header-actions>a:focus-visible{outline:2px solid white;outline-offset:5px}
+.header .logo{position:absolute;left:50%;top:6px;transform:translateX(-50%);width:100px;height:100px;border-radius:50%;background:var(--header-red);padding:13px;overflow:visible;box-shadow:none}
+.header .logo img{width:100%;height:100%;object-fit:contain}
+.header-actions{justify-content:flex-end;gap:28px}
+.header-actions>a{width:23px;height:23px;display:grid;place-items:center}
+.header-actions>a svg{width:21px;height:21px}
+.header .header-search{width:38px;height:38px;border:0;background:transparent;color:white;overflow:visible}
+.header .header-search input{display:none}
+.header .header-search button{width:38px;min-height:38px;color:white}
+.header .header-search button:hover{background:#ffffff24;border-radius:50%}
+.header .header-search.is-open{position:absolute;right:5%;top:13px;width:min(440px,58vw);height:46px;padding-left:4px;background:#fff7f0;color:#812b18;border-radius:30px;box-shadow:0 5px 20px #0003}
+.header .header-search.is-open input{display:block}
+.header .header-search.is-open button{color:#812b18;margin-right:4px}
+.header .header-search.is-open+ a{visibility:hidden}
+.hero{height:min(770px,68vw);min-height:620px;background:#fcf5ee;overflow:hidden}
+.hero-wave{top:52%;height:calc(48% + 2px)}
+.hero-copy{position:relative;z-index:2;padding:108px 0 0 5%;pointer-events:none}
+.hero-copy h1{font-family:'TT Bakehouse',sans-serif;font-size:clamp(64px,7.5vw,112px);font-weight:400;line-height:1.08;letter-spacing:.01em;color:#b44025;text-shadow:0 6px 2px #4b221c22;margin:0;white-space:nowrap}
+.hero-copy p{margin:13px 0 0;font-size:clamp(21px,2.45vw,34px);font-weight:700;letter-spacing:-.035em;color:#b44025}
+.hero-cta{pointer-events:auto;display:inline-flex;align-items:center;gap:28px;margin-top:91px;padding:14px 20px;border-radius:30px;background:#b44025;color:white;font-size:14px;font-weight:700;transition:background .2s,transform .2s}
+.hero-cta span{font-size:24px;line-height:.7}
+.hero-cta:hover{background:#8c2e19;transform:translateY(-2px)}
+.hero-cta:focus-visible{outline:3px solid #812b18;outline-offset:4px}
+.hero-product{position:absolute;z-index:1;display:block;width:min(79%,1050px);height:auto;right:0;top:45px;filter:drop-shadow(0 13px 9px #6c3b1c24);pointer-events:none}
+footer{height:auto;min-height:100px;padding:25px 5%;display:flex;align-items:center;justify-content:center;text-align:center}
+footer small{font-size:13px}
+@media(max-width:900px){.header-links,.header-actions{width:43%}.header-links{gap:20px}.header-actions{gap:18px}.hero{height:680px;min-height:0}.hero-copy{padding-top:92px}.hero-copy h1{font-size:clamp(58px,8vw,78px)}.hero-copy p{font-size:22px}.hero-product{width:92%;right:-5%;top:110px}.hero-cta{margin-top:84px}}
+@media(max-width:750px){.header{height:60px;padding:0 4%}.header .logo{top:4px;width:76px;height:76px;padding:10px;transform:translateX(-50%)}.header-links{width:auto;gap:0}.header-links a{font-size:11px}.header-links a:nth-child(n+2){display:none}.header-actions{width:auto;gap:10px}.header-actions>a{width:20px;height:20px}.header-actions>a svg{width:19px;height:19px}.header .header-search{width:30px;height:34px;margin:0}.header .header-search button{width:30px;min-height:34px}.header .header-search.is-open{top:7px;right:4%;width:min(310px,75vw);height:46px}.hero{height:650px}.hero-copy{padding:98px 5% 0}.hero-copy h1{font-size:clamp(51px,10vw,75px)}.hero-copy p{font-size:clamp(15px,3.8vw,22px);margin-top:7px}.hero-cta{margin-top:28px;padding:12px 17px;font-size:12px;gap:15px}.hero-product{width:115%;right:-9%;top:225px}.hero-wave{top:57%;height:calc(43% + 2px)}}
+@media(max-width:420px){.hero{height:580px}.hero-copy{padding-top:93px}.hero-copy h1{font-size:clamp(44px,11vw,52px)}.hero-product{width:125%;right:-12%;top:215px}.hero-wave{top:55%;height:calc(45% + 2px)}.header-actions{gap:7px}}
+#menu,#about,#rolls,#savoury,#sweet,#contact{scroll-margin-top:112px}
+@media(max-width:750px){#menu,#about,#rolls,#savoury,#sweet,#contact{scroll-margin-top:90px}}
+@media(prefers-reduced-motion:reduce){.hero-cta{transition:none}}
+
+.mobile-menu-toggle{display:none}
 @media(max-width:750px){
- .category-nav{justify-content:center}
- .category-nav-contact{display:none}
+ .header{height:84px;padding:0 6%}
+ .header .logo{top:20px;width:84px;height:84px;padding:11px}
+ .mobile-menu-toggle{display:flex;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;padding:8px;border:0;background:transparent;color:white;cursor:pointer}
+ .mobile-menu-toggle span{display:block;width:17px;height:2px;border-radius:2px;background:currentColor}
+ .mobile-menu-toggle:focus-visible{outline:2px solid white;outline-offset:2px}
+ .header-links{display:none}
+ .header.menu-open .header-links{position:absolute;top:84px;left:0;right:0;display:flex;flex-direction:column;align-items:stretch;gap:0;width:auto;padding:16px 6% 20px;background:var(--header-red)}
+ .header.menu-open .header-links a{display:block;padding:12px 0;font-size:13px}
+ .header-actions{margin-left:auto}
+ .header-actions>a{display:none}
+ .header .header-search{width:40px;height:40px}
+ .header .header-search button{width:40px;min-height:40px}
+ .header .header-search.is-open{top:19px;right:6%;width:min(310px,72vw)}
+ .hero{height:clamp(430px,103.5vw,500px)}
+ .hero-copy{padding:56px 3% 0;text-align:center}
+ .hero-copy h1{font-size:clamp(42px,11.7vw,54px);line-height:1.12}
+ .hero-copy p{margin-top:5px;font-size:clamp(14px,3.8vw,18px);letter-spacing:0}
+ .hero-cta{display:none}
+ .hero-product{width:100%;max-width:none;right:0;top:140px}
+ .hero-wave{top:63%;height:calc(37% + 2px)}
+ #menu,#about,#rolls,#savoury,#sweet,#contact{scroll-margin-top:110px}
+}
+
+@media(min-width:1600px){
+ .header{height:90px}
+ .header-links{gap:clamp(90px,6vw,115px)}
+ .header .logo{top:25px;width:128px;height:128px;padding:16px}
+ .header .header-search.is-open{top:22px}
+ .hero{height:max(760px,calc(100svh - 90px));min-height:0}
+ .hero-copy{padding:175px 0 0 15%}
+ .hero-copy h1{font-size:112px}
+ .hero-copy p{font-size:40px}
+ .hero-cta{margin-top:108px}
+ .hero-product{width:1050px;right:18%;top:145px}
+ .hero-wave{top:66%;height:calc(34% + 2px)}
+ #menu,#about,#rolls,#savoury,#sweet,#contact{scroll-margin-top:150px}
 }

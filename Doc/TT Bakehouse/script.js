@@ -1,4 +1,4 @@
-﻿const rolls = [
+const rolls = [
  ['BBQ pork roll','$9','BBQ pork, pâté, pickled carrot, cucumber, coriander, chilli, BBQ sauce'],
  ['Pork roll','$9','Sliced pork, pâté, pickled carrot, cucumber, coriander, chilli, and sauce'],
  ['Chicken roll','$10','Chicken, pâté, pickled carrot, sliced tomato, cucumber, coriander, chilli, and sauce'],
@@ -16,36 +16,52 @@ const searchForm = document.querySelector('.header-search');
 const searchInput = document.querySelector('#menu-search');
 const searchButton = searchForm.querySelector('button');
 const mobileLayout = window.matchMedia('(max-width: 750px)');
+const header = document.querySelector('.header');
+const menuToggle = document.querySelector('.mobile-menu-toggle');
+const primaryNav = document.querySelector('#primary-nav');
+
+function setMenuOpen(open) {
+ header.classList.toggle('menu-open', open);
+ menuToggle.setAttribute('aria-expanded', String(open));
+ menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+}
+menuToggle.addEventListener('click', () => setMenuOpen(!header.classList.contains('menu-open')));
+primaryNav.addEventListener('click', event => {
+ if (event.target.closest('a')) setMenuOpen(false);
+});
+document.addEventListener('click', event => {
+ if (header.classList.contains('menu-open') && !header.contains(event.target)) setMenuOpen(false);
+});
+document.addEventListener('keydown', event => {
+ if (event.key === 'Escape' && header.classList.contains('menu-open')) {
+  setMenuOpen(false);
+  menuToggle.focus();
+ }
+});
+mobileLayout.addEventListener('change', () => setMenuOpen(false));
 
 function setSearchOpen(open) {
+ if (open) setMenuOpen(false);
  searchForm.classList.toggle('is-open', open);
- if (mobileLayout.matches) {
-  searchButton.setAttribute('aria-expanded', String(open));
-  searchButton.setAttribute('aria-label', open ? 'Search' : 'Open search');
- }
+ searchButton.setAttribute('aria-expanded', String(open));
+ searchButton.setAttribute('aria-label', open ? 'Search' : 'Open search');
  if (open) searchInput.focus();
 }
 searchForm.addEventListener('keydown', event => {
- if (event.key === 'Escape' && mobileLayout.matches) {
+ if (event.key === 'Escape') {
   setSearchOpen(false);
   searchButton.focus();
  }
 });
 function updateSearchLayout() {
- if (mobileLayout.matches) {
-  searchButton.setAttribute('aria-controls', 'menu-search');
-  searchButton.setAttribute('aria-expanded', String(searchForm.classList.contains('is-open')));
-  searchButton.setAttribute('aria-label', searchForm.classList.contains('is-open') ? 'Search' : 'Open search');
- } else {
-  searchButton.removeAttribute('aria-controls');
-  searchButton.removeAttribute('aria-expanded');
-  searchButton.setAttribute('aria-label', 'Search');
- }
+ searchButton.setAttribute('aria-controls', 'menu-search');
+ searchButton.setAttribute('aria-expanded', String(searchForm.classList.contains('is-open')));
+ searchButton.setAttribute('aria-label', searchForm.classList.contains('is-open') ? 'Search' : 'Open search');
 }
 mobileLayout.addEventListener('change', updateSearchLayout);
 updateSearchLayout();
 document.addEventListener('click', event => {
- if (mobileLayout.matches && searchForm.classList.contains('is-open') && !searchForm.contains(event.target)) setSearchOpen(false);
+ if (searchForm.classList.contains('is-open') && !searchForm.contains(event.target)) setSearchOpen(false);
 });
 const searchStatus = document.querySelector('#search-status');
 const menuSections = [...document.querySelectorAll('#rolls, #savoury, #sweet')];
@@ -75,7 +91,7 @@ function filterMenu() {
 searchInput.addEventListener('input', filterMenu);
 searchForm.addEventListener('submit', event => {
  event.preventDefault();
- if (mobileLayout.matches && !searchForm.classList.contains('is-open')) {
+ if (!searchForm.classList.contains('is-open')) {
   setSearchOpen(true);
   return;
  }
@@ -83,136 +99,3 @@ searchForm.addEventListener('submit', event => {
  const target = searchInput.value.trim() ? searchStatus : document.querySelector(mobileLayout.matches ? '#rolls' : '#menu');
  target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
 });
-
-// Keep the same slide element as it travels from the hero into its menu card.
-const heroAnchor = document.querySelector('.hero-image-anchor');
-const heroImage = document.querySelector('.hero-image');
-const heroSlides = [...heroImage.querySelectorAll('img')];
-const heroFoodName = heroImage.querySelector('.hero-food-name');
-const heroFoodNames = ['BBQ Pork Roll', 'Sausage Roll', 'Eclair'];
-const heroCategoryNames = ['Rolls', 'Savoury', 'Sweet'];
-const heroDots = [...document.querySelectorAll('.hero-pagination button')];
-const categoryImages = [...document.querySelectorAll('.category-image')];
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-const HERO_SLIDE_INTERVAL = 4000;
-let activeSlide = 0;
-let scrollProgress = 0;
-let previousScrollY = window.scrollY;
-let returningToTop = false;
-let heroGeometry;
-let animationFrame = 0;
-
-function measureHero() {
- const source = heroAnchor.getBoundingClientRect();
- heroGeometry = {
-  source: { left: source.left, top: source.top + window.scrollY, width: source.width, height: source.height },
-  targets: categoryImages.map(slot => {
-   const rect = slot.getBoundingClientRect();
-   return { left: rect.left, top: rect.top + window.scrollY, width: rect.width, height: rect.height };
-  }),
-  start: document.querySelector('.hero').offsetTop + document.querySelector('.hero').offsetHeight / 2
- };
- scheduleHero();
-}
-
-function dockHero(parent) {
- if (heroImage.parentElement !== parent) parent.appendChild(heroImage);
- heroImage.classList.remove('is-travelling');
- heroImage.style.cssText = '';
-}
-
-function renderHero() {
- animationFrame = 0;
- if (!heroGeometry) return;
- if (mobileLayout.matches) {
-  categoryImages.forEach(slot => slot.classList.remove('is-destination'));
-  dockHero(heroAnchor);
-  scrollProgress = 0;
-  previousScrollY = window.scrollY;
-  returningToTop = false;
-  return;
- }
- const { source, targets, start } = heroGeometry;
- const target = targets[activeSlide];
- const finish = Math.max(start + source.height * .8, target.top - window.innerHeight * .55);
- if (window.scrollY < previousScrollY - 1 && scrollProgress > 0) returningToTop = true;
- if (window.scrollY <= 0) returningToTop = false;
- previousScrollY = window.scrollY;
- scrollProgress = Math.max(0, Math.min(1, (window.scrollY - start) / (finish - start)));
- const docked = returningToTop || scrollProgress === 1 || (reducedMotion.matches && window.scrollY >= start);
- categoryImages.forEach((slot, index) => slot.classList.toggle('is-destination', index === activeSlide && (scrollProgress > 0 || docked)));
-
- if (docked) {
-  dockHero(categoryImages[activeSlide]);
- } else if (window.scrollY <= start || reducedMotion.matches) {
-  dockHero(heroAnchor);
- } else {
-  if (heroImage.parentElement !== document.body) document.body.appendChild(heroImage);
-  heroImage.classList.add('is-travelling');
-  heroImage.style.setProperty('--hero-emphasis', 1 - scrollProgress);
-  heroImage.style.setProperty('--callout-opacity', Math.max(0, 1 - scrollProgress * 2));
-  // Follow the page until halfway through the hero, then travel to the menu.
-  const mix = (from, to) => from + (to - from) * scrollProgress;
-  heroImage.style.transform = `translate3d(${mix(source.left, target.left)}px, ${mix(source.top, target.top) - window.scrollY}px, 0)`;
-  heroImage.style.width = `${mix(source.width, target.width)}px`;
-  heroImage.style.height = `${mix(source.height, target.height)}px`;
- }
-}
-
-function scheduleHero() {
- if (!animationFrame) animationFrame = requestAnimationFrame(renderHero);
-}
-
-function showHeroSlide(index) {
- activeSlide = index;
- heroSlides.forEach((slide, index) => slide.classList.toggle('is-active', index === activeSlide));
- heroDots.forEach((dot, index) => dot.setAttribute('aria-pressed', String(index === activeSlide)));
- heroFoodName.textContent = heroCategoryNames[activeSlide];
- heroImage.setAttribute('aria-label', heroFoodNames[activeSlide]);
- scheduleHero();
-}
-
-let carouselTimer;
-function startCarousel() {
- clearInterval(carouselTimer);
- carouselTimer = setInterval(() => {
-  // Freeze the category once the user starts scrolling, until they return to the hero.
-  if (scrollProgress > 0 || window.scrollY > 0 || document.hidden || reducedMotion.matches) return;
-  showHeroSlide((activeSlide + 1) % heroSlides.length);
- }, HERO_SLIDE_INTERVAL);
-}
-
-heroDots.forEach((dot, index) => dot.addEventListener('click', () => {
- showHeroSlide(index);
- startCarousel();
-}));
-startCarousel();
-
-const categoryNav = document.querySelector('.category-nav');
-const categoryNavLinks = [...categoryNav.querySelectorAll('.category-nav-menu a')];
-const menuOverview = document.querySelector('#menu');
-
-function updateCategoryNav() {
- const visible = (mobileLayout.matches ? document.querySelector('.hero') : menuOverview).getBoundingClientRect().bottom <= 0;
- categoryNav.classList.toggle('is-visible', visible);
- categoryNav.inert = !visible;
- let currentSection = menuSections[0];
- menuSections.forEach(section => {
-  if (section.getBoundingClientRect().top <= categoryNav.offsetHeight + 80) currentSection = section;
- });
- categoryNavLinks.forEach(link => {
-  if (visible && link.hash === `#${currentSection.id}`) link.setAttribute('aria-current', 'location');
-  else link.removeAttribute('aria-current');
- });
-}
-
-window.addEventListener('scroll', () => { scheduleHero(); updateCategoryNav(); }, { passive: true });
-window.addEventListener('resize', measureHero);
-window.addEventListener('resize', updateCategoryNav);
-window.addEventListener('load', measureHero);
-window.addEventListener('load', updateCategoryNav);
-reducedMotion.addEventListener('change', scheduleHero);
-new ResizeObserver(measureHero).observe(document.querySelector('#menu'));
-document.fonts.ready.then(measureHero);
-measureHero();
-updateCategoryNav();
