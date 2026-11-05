@@ -28,23 +28,46 @@ const header = document.querySelector('.header');
 const menuToggle = document.querySelector('.mobile-menu-toggle');
 const primaryNav = document.querySelector('#primary-nav');
 const menuNav = document.querySelector('.menu-nav');
-const menuTrigger = document.querySelector('.menu-trigger');
+const menuDropdownToggle = document.querySelector('.menu-dropdown-toggle');
 const hoverMenu = window.matchMedia('(hover: hover) and (pointer: fine)');
 
 function setFiltersOpen(open) {
  menuNav.classList.toggle('is-open', open);
- menuTrigger.setAttribute('aria-expanded', String(open));
+ menuDropdownToggle.setAttribute('aria-expanded', String(open));
+ menuDropdownToggle.setAttribute('aria-label', open ? 'Close menu filters' : 'Open menu filters');
 }
-menuTrigger.addEventListener('click', () => setFiltersOpen(!menuNav.classList.contains('is-open')));
+menuDropdownToggle.addEventListener('click', () => setFiltersOpen(!menuNav.classList.contains('is-open')));
 menuNav.addEventListener('pointerenter', () => {
  if (hoverMenu.matches && !mobileLayout.matches) setFiltersOpen(true);
 });
 menuNav.addEventListener('pointerleave', () => {
  if (hoverMenu.matches && !mobileLayout.matches) setFiltersOpen(false);
 });
-new IntersectionObserver(([entry]) => {
- header.classList.toggle('menu-in-view', entry.isIntersecting);
-}, { rootMargin: '-72px 0px -50% 0px' }).observe(document.querySelector('#menu'));
+const sectionLinks = [...primaryNav.querySelectorAll('a[href="#about"], a[href="#contact"]')];
+const trackedSections = ['menu', 'about', 'contact'].map(id => document.getElementById(id));
+function updateActiveNav() {
+ const probe = window.innerHeight * .45;
+ const current = trackedSections.find(section => {
+  const bounds = section.getBoundingClientRect();
+  return bounds.top <= probe && bounds.bottom > probe;
+});
+ header.classList.toggle('menu-in-view', current?.id === 'menu');
+ sectionLinks.forEach(link => {
+  const active = link.hash === `#${current?.id}`;
+  link.classList.toggle('is-current', active);
+  if (active) link.setAttribute('aria-current', 'location');
+  else link.removeAttribute('aria-current');
+ });
+}
+let navUpdateQueued = false;
+function queueActiveNavUpdate() {
+ if (navUpdateQueued) return;
+ navUpdateQueued = true;
+ requestAnimationFrame(() => { navUpdateQueued = false; updateActiveNav(); });
+}
+window.addEventListener('scroll', queueActiveNavUpdate, { passive: true });
+window.addEventListener('resize', queueActiveNavUpdate);
+updateActiveNav();
 
 function setMenuOpen(open) {
  header.classList.toggle('menu-open', open);
@@ -79,7 +102,7 @@ document.addEventListener('keydown', event => {
    menuToggle.focus();
   } else if (menuNav.classList.contains('is-open')) {
    setFiltersOpen(false);
-   menuTrigger.focus();
+   menuDropdownToggle.focus();
   }
  }
 });
