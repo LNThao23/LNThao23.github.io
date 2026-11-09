@@ -133,12 +133,16 @@ document.addEventListener('click', event => {
 });
 const searchStatus = document.querySelector('#search-status');
 const menuCards = [...menuGrid.querySelectorAll('.menu-card')];
+const menuPagination = document.querySelector('#menu-pagination');
 const categoryButtons = [...document.querySelectorAll('.menu-filters button')];
 const normalizeSearch = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 let activeCategory = 'all';
+let activePage = 1;
+const itemsPerPage = 6;
 
 function setCategory(category, clearSearch = true) {
  activeCategory = category;
+ activePage = 1;
  if (clearSearch) searchInput.value = '';
  categoryButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.category === category)));
  filterMenu();
@@ -151,19 +155,36 @@ document.querySelector('.menu-filters').addEventListener('click', event => {
 function filterMenu() {
  const query = searchInput.value.trim();
  const terms = normalizeSearch(query).split(/\s+/).filter(Boolean);
- let total = 0;
- menuCards.forEach(card => {
+ const matchingCards = menuCards.filter(card => {
   const matchesCategory = activeCategory === 'all' || card.dataset.category === activeCategory;
   const text = normalizeSearch(`${card.dataset.category} ${card.dataset.search}`);
-  const matches = matchesCategory && terms.every(term => text.includes(term));
-  card.hidden = !matches;
-  if (matches) total++;
+  return matchesCategory && terms.every(term => text.includes(term));
  });
+ const total = matchingCards.length;
+ const pageCount = Math.ceil(total / itemsPerPage);
+ activePage = Math.min(activePage, Math.max(1, pageCount));
+ const visibleCards = new Set(matchingCards.slice((activePage - 1) * itemsPerPage, activePage * itemsPerPage));
+ menuCards.forEach(card => { card.hidden = !visibleCards.has(card); });
+ menuPagination.hidden = pageCount <= 1;
+ menuPagination.innerHTML = pageCount <= 1 ? '' : `
+  <button type="button" data-page="${activePage - 1}" aria-label="Previous page" ${activePage === 1 ? 'disabled' : ''}>&larr;</button>
+  ${Array.from({ length: pageCount }, (_, index) => `<button type="button" data-page="${index + 1}" aria-label="Page ${index + 1}" ${activePage === index + 1 ? 'aria-current="page"' : ''}>${index + 1}</button>`).join('')}
+  <button type="button" data-page="${activePage + 1}" aria-label="Next page" ${activePage === pageCount ? 'disabled' : ''}>&rarr;</button>`;
  searchStatus.hidden = !query;
  searchStatus.textContent = query
   ? (total ? `${total} menu item${total === 1 ? '' : 's'} found for “${query}”.` : `No menu items found for “${query}”. Try another search.`)
   : '';
 }
+
+menuPagination.addEventListener('click', event => {
+ const button = event.target.closest('button[data-page]');
+ if (!button || button.disabled) return;
+ activePage = Number(button.dataset.page);
+ filterMenu();
+ document.querySelector('#menu').scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+});
+
+filterMenu();
 
 searchInput.addEventListener('input', () => setCategory('all', false));
 searchForm.addEventListener('submit', event => {

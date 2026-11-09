@@ -182,10 +182,10 @@ footer small{font-size:13px}
 .header{height:clamp(58px,5vw,90px)}
 .header .logo{width:clamp(82px,8vw,132px);height:clamp(82px,8vw,132px);padding:clamp(20px,2.4vw,36px) 16px 12px}
 .hero{height:clamp(445px,calc(100svh - clamp(58px,5vw,90px)),850px);min-height:0;max-height:none;background:#a9dcf4 url('Background.png') center center/cover no-repeat}
-.hero-copy{position:absolute;z-index:2;top:13%;left:7%;padding:0;text-align:left;pointer-events:none}
-.hero-copy h1{font-size:clamp(56px,8.5vw,112px);line-height:1.06}
-.hero-copy p{margin:8px 0 0;font-size:clamp(21px,2.8vw,40px);letter-spacing:-.025em;text-shadow:0 3px 4px #53332233}
-.hero-product{z-index:1;width:auto;height:88%;max-width:none;right:7%;top:9%;filter:none;object-fit:contain}
+.hero-copy{position:absolute;z-index:1;top:13%;left:7%;padding:0;text-align:left;pointer-events:none}
+.hero-copy h1{font-size:clamp(50px,7.5vw,100px);line-height:1.06;color:#fff4e6}
+.hero-copy p{margin:8px 0 0;font-size:clamp(19px,2.5vw,36px);letter-spacing:-.025em;color:#fff4e6;text-shadow:0 3px 4px #53332233}
+.hero-product{z-index:2;width:auto;height:88%;max-width:none;right:7%;top:9%;filter:none;object-fit:contain}
 .hero-bottom{position:absolute;z-index:2;left:7%;bottom:calc(12% + clamp(16px,1.45vw,28px));color:white}
 .hero-bottom p{margin:0;font-size:clamp(13px,1.4vw,19px);font-weight:700;line-height:1.55;text-shadow:0 2px 4px #24430d80}
 .hero-bottom .hero-cta{margin-top:16px;padding:8px 16px;background:#fff9f2;color:#ad4026;font-size:clamp(10px,.9vw,14px);font-weight:500;gap:15px;box-shadow:0 3px 8px #24430d22}
@@ -195,8 +195,8 @@ footer small{font-size:13px}
  .header .logo{width:88px;height:88px;padding:22px 16px 10px}
  .hero{height:clamp(570px,100svh - 68px,760px);background-position:48% center}
  .hero-copy{top:9%;left:4%;right:4%;text-align:center}
- .hero-copy h1{font-size:clamp(42px,13.7vw,64px);white-space:normal}
- .hero-copy p{font-size:clamp(16px,4.2vw,23px)}
+ .hero-copy h1{font-size:clamp(40px,12.2vw,58px);white-space:normal}
+ .hero-copy p{font-size:clamp(15px,3.8vw,21px)}
  .hero-product{height:59%;top:25%;left:50%;right:auto;transform:translateX(-50%)}
  .hero-bottom{display:none}
  .hero-bottom p{font-size:clamp(12px,2.7vw,15px)}
@@ -210,7 +210,7 @@ footer small{font-size:13px}
  .hero{--content-edge:max(7%,calc((100% - 1180px)/2))}
  .hero-copy,.hero-bottom{left:var(--content-edge)}
  .hero-product{right:var(--content-edge)}
- .hero-copy h1{font-size:clamp(80px,5.5vw,104px)}
+ .hero-copy h1{font-size:clamp(72px,4.8vw,92px)}
 }
 
 /* One menu with category filters and bakery artwork. */
@@ -218,27 +218,35 @@ footer small{font-size:13px}
 .menu-section h2{font-size:clamp(56px,7vw,96px);line-height:1.05;text-shadow:0 5px 3px #ad402626}
 .menu-intro{margin:12px 0 0;color:#9b4939;font-size:clamp(16px,1.5vw,21px)}
 .menu-filters{display:flex;justify-content:center;flex-wrap:wrap;gap:clamp(14px,3vw,40px);margin:36px auto 54px}
-.menu-filters button{padding:8px 2px;border:0;border-bottom:2px solid transparent;background:none;color:#812b18;font:700 14px 'DM Sans',sans-serif;letter-spacing:.04em;cursor:pointer}
-.menu-filters button:hover,.menu-filters button[aria-pressed="true"]{color:#ad4026;border-bottom-color:#ad4026}
+.menu-filters button{padding:9px 16px;border:0;border-radius:999px;background:transparent;color:#812b18;font:700 14px 'DM Sans',sans-serif;letter-spacing:.04em;cursor:pointer}
+.menu-filters button:hover{background:#fbe3d9;color:#ad4026}
+.menu-filters button[aria-pressed="true"],.menu-filters button[aria-pressed="true"]:hover{background:#ad4026;color:#fff9f2}
 .menu-filters button:focus-visible{outline:2px solid #ad4026;outline-offset:4px}
 .menu-section .search-status{padding:0 0 30px;color:#812b18;font-size:16px}
-.menu-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;max-width:1180px;margin:0 auto}
-.menu-card{display:flex;flex-direction:column;align-items:center;min-width:0;min-height:350px;padding:28px 18px 26px;border:1px solid #ad40261a;border-radius:140px;background:#f8e8dc;text-align:center}
-.menu-card:nth-child(4n+2){background:#f2dccb}
-.menu-card:nth-child(4n+3){background:#e9cfb6}
-.menu-card:nth-child(4n+4){background:#f5e5d6}
-.menu-card-image{display:grid;place-items:center;width:100%;height:170px;margin:12px 0 28px}
-.menu-card-image img{display:block;width:100%;height:100%;object-fit:contain}
+.menu-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;max-width:1180px;margin:0 auto}
+.menu-card{display:flex;flex-direction:column;align-items:center;min-width:0;min-height:350px;padding:28px 18px 26px;border:1px solid #ad40261a;border-radius:20px;background:#f8e8dc;text-align:center}
+.menu-card[data-category="rolls"]{background:#fbe3d9}
+.menu-card[data-category="savoury"]{background:#eaf3e3}
+.menu-card[data-category="sweet"]{background:#fbe6ea}
+.menu-card-image{display:flex;flex:none;align-items:center;justify-content:center;width:100%;height:170px;margin:12px 0 28px;overflow:hidden}
+.menu-card-image img{display:block;min-width:0;min-height:0;width:100%;height:100%;object-fit:contain}
 .menu-card[data-category="savoury"] .menu-card-image img{width:78%;height:78%}
 .menu-card[data-category="sweet"] .menu-card-image img{width:72%;height:72%}
-.menu-card h3{margin:0;color:#812b18;font-family:'TT Bakehouse',sans-serif;font-size:clamp(22px,2.2vw,30px);font-weight:400;line-height:1.08}
-.menu-card-price{margin-top:auto;padding-top:12px;color:#ad4026;font-size:20px;line-height:1.2}
-@media(max-width:900px){.menu-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}}
-@media(max-width:750px){.menu-section{padding:70px 5% 85px;scroll-margin-top:90px}.menu-section h2{font-size:clamp(52px,10vw,72px)}.menu-filters{gap:16px;margin:28px auto 36px}.menu-filters button{font-size:12px}.menu-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.menu-card{min-height:290px;padding:20px 12px 22px}.menu-card-image{height:130px;margin:8px 0 24px}.menu-card h3{font-size:clamp(20px,4.5vw,26px)}.menu-card-price{font-size:17px}}
+.menu-card h3{width:100%;min-height:2.16em;margin:0;color:#812b18;font-family:'TT Bakehouse',sans-serif;font-size:clamp(22px,2.2vw,30px);font-weight:400;line-height:1.08;overflow-wrap:anywhere}
+.menu-card-price{margin-top:auto;padding-top:12px;color:#ad4026;font-size:23px;line-height:1.2}
+@media(max-width:900px){.menu-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}}
+@media(max-width:750px){.menu-section{padding:70px 5% 85px;scroll-margin-top:90px}.menu-section h2{font-size:clamp(52px,10vw,72px)}.menu-filters{gap:16px;margin:28px auto 36px}.menu-filters button{font-size:12px}.menu-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.menu-card{min-height:290px;padding:20px 12px 22px}.menu-card-image{height:130px;margin:8px 0 24px}.menu-card h3{font-size:clamp(20px,4.5vw,26px)}.menu-card-price{font-size:19px}}
 @media(max-width:360px){.menu-card{min-height:260px;padding:18px 9px}.menu-card-image{height:112px;margin-bottom:18px}.menu-filters{gap:11px}}
+.menu-pagination{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:9px;margin:42px auto 0}
+.menu-pagination button{min-width:38px;height:38px;padding:0 11px;border:1px solid #ad4026;border-radius:999px;background:#fff9f2;color:#ad4026;font:700 14px 'DM Sans',sans-serif;cursor:pointer}
+.menu-pagination button:hover,.menu-pagination button[aria-current="page"]{background:#ad4026;color:#fff9f2}
+.menu-pagination button:disabled{opacity:.4;cursor:default}
+.menu-pagination button:disabled:hover{background:#fff9f2;color:#ad4026}
+.menu-pagination button:focus-visible{outline:2px solid #812b18;outline-offset:3px}
 
 /* About section uses the existing bakery product cutout and brand palette. */
 .about-section{position:relative;min-height:clamp(720px,55vw,980px);overflow:hidden;background:#ad4026;color:#fff9f2}
+.about-section::after{content:"";position:absolute;z-index:3;right:0;bottom:0;left:0;height:2px;background:#fff9f2}
 #about{scroll-margin-top:clamp(58px,5vw,90px)}
 .about-wave{position:absolute;z-index:0;right:0;bottom:0;left:0;width:100%;height:34%}
 .about-content{position:relative;z-index:2;max-width:1600px;margin:0 auto;padding:clamp(80px,7vw,130px) 8% 0}
@@ -260,8 +268,8 @@ footer small{font-size:13px}
 .contact-section h2{margin:0;color:#ad4026;font-family:'TT Bakehouse',sans-serif;font-size:clamp(64px,7vw,100px);font-weight:400;line-height:1;text-shadow:0 5px 3px #ad402626}
 .contact-intro{margin:12px 0 0;color:#ad4026;font-size:clamp(17px,1.5vw,22px)}
 .contact-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px;max-width:1020px;margin:80px auto 0}
-.contact-option{display:flex;flex-direction:column;align-items:center;min-height:260px;padding:36px 28px;color:#812b18}
-.contact-option:hover{color:#ad4026}
+.contact-option{display:flex;flex-direction:column;align-items:center;min-height:260px;padding:36px 28px;border-radius:20px;color:#812b18;transition:background .2s ease}
+.contact-option:hover{background:#fbe3d9;color:#ad4026}
 .contact-option:focus-visible{outline:3px solid #ad4026;outline-offset:5px}
 .contact-option svg{width:62px;height:62px;color:#ad4026}
 .contact-option h3{margin:24px 0 14px;color:#ad4026;font-size:clamp(25px,2.5vw,36px);line-height:1.1}
@@ -279,3 +287,22 @@ footer small{font-size:13px}
 .hero-bottom .hero-cta:hover,.about-cta:hover{background:#f8e8dc;color:#ad4026;transform:translateY(-2px)}
 @media(prefers-reduced-motion:reduce){.hero-bottom .hero-cta,.about-cta{transition:none}}
 .contact-option address,.contact-option p{font-family:'DM Sans',sans-serif;font-size:clamp(17px,1.4vw,20px);font-weight:500;line-height:1.45}
+
+/* Shared type scale for the current page. */
+:root{--type-small:14px;--type-button:16px;--type-body:18px;--type-medium:24px;--type-large:32px;--type-mobile-heading:48px;--type-heading:72px;--type-hero:96px}
+body{font-size:var(--type-body)}
+.header-links a,.header.menu-open .header-links a,.menu-link,.menu-dropdown-toggle,.menu-dropdown a{font-size:var(--type-small)}
+.header .header-search input{font-size:var(--type-button)}
+.hero-copy h1{font-size:var(--type-hero)}
+.hero-copy p{font-size:var(--type-large)}
+.hero-bottom p,.about-content p,.menu-intro,.contact-intro,.contact-option address,.contact-option p{font-size:var(--type-body)}
+.hero-bottom .hero-cta,.about-cta{font-size:var(--type-button)}
+.hero-bottom .hero-cta span,.about-cta span{font-size:var(--type-medium)}
+.menu-section h2,.about-content h2,.contact-section h2{font-size:var(--type-heading)}
+.menu-filters button,.menu-pagination button,footer small{font-size:var(--type-small)}
+.menu-section .search-status{font-size:var(--type-button)}
+.menu-card h3,.contact-option h3{font-size:var(--type-large)}
+.menu-card-price{font-size:var(--type-medium)}
+@media(min-width:751px) and (max-width:1100px){.hero-copy h1{font-size:var(--type-heading)}.hero-copy p{font-size:var(--type-medium)}}
+@media(max-width:750px){.hero-copy h1,.menu-section h2,.about-content h2,.contact-section h2{font-size:var(--type-mobile-heading)}.hero-copy p{font-size:var(--type-body)}.menu-card h3,.contact-option h3{font-size:var(--type-medium)}}
+@media(max-width:750px){.menu-filters{gap:8px}.menu-filters button{padding:8px 9px}}
