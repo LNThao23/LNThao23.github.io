@@ -1,0 +1,156 @@
+﻿[
+    {
+        "file":  "cartons.png",
+        "source":  "Three stacked Tomyum and Pho cartons-2.png",
+        "canvas":  [
+                       1514,
+                       1039
+                   ],
+        "bounds":  [
+                       615,
+                       169,
+                       433,
+                       690
+                   ]
+    },
+    {
+        "file":  "broth.png",
+        "source":  "Translucent pho broth splash with herbs-3.png",
+        "canvas":  [
+                       1514,
+                       1039
+                   ],
+        "bounds":  [
+                       246,
+                       95,
+                       1046,
+                       691
+                   ]
+    },
+    {
+        "file":  "cup-tomyum.png",
+        "source":  "Isolated orange tomyum cup-6.png",
+        "canvas":  [
+                       1514,
+                       1039
+                   ],
+        "bounds":  [
+                       288,
+                       670,
+                       254,
+                       239
+                   ]
+    },
+    {
+        "file":  "cup-beef.png",
+        "source":  "Isolated red Saigon beef pho cup-5.png",
+        "canvas":  [
+                       1514,
+                       1039
+                   ],
+        "bounds":  [
+                       446,
+                       692,
+                       285,
+                       249
+                   ]
+    },
+    {
+        "file":  "cup-chicken.png",
+        "source":  "Sabico Saigon chicken pho cup-7.png",
+        "canvas":  [
+                       1514,
+                       1039
+                   ],
+        "bounds":  [
+                       446,
+                       545,
+                       288,
+                       254
+                   ]
+    },
+    {
+        "file":  "bowl.png",
+        "source":  "Beef pho bowl on wooden board-1.png",
+        "canvas":  [
+                       1492,
+                       1054
+                   ],
+        "bounds":  [
+                       795,
+                       711,
+                       577,
+                       328
+                   ]
+    },
+    {
+        "file":  "condiment.png",
+        "source":  "Black condiment dish with lime, chili, cilantro-4.png",
+        "canvas":  [
+                       1514,
+                       1039
+                   ],
+        "bounds":  [
+                       618,
+                       859,
+                       197,
+                       161
+                   ]
+    },
+    {
+        "file":  "floating-leaf.png",
+        "source":  "Translucent pho broth splash with herbs-3.png",
+        "canvas":  [
+                       1514,
+                       1039
+                   ],
+        "bounds":  [
+                       335,
+                       155,
+                       85,
+                       80
+                   ]
+    },
+    {
+        "file":  "steam-1.png",
+        "source":  "Three Delicate Pho Steam Wisps-8.png",
+        "canvas":  [
+                       1774,
+                       887
+                   ],
+        "bounds":  [
+                       221,
+                       152,
+                       150,
+                       564
+                   ]
+    },
+    {
+        "file":  "steam-2.png",
+        "source":  "Three Delicate Pho Steam Wisps-8.png",
+        "canvas":  [
+                       1774,
+                       887
+                   ],
+        "bounds":  [
+                       795,
+                       146,
+                       158,
+                       576
+                   ]
+    },
+    {
+        "file":  "steam-3.png",
+        "source":  "Three Delicate Pho Steam Wisps-8.png",
+        "canvas":  [
+                       1774,
+                       887
+                   ],
+        "bounds":  [
+                       1381,
+                       170,
+                       131,
+                       522
+                   ]
+    }
+]
